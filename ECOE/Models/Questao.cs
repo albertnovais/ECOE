@@ -26,14 +26,11 @@ namespace ECOE.Models
         public int PessoaId { get; set; }
         public int StatusId { get; set; }
         public int AvaliacaoId { get; set; }
-        public Nullable<int> GrupoId { get; set; }
-        public Nullable<double> Peso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
-        public virtual GrupoQuestao GrupoQuestao { get; set; }
-        public virtual Status Status { get; set; }
         public virtual Avaliacoes Avaliacoes { get; set; }
         public virtual Pessoa Pessoa { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

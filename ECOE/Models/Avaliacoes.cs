@@ -11,7 +11,6 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     
     public partial class Avaliacoes
     {
@@ -19,32 +18,25 @@ namespace ECOE.Models
         public Avaliacoes()
         {
             this.AlunoAvaliacao = new HashSet<AlunoAvaliacao>();
-            this.GrupoQuestao = new HashSet<GrupoQuestao>();
             this.Questao = new HashSet<Questao>();
         }
     
         public int AvaliacaoId { get; set; }
         public int PessoaId { get; set; }
-        [Required]
-        [MaxLength(60, ErrorMessage ="maximo de 60 Caracteres")]
         public string Nome { get; set; }
         public string Descricao { get; set; }
-        public Nullable<System.DateTime> DataCadastro { get; set; }
-        [Required]
+        public System.DateTime DataCadastro { get; set; }
         public int TurmaId { get; set; }
-        public Nullable<double> Peso { get; set; }
+        public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
         public Nullable<int> DataAvaliacao { get; set; }
-        public Nullable<bool> dupla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoAvaliacao> AlunoAvaliacao { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
         public virtual Status Status { get; set; }
         public virtual Turma Turma { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrupoQuestao> GrupoQuestao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Questao> Questao { get; set; }
-        public virtual Pessoa Pessoa { get; set; }
     }
 }

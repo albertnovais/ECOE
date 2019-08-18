@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB_A47AAC_ecoefadbaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="ECOEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Acesso">
     <Key>
       <PropertyRef Name="AcessoId" />
     </Key>
-    <Property Name="AcessoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AcessoId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
   </EntityType>
@@ -35,7 +35,7 @@
     <Property Name="AvaliacaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PessoaId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="150" Nullable="false" />
-    <Property Name="Descricao" Type="text" Nullable="false" />
+    <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
     <Property Name="DataCadastro" Type="date" Nullable="false" />
     <Property Name="TurmaId" Type="int" Nullable="false" />
     <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
@@ -79,7 +79,7 @@
       <PropertyRef Name="QuestaoId" />
     </Key>
     <Property Name="QuestaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descricao" Type="text" Nullable="false" />
+    <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
     <Property Name="DataCadastro" Type="date" Nullable="false" />
     <Property Name="PessoaId" Type="int" Nullable="false" />
     <Property Name="StatusId" Type="int" Nullable="false" />
@@ -89,7 +89,7 @@
     <Key>
       <PropertyRef Name="StatusId" />
     </Key>
-    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
   </EntityType>
@@ -115,7 +115,7 @@
     <Property Name="TurmaId" Type="int" Nullable="false" />
     <Property Name="pessoaCadastrou" Type="int" Nullable="false" />
     <Property Name="DataHora" Type="datetime" Nullable="false" />
-    <Property Name="Observecao" Type="text" />
+    <Property Name="Observecao" Type="varchar(max)" />
   </EntityType>
   <Association Name="FK_AlunoAlternativa_Pessoa">
     <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
@@ -405,7 +405,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DB_A47AAC_ecoefadbaModelStoreContainer">
+  <EntityContainer Name="ECOEModelStoreContainer">
     <EntitySet Name="Acesso" EntityType="Self.Acesso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AlunoAvaliacao" EntityType="Self.AlunoAvaliacao" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AlunoQuestao" EntityType="Self.AlunoQuestao" Schema="dbo" store:Type="Tables" />

@@ -19,10 +19,8 @@ namespace ECOE.Models
         {
             this.AlunoAvaliacao = new HashSet<AlunoAvaliacao>();
             this.AlunoQuestao = new HashSet<AlunoQuestao>();
-            this.AlunoQuestao1 = new HashSet<AlunoQuestao>();
             this.Avaliacoes = new HashSet<Avaliacoes>();
             this.Curso = new HashSet<Curso>();
-            this.GrupoQuestao = new HashSet<GrupoQuestao>();
             this.Pessoa1 = new HashSet<Pessoa>();
             this.PessoaCurso = new HashSet<PessoaCurso>();
             this.PessoaCurso1 = new HashSet<PessoaCurso>();
@@ -37,7 +35,7 @@ namespace ECOE.Models
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PessoaCadastrou { get; set; }
-        public string RA { get; set; }
+        public Nullable<int> RA { get; set; }
         public int AcessoId { get; set; }
         public int StatusId { get; set; }
     
@@ -47,13 +45,9 @@ namespace ECOE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlunoQuestao> AlunoQuestao1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrupoQuestao> GrupoQuestao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pessoa> Pessoa1 { get; set; }
         public virtual Pessoa Pessoa2 { get; set; }
