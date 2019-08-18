@@ -19,9 +19,9 @@ namespace ECOE.Models
         {
             this.Avaliacoes = new HashSet<Avaliacoes>();
             this.Curso = new HashSet<Curso>();
-            this.Pessoa = new HashSet<Pessoa>();
             this.Questao = new HashSet<Questao>();
             this.Turma = new HashSet<Turma>();
+            this.Pessoa = new HashSet<Pessoa>();
         }
     
         public int StatusId { get; set; }
@@ -33,10 +33,10 @@ namespace ECOE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pessoa> Pessoa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Questao> Questao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turma> Turma { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pessoa> Pessoa { get; set; }
     }
 }

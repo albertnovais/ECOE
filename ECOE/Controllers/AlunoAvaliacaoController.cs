@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static ECOE.Models.Questionario;
 
 
 namespace ECOE.Controllers
@@ -51,7 +50,7 @@ namespace ECOE.Controllers
             ViewBag.turmaNome = turma.Nome;
             ViewBag.turma = turma.TurmaId;
             ViewBag.avaliacao = AvaliacaoId;
-            ViewBag.dupla = avaliacao.dupla;
+            //ViewBag.dupla = avaliacao.dupla;
             var alunos = bd.TurmaPessoa.Where(x => x.TurmaId == turma.TurmaId && x.Pessoa.AcessoId == 2);
             return View(alunos);
 
@@ -168,7 +167,7 @@ namespace ECOE.Controllers
         }
 
         [HttpPost]
-        public ActionResult avaliar(RespostasLista respostas, int AvaliacaoId, int Aluno,
+        public ActionResult avaliar( int AvaliacaoId, int Aluno,
             int? QuestaoId1, int? QuestaoId2, int? QuestaoId3, int? QuestaoId4, int? QuestaoId5, int? QuestaoId6, int? QuestaoId7, int? QuestaoId8, int? QuestaoId9, int? QuestaoId10,
             int? QuestaoId11, int? QuestaoId12, int? QuestaoId13, int? QuestaoId14, int? QuestaoId15, int? QuestaoId16, int? QuestaoId17, int? QuestaoId18, int? QuestaoId19, int? QuestaoId20,
             int? Radio1, int? Radio2, int? Radio3, int? Radio4, int? Radio5, int? Radio6, int? Radio7, int? Radio8, int? Radio9, int? Radio10,

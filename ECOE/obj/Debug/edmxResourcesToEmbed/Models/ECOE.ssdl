@@ -57,10 +57,10 @@
     </Key>
     <Property Name="PessoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Senha" Type="varchar" MaxLength="256" />
     <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
-    <Property Name="RA" Type="int" />
+    <Property Name="RA" Type="varchar" MaxLength="50" />
     <Property Name="AcessoId" Type="int" Nullable="false" />
     <Property Name="StatusId" Type="int" Nullable="false" />
   </EntityType>

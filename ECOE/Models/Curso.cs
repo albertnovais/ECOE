@@ -26,11 +26,11 @@ namespace ECOE.Models
         public Nullable<int> StatusId { get; set; }
         public int PessoaId { get; set; }
     
-        public virtual Pessoa Pessoa { get; set; }
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PessoaCurso> PessoaCurso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turma> Turma { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
     }
 }

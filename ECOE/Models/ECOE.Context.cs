@@ -30,11 +30,11 @@ namespace ECOE.Models
         public virtual DbSet<AlunoQuestao> AlunoQuestao { get; set; }
         public virtual DbSet<Avaliacoes> Avaliacoes { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
-        public virtual DbSet<Pessoa> Pessoa { get; set; }
         public virtual DbSet<PessoaCurso> PessoaCurso { get; set; }
         public virtual DbSet<Questao> Questao { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Turma> Turma { get; set; }
         public virtual DbSet<TurmaPessoa> TurmaPessoa { get; set; }
+        public virtual DbSet<Pessoa> Pessoa { get; set; }
     }
 }

@@ -187,11 +187,9 @@
     <Compile Include="Models\PessoaCurso.cs">
       <DependentUpon>ECOE.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PessoaModel.cs" />
     <Compile Include="Models\Questao.cs">
       <DependentUpon>ECOE.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Questionario.cs" />
     <Compile Include="Models\Status.cs">
       <DependentUpon>ECOE.tt</DependentUpon>
     </Compile>
@@ -201,6 +199,7 @@
     <Compile Include="Models\TurmaPessoa.cs">
       <DependentUpon>ECOE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Validacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Security\ProvedorDeSeguranca.cs" />
   </ItemGroup>

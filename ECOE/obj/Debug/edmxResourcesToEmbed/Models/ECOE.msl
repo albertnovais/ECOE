@@ -55,20 +55,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pessoa">
-      <EntityTypeMapping TypeName="ECOEModel.Pessoa">
-        <MappingFragment StoreEntitySet="Pessoa">
-          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-          <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
-          <ScalarProperty Name="RA" ColumnName="RA" />
-          <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
-          <ScalarProperty Name="Senha" ColumnName="Senha" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PessoaCurso">
       <EntityTypeMapping TypeName="ECOEModel.PessoaCurso">
         <MappingFragment StoreEntitySet="PessoaCurso">
@@ -121,6 +107,20 @@
           <ScalarProperty Name="DataHora" ColumnName="DataHora" />
           <ScalarProperty Name="pessoaCadastrou" ColumnName="pessoaCadastrou" />
           <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoa">
+      <EntityTypeMapping TypeName="ECOEModel.Pessoa">
+        <MappingFragment StoreEntitySet="Pessoa">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+          <ScalarProperty Name="RA" ColumnName="RA" />
+          <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
           <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
         </MappingFragment>
       </EntityTypeMapping>

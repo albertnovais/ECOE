@@ -86,36 +86,36 @@ namespace ECOE.Controllers
             return RedirectToAction("ListAvaliacao", "Avaliacao", new { Mensagem = 1 });
         }
 
-        [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult CreateGrupo(int AvaliacaoId)
-        {
-            ViewBag.ava = AvaliacaoId;
-            ViewBag.avan = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Nome;
-            return View();
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult CreateGrupo(GrupoQuestao grupoQuestao, string sair)
-        {
-            if (sair != null)
-            {
-                return RedirectToAction("ListAvaliacao", "Avaliacao");
-            }
+        //[Authorize(Roles = "Adm , Coordenador")]
+        //public ActionResult CreateGrupo(int AvaliacaoId)
+        //{
+        //    ViewBag.ava = AvaliacaoId;
+        //    ViewBag.avan = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Nome;
+        //    return View();
+        //}
+        //[HttpPost]
+        //[ValidateInput(false)]
+        //public ActionResult CreateGrupo(GrupoQuestao grupoQuestao, string sair)
+        //{
+        //    if (sair != null)
+        //    {
+        //        return RedirectToAction("ListAvaliacao", "Avaliacao");
+        //    }
            
-            grupoQuestao.StatusId = 2;
-            grupoQuestao.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
-            bd.GrupoQuestao.Add(grupoQuestao);
-            bd.SaveChanges();
+        //    grupoQuestao.StatusId = 2;
+        //    grupoQuestao.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
+        //    bd.GrupoQuestao.Add(grupoQuestao);
+        //    bd.SaveChanges();
 
-            return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = grupoQuestao.GrupoId });
-        }
+        //    return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = grupoQuestao.GrupoId });
+        //}
 
         [Authorize(Roles = "Adm , Coordenador")]
         public ActionResult CreateQuestao(int GrupoId)
         {
             ViewBag.grupoId = GrupoId;
-            ViewBag.grupoNome = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).Nome;
-            ViewBag.avaliacaoId = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).AvaliacaoId;
+            //ViewBag.grupoNome = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).Nome;
+            //ViewBag.avaliacaoId = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).AvaliacaoId;
             return View();
         }
 

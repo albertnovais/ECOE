@@ -35,7 +35,7 @@ namespace ECOE.Models
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PessoaCadastrou { get; set; }
-        public Nullable<int> RA { get; set; }
+        public string RA { get; set; }
         public int AcessoId { get; set; }
         public int StatusId { get; set; }
     

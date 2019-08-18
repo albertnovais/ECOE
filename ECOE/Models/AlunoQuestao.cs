@@ -19,7 +19,7 @@ namespace ECOE.Models
         public double Nota { get; set; }
         public int QuestaoId { get; set; }
     
-        public virtual Pessoa Pessoa { get; set; }
         public virtual Questao Questao { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
     }
 }
