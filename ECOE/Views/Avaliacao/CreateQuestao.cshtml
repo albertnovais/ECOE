@@ -1,0 +1,59 @@
+﻿@model ECOE.Models.Questao
+
+@{
+    ViewBag.Title = "CreateQuestao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var avaliacaoId = ViewBag.avaliacaoId;
+
+}
+
+    <div class="form-horizontal" style="margin-top:3%;">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">question_answer</i>
+                    </div>
+                    <h4 class="card-title">
+                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.grupoNome</span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group has-rose bmd-form-group">
+                                    @*<label class="bmd-label-floating">Descrição </label>*@
+                                    @*@Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })*@
+                                    <textarea id="mytextarea" rows="25" name="Descricao"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer ml-auto mr-auto">
+                            <div>
+                                <div>
+                                    <a href="@Url.Action("ListGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
+                                        <input type="button" value="Concluir e Sair" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
+                                    </a>
+                                    <a href="@Url.Action("CreateGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
+                                        <input type="button" value="Concluir e Criar Novo Grupo" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
+                                    </a>
+                                </div>  
+                            </div>
+                            <div>
+                                <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+

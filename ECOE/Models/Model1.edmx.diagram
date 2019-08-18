@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5ce793904eb54ce38111c30f02f9776c" Name="Diagram1">
+        <EntityTypeShape EntityType="ecoetesteModel.Acesso" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.AlunoAvaliacao" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.AlunoQuestao" Width="1.5" PointX="15.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.Curso" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.GrupoQuestao" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.PessoaCurso" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.Questao" Width="1.5" PointX="13.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.Status" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.Turma" Width="1.5" PointX="8.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="ecoetesteModel.TurmaPessoa" Width="1.5" PointX="10.5" PointY="12" IsExpanded="true" />
+        <AssociationConnector Association="ecoetesteModel.FK_AlunoQuestao_Questao" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_Curso_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_PessoaCurso_Curso1" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_Turma_Curso" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_GrupoQuestao_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_Questao_GrupoQuestao" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_Questao_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_Turma_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ecoetesteModel.FK_TurmaPessoa_Turma" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ecoetesteModel.Avaliacoes" Width="1.5" PointX="10.5" PointY="2.125" />
+        <AssociationConnector Association="ecoetesteModel.FK_AlunoAvaliacao_Avaliacoes" />
+        <AssociationConnector Association="ecoetesteModel.FK_Avaliacoes_Status" />
+        <AssociationConnector Association="ecoetesteModel.FK_Avaliacoes_Turma" />
+        <AssociationConnector Association="ecoetesteModel.FK_GrupoQuestao_Avaliacoes" />
+        <AssociationConnector Association="ecoetesteModel.FK_Questao_Avaliacoes1" />
+        <EntityTypeShape EntityType="ecoetesteModel.Pessoa" Width="1.5" PointX="6" PointY="3.875" />
+        <AssociationConnector Association="ecoetesteModel.FK_Pessoa_Acesso" />
+        <AssociationConnector Association="ecoetesteModel.FK_AlunoAvaliacao_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_AlunoAlternativa_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_AlunoQuestao_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_Avaliacoes_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_Curso_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_GrupoQuestao_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_Pessoa_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_Pessoa_Status" />
+        <AssociationConnector Association="ecoetesteModel.FK_PessoaCurso_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_PessoaCurso_Pessoa1" />
+        <AssociationConnector Association="ecoetesteModel.FK_Questao_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_Turma_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_TurmaPessoa_Pessoa" />
+        <AssociationConnector Association="ecoetesteModel.FK_TurmaPessoa_Pessoa1" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ecoetesteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Acesso">
+          <Key>
+            <PropertyRef Name="AcessoId" />
+          </Key>
+          <Property Name="AcessoId" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="text" />
+        </EntityType>
+        <EntityType Name="AlunoAvaliacao">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="AvaliacaoId" Type="int" Nullable="false" />
+          <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
+          <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AlunoQuestao">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="QuestaoId" />
+          </Key>
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="DataHora" Type="datetime" Nullable="false" />
+          <Property Name="Nota" Type="float" Nullable="false" />
+          <Property Name="QuestaoId" Type="int" Nullable="false" />
+          <Property Name="AvaliadorId" Type="int" />
+        </EntityType>
+        <EntityType Name="Avaliacoes">
+          <Key>
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="AvaliacaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Descricao" Type="text" />
+          <Property Name="DataCadastro" Type="date" />
+          <Property Name="TurmaId" Type="int" Nullable="false" />
+          <Property Name="Peso" Type="float" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="DataAvaliacao" Type="int" />
+          <Property Name="dupla" Type="bit" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="CursoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GrupoQuestao">
+          <Key>
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="GrupoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AvaliacaoId" Type="int" Nullable="false" />
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="text" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Peso" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+          </Key>
+          <Property Name="PessoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Senha" Type="varchar" MaxLength="256" />
+          <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
+          <Property Name="RA" Type="varchar" MaxLength="10" />
+          <Property Name="AcessoId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaCurso">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+          <Property Name="Data" Type="date" Nullable="false" />
+          <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Questao">
+          <Key>
+            <PropertyRef Name="QuestaoId" />
+          </Key>
+          <Property Name="QuestaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descricao" Type="text" Nullable="false" />
+          <Property Name="DataCadastro" Type="date" Nullable="false" />
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="AvaliacaoId" Type="int" Nullable="false" />
+          <Property Name="GrupoId" Type="int" />
+          <Property Name="Peso" Type="float" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descricao" Type="text" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Turma">
+          <Key>
+            <PropertyRef Name="TurmaId" />
+          </Key>
+          <Property Name="TurmaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="Turno" Type="varchar" MaxLength="50" />
+          <Property Name="Ano" Type="int" />
+          <Property Name="Periodo" Type="int" />
+        </EntityType>
+        <EntityType Name="TurmaPessoa">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="TurmaId" />
+          </Key>
+          <Property Name="PessoaId" Type="int" Nullable="false" />
+          <Property Name="TurmaId" Type="int" Nullable="false" />
+          <Property Name="pessoaCadastrou" Type="int" Nullable="false" />
+          <Property Name="DataHora" Type="datetime" Nullable="false" />
+          <Property Name="Observecao" Type="text" />
+        </EntityType>
+        <Association Name="FK_AlunoAlternativa_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoAvaliacao_Avaliacoes">
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="1" />
+          <End Role="AlunoAvaliacao" Type="Self.AlunoAvaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="AlunoAvaliacao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoAvaliacao_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="AlunoAvaliacao" Type="Self.AlunoAvaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoAvaliacao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoQuestao_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="0..1" />
+          <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="AvaliadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoQuestao_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="1" />
+          <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="QuestaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="TurmaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="TurmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Avaliacoes">
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="1" />
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa_Acesso">
+          <End Role="Acesso" Type="Self.Acesso" Multiplicity="1" />
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Acesso">
+              <PropertyRef Name="AcessoId" />
+            </Principal>
+            <Dependent Role="Pessoa">
+              <PropertyRef Name="AcessoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Pessoa1" Type="Self.Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Pessoa1">
+              <PropertyRef Name="PessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Pessoa">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Pessoa1">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="PessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Avaliacoes1">
+          <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_GrupoQuestao">
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="0..1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrupoQuestao">
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Pessoa">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Pessoa1">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="pessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="TurmaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="TurmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ecoetesteModelStoreContainer">
+          <EntitySet Name="Acesso" EntityType="Self.Acesso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlunoAvaliacao" EntityType="Self.AlunoAvaliacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlunoQuestao" EntityType="Self.AlunoQuestao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Avaliacoes" EntityType="Self.Avaliacoes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GrupoQuestao" EntityType="Self.GrupoQuestao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaCurso" EntityType="Self.PessoaCurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questao" EntityType="Self.Questao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TurmaPessoa" EntityType="Self.TurmaPessoa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AlunoAlternativa_Pessoa" Association="Self.FK_AlunoAlternativa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="Self.FK_AlunoAvaliacao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="Self.FK_AlunoAvaliacao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoQuestao_Pessoa" Association="Self.FK_AlunoQuestao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoQuestao_Questao" Association="Self.FK_AlunoQuestao_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="Self.FK_Avaliacoes_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Status" Association="Self.FK_Avaliacoes_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Turma" Association="Self.FK_Avaliacoes_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Pessoa" Association="Self.FK_Curso_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Status" Association="Self.FK_Curso_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Avaliacoes" Association="Self.FK_GrupoQuestao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Pessoa" Association="Self.FK_GrupoQuestao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Status" Association="Self.FK_GrupoQuestao_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa_Acesso" Association="Self.FK_Pessoa_Acesso">
+            <End Role="Acesso" EntitySet="Acesso" />
+            <End Role="Pessoa" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa_Pessoa" Association="Self.FK_Pessoa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Pessoa1" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa_Status" Association="Self.FK_Pessoa_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Pessoa" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Curso1" Association="Self.FK_PessoaCurso_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Pessoa" Association="Self.FK_PessoaCurso_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Pessoa1" Association="Self.FK_PessoaCurso_Pessoa1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Avaliacoes1" Association="Self.FK_Questao_Avaliacoes1">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_GrupoQuestao" Association="Self.FK_Questao_GrupoQuestao">
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Pessoa" Association="Self.FK_Questao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Status" Association="Self.FK_Questao_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Curso" Association="Self.FK_Turma_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Pessoa" Association="Self.FK_Turma_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Status" Association="Self.FK_Turma_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Pessoa" Association="Self.FK_TurmaPessoa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Pessoa1" Association="Self.FK_TurmaPessoa_Pessoa1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Turma" Association="Self.FK_TurmaPessoa_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ecoetesteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Acesso">
+          <Key>
+            <PropertyRef Name="AcessoId" />
+          </Key>
+          <Property Name="AcessoId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Pessoa_Acesso" FromRole="Acesso" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="AlunoAvaliacao">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
+          <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_AlunoAvaliacao_Avaliacoes" FromRole="AlunoAvaliacao" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_AlunoAvaliacao_Pessoa" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="AlunoQuestao">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="QuestaoId" />
+          </Key>
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Nota" Type="Double" Nullable="false" />
+          <Property Name="QuestaoId" Type="Int32" Nullable="false" />
+          <Property Name="AvaliadorId" Type="Int32" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_AlunoQuestao_Questao" FromRole="AlunoQuestao" ToRole="Questao" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_AlunoAlternativa_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
+          <NavigationProperty Name="Pessoa1" Relationship="ecoetesteModel.FK_AlunoQuestao_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Curso_Status" FromRole="Curso" ToRole="Status" />
+          <NavigationProperty Name="PessoaCurso" Relationship="Self.FK_PessoaCurso_Curso1" FromRole="Curso" ToRole="PessoaCurso" />
+          <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Curso" FromRole="Curso" ToRole="Turma" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Curso_Pessoa" FromRole="Curso" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="GrupoQuestao">
+          <Key>
+            <PropertyRef Name="GrupoId" />
+          </Key>
+          <Property Name="GrupoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Peso" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_GrupoQuestao_Status" FromRole="GrupoQuestao" ToRole="Status" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_GrupoQuestao" FromRole="GrupoQuestao" ToRole="Questao" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_GrupoQuestao_Avaliacoes" FromRole="GrupoQuestao" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_GrupoQuestao_Pessoa" FromRole="GrupoQuestao" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="PessoaCurso">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="CursoId" />
+          </Key>
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_PessoaCurso_Curso1" FromRole="PessoaCurso" ToRole="Curso" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_PessoaCurso_Pessoa" FromRole="PessoaCurso" ToRole="Pessoa" />
+          <NavigationProperty Name="Pessoa1" Relationship="ecoetesteModel.FK_PessoaCurso_Pessoa1" FromRole="PessoaCurso" ToRole="Pessoa" />
+          </EntityType>
+        <EntityType Name="Questao">
+          <Key>
+            <PropertyRef Name="QuestaoId" />
+          </Key>
+          <Property Name="QuestaoId" Type="Int32" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
+          <Property Name="GrupoId" Type="Int32" />
+          <Property Name="Peso" Type="Double" />
+          <NavigationProperty Name="AlunoQuestao" Relationship="Self.FK_AlunoQuestao_Questao" FromRole="Questao" ToRole="AlunoQuestao" />
+          <NavigationProperty Name="GrupoQuestao" Relationship="Self.FK_Questao_GrupoQuestao" FromRole="Questao" ToRole="GrupoQuestao" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Questao_Status" FromRole="Questao" ToRole="Status" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_Questao_Avaliacoes1" FromRole="Questao" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Questao_Pessoa" FromRole="Questao" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_Status" FromRole="Status" ToRole="Curso" />
+          <NavigationProperty Name="GrupoQuestao" Relationship="Self.FK_GrupoQuestao_Status" FromRole="Status" ToRole="GrupoQuestao" />
+          <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_Status" FromRole="Status" ToRole="Questao" />
+          <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Status" FromRole="Status" ToRole="Turma" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_Avaliacoes_Status" FromRole="Status" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Pessoa_Status" FromRole="Status" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Turma">
+          <Key>
+            <PropertyRef Name="TurmaId" />
+          </Key>
+          <Property Name="TurmaId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ano" Type="Int32" />
+          <Property Name="Periodo" Type="Int32" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Turma_Curso" FromRole="Turma" ToRole="Curso" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Turma_Status" FromRole="Turma" ToRole="Status" />
+          <NavigationProperty Name="TurmaPessoa" Relationship="Self.FK_TurmaPessoa_Turma" FromRole="Turma" ToRole="TurmaPessoa" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_Avaliacoes_Turma" FromRole="Turma" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Turma_Pessoa" FromRole="Turma" ToRole="Pessoa" />
+        </EntityType>
+        <EntityType Name="TurmaPessoa">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+            <PropertyRef Name="TurmaId" />
+          </Key>
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="TurmaId" Type="Int32" Nullable="false" />
+          <Property Name="pessoaCadastrou" Type="Int32" Nullable="false" />
+          <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Observecao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Turma" Relationship="Self.FK_TurmaPessoa_Turma" FromRole="TurmaPessoa" ToRole="Turma" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_TurmaPessoa_Pessoa" FromRole="TurmaPessoa" ToRole="Pessoa" />
+          <NavigationProperty Name="Pessoa1" Relationship="ecoetesteModel.FK_TurmaPessoa_Pessoa1" FromRole="TurmaPessoa" ToRole="Pessoa" />
+        </EntityType>
+        <Association Name="FK_AlunoQuestao_Questao">
+          <End Role="Questao" Type="Self.Questao" Multiplicity="1" />
+          <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Questao">
+              <PropertyRef Name="QuestaoId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="QuestaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Curso1">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="CursoId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_GrupoQuestao">
+          <End Role="GrupoQuestao" Type="Self.GrupoQuestao" Multiplicity="0..1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GrupoQuestao">
+              <PropertyRef Name="GrupoId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="GrupoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Turma">
+          <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
+          <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="TurmaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="TurmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ECOEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Acesso" EntityType="Self.Acesso" />
+          <EntitySet Name="AlunoAvaliacao" EntityType="Self.AlunoAvaliacao" />
+          <EntitySet Name="AlunoQuestao" EntityType="Self.AlunoQuestao" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="GrupoQuestao" EntityType="Self.GrupoQuestao" />
+          <EntitySet Name="PessoaCurso" EntityType="Self.PessoaCurso" />
+          <EntitySet Name="Questao" EntityType="Self.Questao" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Turma" EntityType="Self.Turma" />
+          <EntitySet Name="TurmaPessoa" EntityType="Self.TurmaPessoa" />
+          <AssociationSet Name="FK_AlunoQuestao_Questao" Association="Self.FK_AlunoQuestao_Questao">
+            <End Role="Questao" EntitySet="Questao" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Status" Association="Self.FK_Curso_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Curso1" Association="Self.FK_PessoaCurso_Curso1">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Curso" Association="Self.FK_Turma_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Status" Association="Self.FK_GrupoQuestao_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_GrupoQuestao" Association="Self.FK_Questao_GrupoQuestao">
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Status" Association="Self.FK_Questao_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Status" Association="Self.FK_Turma_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Turma" Association="Self.FK_TurmaPessoa_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+          <EntitySet Name="Avaliacoes" EntityType="ecoetesteModel.Avaliacoes" />
+          <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="ecoetesteModel.FK_AlunoAvaliacao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Status" Association="ecoetesteModel.FK_Avaliacoes_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Turma" Association="ecoetesteModel.FK_Avaliacoes_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Avaliacoes" Association="ecoetesteModel.FK_GrupoQuestao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Avaliacoes1" Association="ecoetesteModel.FK_Questao_Avaliacoes1">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <EntitySet Name="Pessoa" EntityType="ecoetesteModel.Pessoa" />
+          <AssociationSet Name="FK_Pessoa_Acesso" Association="ecoetesteModel.FK_Pessoa_Acesso">
+            <End Role="Acesso" EntitySet="Acesso" />
+            <End Role="Pessoa" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="ecoetesteModel.FK_AlunoAvaliacao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoAlternativa_Pessoa" Association="ecoetesteModel.FK_AlunoAlternativa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlunoQuestao_Pessoa" Association="ecoetesteModel.FK_AlunoQuestao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="ecoetesteModel.FK_Avaliacoes_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Curso_Pessoa" Association="ecoetesteModel.FK_Curso_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Curso" EntitySet="Curso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GrupoQuestao_Pessoa" Association="ecoetesteModel.FK_GrupoQuestao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="GrupoQuestao" EntitySet="GrupoQuestao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa_Pessoa" Association="ecoetesteModel.FK_Pessoa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Pessoa1" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pessoa_Status" Association="ecoetesteModel.FK_Pessoa_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Pessoa" EntitySet="Pessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Pessoa" Association="ecoetesteModel.FK_PessoaCurso_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaCurso_Pessoa1" Association="ecoetesteModel.FK_PessoaCurso_Pessoa1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Pessoa" Association="ecoetesteModel.FK_Questao_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Turma_Pessoa" Association="ecoetesteModel.FK_Turma_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Turma" EntitySet="Turma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Pessoa" Association="ecoetesteModel.FK_TurmaPessoa_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TurmaPessoa_Pessoa1" Association="ecoetesteModel.FK_TurmaPessoa_Pessoa1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Avaliacoes">
+          <Key>
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Precision="0" />
+          <Property Name="TurmaId" Type="Int32" Nullable="false" />
+          <Property Name="Peso" Type="Double" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="DataAvaliacao" Type="Int32" />
+          <Property Name="dupla" Type="Boolean" />
+          <NavigationProperty Name="AlunoAvaliacao" Relationship="ecoetesteModel.FK_AlunoAvaliacao_Avaliacoes" FromRole="Avaliacoes" ToRole="AlunoAvaliacao" />
+          <NavigationProperty Name="Status" Relationship="ecoetesteModel.FK_Avaliacoes_Status" FromRole="Avaliacoes" ToRole="Status" />
+          <NavigationProperty Name="Turma" Relationship="ecoetesteModel.FK_Avaliacoes_Turma" FromRole="Avaliacoes" ToRole="Turma" />
+          <NavigationProperty Name="GrupoQuestao" Relationship="ecoetesteModel.FK_GrupoQuestao_Avaliacoes" FromRole="Avaliacoes" ToRole="GrupoQuestao" />
+          <NavigationProperty Name="Questao" Relationship="ecoetesteModel.FK_Questao_Avaliacoes1" FromRole="Avaliacoes" ToRole="Questao" />
+          <NavigationProperty Name="Pessoa" Relationship="ecoetesteModel.FK_Avaliacoes_Pessoa" FromRole="Avaliacoes" ToRole="Pessoa" />
+        </EntityType>
+        <Association Name="FK_AlunoAvaliacao_Avaliacoes">
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+          <End Type="ecoetesteModel.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="AlunoAvaliacao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Status">
+          <End Type="ecoetesteModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Turma">
+          <End Type="ecoetesteModel.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="TurmaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="TurmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Avaliacoes">
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+          <End Type="ecoetesteModel.GrupoQuestao" Role="GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Avaliacoes1">
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+          <End Type="ecoetesteModel.Questao" Role="Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="PessoaId" />
+          </Key>
+          <Property Name="PessoaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
+          <Property Name="RA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AcessoId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Acesso" Relationship="ecoetesteModel.FK_Pessoa_Acesso" FromRole="Pessoa" ToRole="Acesso" />
+          <NavigationProperty Name="AlunoAvaliacao" Relationship="ecoetesteModel.FK_AlunoAvaliacao_Pessoa" FromRole="Pessoa" ToRole="AlunoAvaliacao" />
+          <NavigationProperty Name="AlunoQuestao" Relationship="ecoetesteModel.FK_AlunoAlternativa_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
+          <NavigationProperty Name="AlunoQuestao1" Relationship="ecoetesteModel.FK_AlunoQuestao_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ecoetesteModel.FK_Avaliacoes_Pessoa" FromRole="Pessoa" ToRole="Avaliacoes" />
+          <NavigationProperty Name="Curso" Relationship="ecoetesteModel.FK_Curso_Pessoa" FromRole="Pessoa" ToRole="Curso" />
+          <NavigationProperty Name="GrupoQuestao" Relationship="ecoetesteModel.FK_GrupoQuestao_Pessoa" FromRole="Pessoa" ToRole="GrupoQuestao" />
+          <NavigationProperty Name="Pessoa1" Relationship="ecoetesteModel.FK_Pessoa_Pessoa" FromRole="Pessoa" ToRole="Pessoa1" />
+          <NavigationProperty Name="Pessoa2" Relationship="ecoetesteModel.FK_Pessoa_Pessoa" FromRole="Pessoa1" ToRole="Pessoa" />
+          <NavigationProperty Name="Status" Relationship="ecoetesteModel.FK_Pessoa_Status" FromRole="Pessoa" ToRole="Status" />
+          <NavigationProperty Name="PessoaCurso" Relationship="ecoetesteModel.FK_PessoaCurso_Pessoa" FromRole="Pessoa" ToRole="PessoaCurso" />
+          <NavigationProperty Name="PessoaCurso1" Relationship="ecoetesteModel.FK_PessoaCurso_Pessoa1" FromRole="Pessoa" ToRole="PessoaCurso" />
+          <NavigationProperty Name="Questao" Relationship="ecoetesteModel.FK_Questao_Pessoa" FromRole="Pessoa" ToRole="Questao" />
+          <NavigationProperty Name="Turma" Relationship="ecoetesteModel.FK_Turma_Pessoa" FromRole="Pessoa" ToRole="Turma" />
+          <NavigationProperty Name="TurmaPessoa" Relationship="ecoetesteModel.FK_TurmaPessoa_Pessoa" FromRole="Pessoa" ToRole="TurmaPessoa" />
+          <NavigationProperty Name="TurmaPessoa1" Relationship="ecoetesteModel.FK_TurmaPessoa_Pessoa1" FromRole="Pessoa" ToRole="TurmaPessoa" />
+        </EntityType>
+        <Association Name="FK_Pessoa_Acesso">
+          <End Type="ecoetesteModel.Acesso" Role="Acesso" Multiplicity="1" />
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Acesso">
+              <PropertyRef Name="AcessoId" />
+            </Principal>
+            <Dependent Role="Pessoa">
+              <PropertyRef Name="AcessoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoAvaliacao_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoAvaliacao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoAlternativa_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.AlunoQuestao" Role="AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlunoQuestao_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="0..1" />
+          <End Type="ecoetesteModel.AlunoQuestao" Role="AlunoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="AlunoQuestao">
+              <PropertyRef Name="AvaliadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Curso_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.Curso" Role="Curso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Curso">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GrupoQuestao_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.GrupoQuestao" Role="GrupoQuestao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="GrupoQuestao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Pessoa1">
+              <PropertyRef Name="PessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pessoa_Status">
+          <End Type="ecoetesteModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Pessoa">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.PessoaCurso" Role="PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaCurso_Pessoa1">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.PessoaCurso" Role="PessoaCurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="PessoaCurso">
+              <PropertyRef Name="PessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.Questao" Role="Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turma_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.Turma" Role="Turma" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Turma">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Pessoa">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.TurmaPessoa" Role="TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TurmaPessoa_Pessoa1">
+          <End Type="ecoetesteModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ecoetesteModel.TurmaPessoa" Role="TurmaPessoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="TurmaPessoa">
+              <PropertyRef Name="pessoaCadastrou" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ecoetesteModelStoreContainer" CdmEntityContainer="ECOEEntities">
+          <EntitySetMapping Name="Acesso">
+            <EntityTypeMapping TypeName="ecoetesteModel.Acesso">
+              <MappingFragment StoreEntitySet="Acesso">
+                <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlunoAvaliacao">
+            <EntityTypeMapping TypeName="ecoetesteModel.AlunoAvaliacao">
+              <MappingFragment StoreEntitySet="AlunoAvaliacao">
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+                <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlunoQuestao">
+            <EntityTypeMapping TypeName="ecoetesteModel.AlunoQuestao">
+              <MappingFragment StoreEntitySet="AlunoQuestao">
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="QuestaoId" ColumnName="QuestaoId" />
+                <ScalarProperty Name="AvaliadorId" ColumnName="AvaliadorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="ecoetesteModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GrupoQuestao">
+            <EntityTypeMapping TypeName="ecoetesteModel.GrupoQuestao">
+              <MappingFragment StoreEntitySet="GrupoQuestao">
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaCurso">
+            <EntityTypeMapping TypeName="ecoetesteModel.PessoaCurso">
+              <MappingFragment StoreEntitySet="PessoaCurso">
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questao">
+            <EntityTypeMapping TypeName="ecoetesteModel.Questao">
+              <MappingFragment StoreEntitySet="Questao">
+                <ScalarProperty Name="QuestaoId" ColumnName="QuestaoId" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+                <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="ecoetesteModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ecoetesteModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turma">
+            <EntityTypeMapping TypeName="ecoetesteModel.Turma">
+              <MappingFragment StoreEntitySet="Turma">
+                <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+                <ScalarProperty Name="Ano" ColumnName="Ano" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TurmaPessoa">
+            <EntityTypeMapping TypeName="ecoetesteModel.TurmaPessoa">
+              <MappingFragment StoreEntitySet="TurmaPessoa">
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+                <ScalarProperty Name="pessoaCadastrou" ColumnName="pessoaCadastrou" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="Observecao" ColumnName="Observecao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliacoes">
+            <EntityTypeMapping TypeName="ecoetesteModel.Avaliacoes">
+              <MappingFragment StoreEntitySet="Avaliacoes">
+                <ScalarProperty Name="dupla" ColumnName="dupla" />
+                <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoa">
+            <EntityTypeMapping TypeName="ecoetesteModel.Pessoa">
+              <MappingFragment StoreEntitySet="Pessoa">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+                <ScalarProperty Name="RA" ColumnName="RA" />
+                <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

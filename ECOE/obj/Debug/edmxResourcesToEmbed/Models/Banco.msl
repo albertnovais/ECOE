@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ecoefadbaModelStoreContainer" CdmEntityContainer="ecoefadbaEntities">
+    <EntitySetMapping Name="Acesso">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Acesso">
+        <MappingFragment StoreEntitySet="Acesso">
+          <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlunoAvaliacao">
+      <EntityTypeMapping TypeName="ecoefadbaModel.AlunoAvaliacao">
+        <MappingFragment StoreEntitySet="AlunoAvaliacao">
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+          <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlunoQuestao">
+      <EntityTypeMapping TypeName="ecoefadbaModel.AlunoQuestao">
+        <MappingFragment StoreEntitySet="AlunoQuestao">
+          <ScalarProperty Name="AvaliadorId" ColumnName="AvaliadorId" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="QuestaoId" ColumnName="QuestaoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Avaliacoes">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Avaliacoes">
+        <MappingFragment StoreEntitySet="Avaliacoes">
+          <ScalarProperty Name="dupla" ColumnName="dupla" />
+          <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+          <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Curso">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Curso">
+        <MappingFragment StoreEntitySet="Curso">
+          <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pessoa">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Pessoa">
+        <MappingFragment StoreEntitySet="Pessoa">
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+          <ScalarProperty Name="RA" ColumnName="RA" />
+          <ScalarProperty Name="AcessoId" ColumnName="AcessoId" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PessoaCurso">
+      <EntityTypeMapping TypeName="ecoefadbaModel.PessoaCurso">
+        <MappingFragment StoreEntitySet="PessoaCurso">
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="PessoaCadastrou" ColumnName="PessoaCadastrou" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questao">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Questao">
+        <MappingFragment StoreEntitySet="Questao">
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="GrupoId" ColumnName="GrupoId" />
+          <ScalarProperty Name="QuestaoId" ColumnName="QuestaoId" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Turma">
+      <EntityTypeMapping TypeName="ecoefadbaModel.Turma">
+        <MappingFragment StoreEntitySet="Turma">
+          <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="Turno" ColumnName="Turno" />
+          <ScalarProperty Name="Ano" ColumnName="Ano" />
+          <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TurmaPessoa">
+      <EntityTypeMapping TypeName="ecoefadbaModel.TurmaPessoa">
+        <MappingFragment StoreEntitySet="TurmaPessoa">
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+          <ScalarProperty Name="pessoaCadastrou" ColumnName="pessoaCadastrou" />
+          <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+          <ScalarProperty Name="Observecao" ColumnName="Observecao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

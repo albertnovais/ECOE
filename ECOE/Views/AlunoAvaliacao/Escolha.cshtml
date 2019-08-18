@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Escolha";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Avaliacao = ViewBag.avaliacao;
+}
+
+<div class="card" style="width: 20rem;">
+    <div class="card-body">
+        <h4 class="card-title">Aluno Novo?</h4>
+        <p class="card-text">Cadastre o Aluno </p>
+        <a href="@Url.Action("NovoAluno", "AlunoAvaliacao", new {AvaliacaoId = Avaliacao})" class="btn btn-primary">Criar</a>
+    </div>
+</div>
+<div class="card" style="width: 20rem;">
+    <div class="card-body">
+        <h4 class="card-title">Aluno Já Cadastrado</h4>
+        <p class="card-text">Avalie o Aluno </p>
+        <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = Avaliacao})" class="btn btn-primary">Criar</a>
+    </div>
+</div>

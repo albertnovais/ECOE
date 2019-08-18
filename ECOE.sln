@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECOE", "ECOE\ECOE.csproj", "{BB25E58D-83E0-4CC9-8342-F427B19C89E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB25E58D-83E0-4CC9-8342-F427B19C89E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB25E58D-83E0-4CC9-8342-F427B19C89E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB25E58D-83E0-4CC9-8342-F427B19C89E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB25E58D-83E0-4CC9-8342-F427B19C89E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CA4558D-8BF6-4421-B4AB-6E4324F5BFC0}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<ECOE.Models.Avaliacoes>
+
+@{
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+@if (ViewBag.mostrar == 1)
+{
+    <div class="alert alert-success col-md-6 mt-2" style="margin:auto">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="material-icons">close</i>
+        </button>
+        <span style="font-size: 20px; text-align:center; font-weight:bolder;">
+            Escolha o caso que deseja avaliar
+        </span>
+    </div>
+}
+@if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
+{
+    <div style="margin-top:2%;">
+        <div class="card" style="width: 20rem; height: 11rem; float:left; margin-left:1%;  margin-bottom:1%; margin-top:3px;">
+            <div class="card-body">
+                <h4 class="card-title" style="font-weight:bold;">Novo Aluno</h4>
+                <p class="card-text">http://ecoefadba-001-site1.btempurl.com/Pessoa/CreateAluno?CoordId=<span>@Convert.ToInt32(HttpContext.Current.User.Identity.Name)</span></p>
+                <div style="text-align:right;">
+                    <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
+                 font-family:Arial; ">Casdatrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+
+
+    <div style="margin-top:2%;">
+        <div class="card" style="width: 20rem; height: 11rem; float:left; margin-left:1%;  margin-bottom:1%; margin-top:3px;">
+            <div class="card-body">
+                <h4 class="card-title" style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Nome)</h4>
+                <h5>  @Html.DisplayFor(modelItem => item.Turma.Nome) </h5>
+                <div style="text-align:right;">
+                    
+                    <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
+                                      font-family:Arial; ">Avaliar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

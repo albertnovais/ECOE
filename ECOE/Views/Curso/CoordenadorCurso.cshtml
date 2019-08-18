@@ -1,0 +1,73 @@
+﻿@model ECOE.Models.PessoaCurso
+
+@{
+    /**/
+
+    ViewBag.Title = "CordenadorCurso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Mensagem = ViewBag.Mensagem;
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+<div class="form-horizontal" style="margin-top:3%;">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">perm_identity</i>
+                </div>
+                <h4 class="card-title"> Adicionar Coordenador à <span style="font-weight:bold; font-size:20px;">  @ViewBag.cursoNome </span></h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group has-rose bmd-form-group">
+                                <label class="bmd-label-floating">Nome do coordenador</label>
+                                <input name="Nome" id="nome" type="text" class="form-control">
+                                <input type="hidden" name="CursoId" value="@ViewBag.cursoId" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer ml-auto mr-auto">
+                        <div>
+                            <div class="col-md-offset-2 col-md-2">
+                                <a href="@Url.Action("ListCurso","Curso", new { avaliacaoId = ViewBag.avaliacao})">
+                                    <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#nome').autocomplete({
+            source: '/Pessoa/Search',
+            select: function (event, ui) {
+                //set tagids to save
+                $("#nome").val(ui.item.id);
+
+                //Tags for display
+                this.value = ui.item.value;
+                return false;
+            }
+        });
+    });
+</script>

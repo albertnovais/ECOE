@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.fundopreto{
+    background-color: black;
+}
+
+.fundoazul {
+    color: red;
+    background-color: #37538C;
+}
+
+.info {
+    background-color: #37538C;
+}
+
+.mouse:hover {
+    background-color: #37538C;
+}

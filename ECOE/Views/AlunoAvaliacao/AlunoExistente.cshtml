@@ -1,0 +1,172 @@
+﻿@model IEnumerable<ECOE.Models.TurmaPessoa>
+
+
+@{
+    /**/
+
+    ViewBag.Title = "AlunoExistente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var avaliacao = ViewBag.avaliacao;
+    var Mensagem = ViewBag.Mensagem;
+    var dupla = ViewBag.dupla;
+}
+@if (Mensagem != null)
+{
+    <div class="alert alert-danger col-md-8 " style="margin-top:1%; margin:auto">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="material-icons">close</i>
+        </button>
+
+
+        @if (Mensagem == "3")
+        {
+            <span style="font-size: 20px; text-align:center;">Aluno Já foi avaliado nesse Ecoe</span>
+        }
+        @if (Mensagem == "4")
+        {
+            <span style="font-size: 20px; text-align:center;">Este RA não pertence a um aluno</span>
+        }
+
+
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal" style="margin-top:3%;">
+
+        <div class="col-md-12">
+            <div class="card ">
+                @*@(dupla == true){
+        <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">person</i>
+            </div>
+            <h4 class="card-title" style="font-weight:bold;">Insira o RA do aluno</h4>
+        </div>
+        <div class="card-body form-inline">
+            <div class="form-group has-ROSE" style="font-weight:bold;">
+                <label class="bmd-label-floating">RA</label>
+                <input name="RA" type="number" class="form-control" />
+            </div>
+        </div>
+        <input type="hidden" name="TurmaId" value="@ViewBag.turma" />
+        <div style="text-align:right">
+            <row>
+                <div class="form-group">
+                    <a href="@Url.Action("Index", "Home", new { avaliacaoId = ViewBag.avaliacao })">
+                        <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
+                    </a>
+                    <input type="submit" value="Avançar" class="btn btn-primary ml-5 mr-2" style="font-weight:bold; font-family:Arial;" />
+
+                </div>
+
+            </row>
+
+        </div>
+        }@if (dupla == false)
+        {*@
+                <div class="card-header card-header-primary card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h4 class="card-title" style="font-weight:bold;">Insira os RA's dos alunos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group has-ROSE" style="font-weight:bold;">
+                        <label class="bmd-label-floating">RA do primeiro aluno</label>
+                        <input name="RA1" type="number" class="form-control" />
+                    </div>
+                   
+                </div>
+                <div class="card-body ">
+                    <div class="form-group has-ROSE" style="font-weight:bold;">
+                        <label class="bmd-label-floating">RA do segundo aluno</label>
+                        <input name="RA2" type="number" class="form-control" />
+                    </div>
+                </div>
+                <input type="hidden" name="TurmaId" value="@ViewBag.turma" />
+                <div style="text-align:right">
+                    <row>
+                        <div class="form-group">
+                            <a href="@Url.Action("Index", "Home", new { avaliacaoId = ViewBag.avaliacao })">
+                                <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
+                            </a>
+                            <input type="submit" value="Avançar" class="btn btn-primary ml-5 mr-2" style="font-weight:bold; font-family:Arial;" />
+
+                        </div>
+
+                    </row>
+
+                </div>
+                @*}*@
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-dark card-header-icon">
+                        <h4 class="card-title text-center" style="font-weight:bold;">@ViewBag.turmaNome </h4>
+                        <h5 class="card-title text-center" style="font-weight:bold;">@Model.Count() Alunos matriculados na Turma </h5>
+                        <h5 class="card-title text-center" style="font-weight:bold;">@Model.Where(x=>x.Pessoa.AlunoQuestao.Where(y => y.Questao.AvaliacaoId == avaliacao).ToList().Count()>0).Count() Alunos Avaliados </h5>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Aluno</th>
+                                        <th>RA</th>
+                                        <th>Cadastrou</th>
+                                        <th class="disabled-sorting text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Aluno</th>
+                                        <th>RA</th>
+                                        <th>Cadastrou</th>
+                                        <th class="text-right"> Ações</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Pessoa.RA)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Pessoa1.Nome)</td>
+                                            <td class="text-right">
+                                                @*@if(item.Pessoa.AlunoQuestao.Where(x=> x.Questao.AvaliacaoId == avaliacao && x.PessoaId == item.PessoaId).ToList().Count()<3)
+                                                {*@
+                                                    <a title="Avaliar" href="@Url.Action("Avaliar", "AlunoAvaliacao", new { PessoaId = item.PessoaId, AvaliacaoId = avaliacao })" class="btn btn-link btn-primary btn-just-icon like"style="margin: 0 0 0 0"   ><i class="material-icons">add</i></a>
+                                                @*}*@
+                                                @*<a title="Editar" href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">create</i></a>
+                                                    <a title="Remover" href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>*@
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

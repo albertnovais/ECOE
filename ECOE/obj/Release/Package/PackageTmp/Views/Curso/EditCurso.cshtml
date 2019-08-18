@@ -1,0 +1,79 @@
+﻿@model ECOE.Models.Curso
+
+@{
+    ViewBag.Title = "EditCurso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Mensagem = ViewBag.Mensagem;
+}
+
+<div class="form-horizontal" style="margin-top:3%;">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CursoId)
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">edit</i>
+                </div>
+                <h4 class="card-title" style="font-weight:bold;">
+                    Editar @Model.Nome
+                </h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-rose bmd-form-group">
+                                <label class="bmd-label-floating">Nome do Curso </label>
+                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+
+                        <div class="col-md-4">
+                            <div class="form-group has-rose bmd-form-group">
+                                <select class="custom-select " name="StatusId" title="Status" data-style="btn btn-link" id="exampleFormControlSelect1">
+
+                                    @if (Model.StatusId == 2)
+                                    {
+                                        <option value="2">Selecione o Status </option>
+                                        <option value="1" class="dropdown-item">Ativar</option>
+                                    }
+                                    @if (Model.StatusId == 1)
+                                    {
+                                        <option value="1">Selecione o Status </option>
+                                        <option value="2">Desativar</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-footer ml-auto mr-auto">
+                        <div>
+                            <div class="col-md-offset-2 col-md-2">
+                                <a href="ListCurso">
+                                    <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

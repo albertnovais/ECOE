@@ -1,0 +1,159 @@
+﻿@model IEnumerable<ECOE.Models.GrupoQuestao>
+
+@{
+    ViewBag.Title = "ListGrupo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@* Modal Excluir *@
+
+@*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("RemoveAvaliacao", "Avaliacao", FormMethod.Post))
+        {
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    Realmente deseja remover
+
+                    <input type="hidden" id="did" name="id" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Remover" class="btn btn-danger">
+                </div>
+            </div>
+        }
+    </div>
+</div>*@
+
+@* Modal Excluir Fim *@
+
+<<div class="col-md-offset-2 col-md-12" style="margin-top:2%; text-align:right;">
+    <a href="@Url.Action("CreateGrupo","Avaliacao", new { avaliacaoId = ViewBag.avaliacaoId})" class=" btn btn-primary">
+        Adicionar Grupo
+    </a>
+</div>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">library_books</i>
+                        </div>
+                        <h4 class="card-title">Grupos Cadastrados em <span style="font-weight:bold;">@ViewBag.Avaliacao </span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div class="material-datatables">
+                            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" style="width:100%">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Grupo</th>
+                                        <th>Quant Questões</th>
+                                        <th>Peso</th>
+                                        <th>Cadastrou</th>
+                                        <th class="disabled-sorting text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Nome)
+                                            </td>
+                                            <td>@item.Questao.Count()</td>
+                                            <td> @Html.DisplayFor(modelItem => item.Peso)</td>
+                                            <td> @Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
+
+                                            <td class="text-right">
+                                                <a title="Mostrar Questões" href="@Url.Action("ListQuestao","Avaliacao", new { grupoId = item.GrupoId})" class="btn btn-link btn-primary btn-just-icon like"><i class="material-icons">visibility</i></a>
+                                                <a title="Criar Questões" href="@Url.Action("CreateQuestao","Avaliacao", new { grupoId = item.GrupoId})" class="btn btn-link btn-primary btn-just-icon like"><i class="material-icons">add</i></a>
+                                                <a href="@Url.Action("EditeGrupo", new { grupoId = item.GrupoId })" title="Editar" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">create</i></a>
+                                                <button title="Remover" data-toggle="modal" data-target="#exampleModal" class="btn btn-link btn-danger btn-just-icon remove" id="remo" onclick="myFunction('@item.GrupoId')"><i class="material-icons">close</i></button>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Script de Remover *@
+
+<script>
+
+    function myFunction(id) {
+        $("#did").val(id);
+
+    }
+
+</script>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Peso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Avaliacoes.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pessoa.Nome)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Avaliacoes.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.GrupoId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.GrupoId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.GrupoId })
+                </td>
+            </tr>
+        }
+
+    </table>*@

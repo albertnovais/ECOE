@@ -1,0 +1,101 @@
+﻿@model ECOE.Models.Pessoa
+
+@{
+    /**/
+
+    ViewBag.Title = "NovoAluno";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Ra = ViewBag.ra;
+    var Mensagem = ViewBag.Mensagem;
+}
+
+@if (Mensagem != null)
+{
+<div class="alert alert-danger col-md-8 " style="margin-top:1%; margin:auto">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <i class="material-icons">close</i>
+    </button>
+
+    @if (Mensagem == "1")
+    {
+        <span style="font-size: 20px; text-align:center; font-weight:bolder;">Esse Aluno ainda Não foi cadastrado, faça seu cadastro</span>
+    }
+    @if (Mensagem == "2")
+    {
+        <span style="font-size: 20px; text-align:center;">RA e/ou Email já cadastrados</span>
+    }
+
+
+</div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="col-md-12" style="margin-top:3%;">
+            <form id="LoginValidation" action="" novalidate="novalidate">
+                <div class="card ">
+                    <div class="card-header card-header-primary card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">person</i>
+                        </div>
+                        <h4 class="card-title">Cadastrar aluno em <span style="font-weight:bold; font-size:18px;"> @ViewBag.turmaNome</span></h4>
+
+                    </div>
+
+                    <div class="card-body ">
+                        <div class="card-body ">
+                            <div class="col-md-12">
+                                <div class="form-group bmd-form-group has-rose">
+                                    <label class="bmd-label-floating">Nome</label>
+                                    @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group bmd-form-group has-rose">
+                                    <label class="bmd-label-floating">Email </label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group bmd-form-group has-rose">
+                                    <label class="bmd-label-floating">Ra</label>
+                                    @Html.EditorFor(model => model.RA, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.RA, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer ml-auto mr-auto">
+                            <div>
+                                <div class="col-md-offset-2 col-md-2">
+                                    <a href="@Url.Action("AlunoExistente","AlunoAvaliacao", new { avaliacaoId = ViewBag.avaliacao})">
+                                        <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="hidden" name="TurmaId" value="@ViewBag.turma" />
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-12">
+                                        <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    
+}
