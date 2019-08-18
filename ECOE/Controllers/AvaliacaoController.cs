@@ -133,7 +133,8 @@ namespace ECOE.Controllers
             bd.Questao.Add(questao);
             bd.SaveChanges();
             
-            return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = questao.GrupoId });
+            //return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = questao.GrupoId });
+            return RedirectToAction("CreateQuestao", "Avaliacao", new { avaliacaoId= questao.AvaliacaoId });
         }
 
         [Authorize(Roles = "Adm, Coordenador")]
@@ -165,25 +166,25 @@ namespace ECOE.Controllers
             return RedirectToAction("ListAvaliacao", "Avaliacao", new { Mensagem = 1 });
         }
 
-        [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult ListGrupo(int avaliacaoId)
-        {
-            var list = bd.GrupoQuestao.Where(x => x.AvaliacaoId == avaliacaoId /*&& x.StatusId == 1*/).ToList();
-            var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == avaliacaoId);
-            ViewBag.avaliacaoId = avaliacao.AvaliacaoId;
-            ViewBag.avaliacao = avaliacao.Nome;
-            return View(list);
-        }
+        //[Authorize(Roles = "Adm , Coordenador")]
+        //public ActionResult ListGrupo(int avaliacaoId)
+        //{
+        //    var list = bd.GrupoQuestao.Where(x => x.AvaliacaoId == avaliacaoId /*&& x.StatusId == 1*/).ToList();
+        //    var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == avaliacaoId);
+        //    ViewBag.avaliacaoId = avaliacao.AvaliacaoId;
+        //    ViewBag.avaliacao = avaliacao.Nome;
+        //    return View(list);
+        //}
 
-        [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult ListQuestao(int grupoId)
-        {
-            var list = bd.Questao.Where(x => x.GrupoId == grupoId /*&& x.StatusId == 1*/).ToList();
-            var grupo = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == grupoId);
-            ViewBag.avaliacao = grupo.Avaliacoes.Nome;
-            ViewBag.grupo = grupo.Nome;
+        //[Authorize(Roles = "Adm , Coordenador")]
+        //public ActionResult ListQuestao(int grupoId)
+        //{
+        //    var list = bd.Questao.Where(x => x.GrupoId == grupoId /*&& x.StatusId == 1*/).ToList();
+        //   var grupo = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == grupoId);
+        //    ViewBag.avaliacao = grupo.Avaliacoes.Nome;
+        //    ViewBag.grupo = grupo.Nome;
 
-            return View(list);
-        }
+        //    return View(list);
+        //}
     }
 }
