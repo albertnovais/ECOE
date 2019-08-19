@@ -9,52 +9,64 @@
 
 @if (ViewBag.mostrar == 1)
 {
-    <div class="alert alert-success col-md-6 mt-2" style="margin:auto">
+    <div class="alert alert-success mt-2" style="margin:auto">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="material-icons">close</i>
+            <i class="fas fa-times"></i>
         </button>
         <span style="font-size: 20px; text-align:center; font-weight:bolder;">
             Escolha o caso que deseja avaliar
         </span>
     </div>
 }
-@if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
-{
-    <div style="margin-top:2%;">
-        <div class="card" style="width: 20rem; height: 11rem; float:left; margin-left:1%;  margin-bottom:1%; margin-top:3px;">
+<div class="row" style="margin-top:2%;">
+    @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
+    {
+
+
+        <div class="card col-lg-4" style="padding: 0; margin:0;">
+
+            <div class="card-header">
+                <b>
+                    Novo Aluno
+                </b>
+            </div>
             <div class="card-body">
-                <h4 class="card-title" style="font-weight:bold;">Novo Aluno</h4>
+                <h5 class="card-title"></h5>
                 <p class="card-text">http://ecoefadba-001-site1.btempurl.com/Pessoa/CreateAluno?CoordId=<span>@Convert.ToInt32(HttpContext.Current.User.Identity.Name)</span></p>
-                <div style="text-align:right;">
-                    <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
+                <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
                  font-family:Arial; ">Casdatrar</a>
-                </div>
             </div>
-        </div>
-    </div>
-}
 
-@foreach (var item in Model)
-{
-    <div style="margin-top:2%;">
-        <div class="card" style="width: 20rem; height: 11rem; float:left; margin-left:1%;  margin-bottom:1%; margin-top:3px;">
+        </div>
+
+    }
+
+
+    @foreach (var item in Model)
+    {
+
+        <div class="card col-lg-4" style="padding: 0; margin:0;">
+            <div class="card-header">
+                <b>
+                    @Html.DisplayFor(modelItem => item.Turma.Nome)
+                </b>
+            </div>
             <div class="card-body">
-                <h4 class="card-title" style="font-weight:bold;">@Html.DisplayFor(modelItem => item.Nome)</h4>
-                <h5>  @Html.DisplayFor(modelItem => item.Turma.Nome) </h5>
-                <div style="text-align:right;">
-                    @if (HttpContext.Current.User.IsInRole("Aluno"))
-                    {
-                        <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
+                <h5 class="card-title"></h5>
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Nome)</p>
+                @if (HttpContext.Current.User.IsInRole("Aluno"))
+                {
+                    <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
                                       font-family:Arial; ">Nota</a>
-                    }
-                    else
-                    {
-                        <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
+                }
+                else
+                {
+                    <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
                            font-family:Arial; ">Avaliar</a>
-                    }
-                </div>
+                }
             </div>
         </div>
-    </div>
-}
 
+    }
+
+</div>
