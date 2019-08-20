@@ -21,8 +21,6 @@
 <div class="row" style="margin-top:2%;">
     @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
     {
-
-
         <div class="card col-lg-4" style="padding: 0; margin:0;">
 
             <div class="card-header">
@@ -36,11 +34,8 @@
                 <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
                  font-family:Arial; ">Casdatrar</a>
             </div>
-
         </div>
-
     }
-
 
     @foreach (var item in Model)
     {
