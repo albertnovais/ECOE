@@ -18,8 +18,10 @@ namespace ECOE.Models
         public int AvaliacaoId { get; set; }
         public int PessoaCadastrou { get; set; }
         public System.DateTime DataCadastro { get; set; }
+        public Nullable<int> DuplaId { get; set; }
     
         public virtual Avaliacoes Avaliacoes { get; set; }
         public virtual Pessoa Pessoa { get; set; }
+        public virtual Pessoa Pessoa1 { get; set; }
     }
 }

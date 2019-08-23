@@ -61,34 +61,34 @@ namespace ECOE.Controllers
             //var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId);
             //if (avaliacao.dupla == true)
             //{
-                var pessoa = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
-                if (pessoa == null)
+            var pessoa = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
+            if (pessoa == null)
+            {
+                string Mensagem = "1";
+                return RedirectToAction("NovoAluno", new { AvaliacaoId, RA1, Mensagem });
+            }
+            else if (pessoa.AcessoId != 2)
+            {
+                return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
+            }
+            else
+            {
+                if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId && x.TurmaId == TurmaId) == null)
                 {
-                    string Mensagem = "1";
-                    return RedirectToAction("NovoAluno", new { AvaliacaoId, RA1, Mensagem });
-                }
-                else if (pessoa.AcessoId != 2)
-                {
-                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
+                    AdicionarAlunoTurma(TurmaId, pessoa.PessoaId);
                 }
                 else
                 {
-                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId && x.TurmaId == TurmaId) == null)
-                    {
-                        AdicionarAlunoTurma(TurmaId, pessoa.PessoaId);
-                    }
-                    else
-                    {
-                        if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa.PessoaId).ToList().Count() > 0)
-                        {
-                            return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                        }
-                        return RedirectToAction("Avaliar", new { pessoa.PessoaId, AvaliacaoId });
-                    }
-                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa.PessoaId);
-                    return RedirectToAction("Avaliar", new { pessoa, AvaliacaoId });
+                    //if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa.PessoaId).ToList().Count() > 0)
+                    //{
+                    //    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                    //}
+                    return RedirectToAction("Avaliar", new { pessoa.PessoaId, AvaliacaoId });
                 }
-            
+                AdicionarAlunoAvaliacao(AvaliacaoId, pessoa.PessoaId);
+                return RedirectToAction("Avaliar", new { pessoa, AvaliacaoId });
+            }
+
             //else
             //{
             //    var pessoa1 = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
@@ -153,7 +153,7 @@ namespace ECOE.Controllers
         [Authorize]
         public ActionResult avaliar(int PessoaId, int AvaliacaoId, string Mensagem)
         {
-            if (bd.AlunoQuestao.Where(x => x.PessoaId == PessoaId && x.Questao.AvaliacaoId == AvaliacaoId).Count() != 0) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+            //if (bd.AlunoQuestao.Where(x => x.PessoaId == PessoaId && x.Questao.AvaliacaoId == AvaliacaoId).Count() != 0) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             ViewBag.Mensagem = Mensagem;
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);
             ViewBag.avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == PessoaId).Nome;
@@ -163,16 +163,16 @@ namespace ECOE.Controllers
             ViewBag.ava = AvaliacaoId;
             ViewBag.cont = questoes.Count();
             return View(questoes);
-
         }
 
         [HttpPost]
-        public ActionResult avaliar( int AvaliacaoId, int Aluno,
+        public ActionResult avaliar(int AvaliacaoId, int Aluno,
             int? QuestaoId1, int? QuestaoId2, int? QuestaoId3, int? QuestaoId4, int? QuestaoId5, int? QuestaoId6, int? QuestaoId7, int? QuestaoId8, int? QuestaoId9, int? QuestaoId10,
             int? QuestaoId11, int? QuestaoId12, int? QuestaoId13, int? QuestaoId14, int? QuestaoId15, int? QuestaoId16, int? QuestaoId17, int? QuestaoId18, int? QuestaoId19, int? QuestaoId20,
             int? Radio1, int? Radio2, int? Radio3, int? Radio4, int? Radio5, int? Radio6, int? Radio7, int? Radio8, int? Radio9, int? Radio10,
             int? Radio11, int? Radio12, int? Radio13, int? Radio14, int? Radio15, int? Radio16, int? Radio17, int? Radio18, int? Radio19, int? Radio20)
         {
+            var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
             if (bd.AlunoQuestao.FirstOrDefault(x => x.QuestaoId == QuestaoId1 && x.PessoaId == Aluno) != null) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             if (Radio1 != null)
             {
@@ -181,7 +181,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio1),
                     QuestaoId = Convert.ToInt32(QuestaoId1),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -193,7 +194,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio2),
                     QuestaoId = Convert.ToInt32(QuestaoId2),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -205,7 +207,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio3),
                     QuestaoId = Convert.ToInt32(QuestaoId3),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -217,7 +220,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio4),
                     QuestaoId = Convert.ToInt32(QuestaoId4),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -229,7 +233,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio5),
                     QuestaoId = Convert.ToInt32(QuestaoId5),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -241,7 +246,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio6),
                     QuestaoId = Convert.ToInt32(QuestaoId6),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -253,7 +259,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio7),
                     QuestaoId = Convert.ToInt32(QuestaoId7),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -265,7 +272,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio8),
                     QuestaoId = Convert.ToInt32(QuestaoId8),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -277,7 +285,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio9),
                     QuestaoId = Convert.ToInt32(QuestaoId9),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -289,7 +298,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio10),
                     QuestaoId = Convert.ToInt32(QuestaoId10),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -301,7 +311,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio11),
                     QuestaoId = Convert.ToInt32(QuestaoId11),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -313,7 +324,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio12),
                     QuestaoId = Convert.ToInt32(QuestaoId12),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -325,7 +337,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio13),
                     QuestaoId = Convert.ToInt32(QuestaoId13),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -337,7 +350,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio14),
                     QuestaoId = Convert.ToInt32(QuestaoId14),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -349,7 +363,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio15),
                     QuestaoId = Convert.ToInt32(QuestaoId15),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -361,7 +376,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio16),
                     QuestaoId = Convert.ToInt32(QuestaoId16),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -373,7 +389,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio17),
                     QuestaoId = Convert.ToInt32(QuestaoId17),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -385,7 +402,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio18),
                     QuestaoId = Convert.ToInt32(QuestaoId18),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -397,7 +415,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio19),
                     QuestaoId = Convert.ToInt32(QuestaoId19),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -409,7 +428,8 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio20),
                     QuestaoId = Convert.ToInt32(QuestaoId20),
-                    PessoaId = Aluno
+                    PessoaId = Aluno,
+                    AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
                 bd.SaveChanges();
@@ -427,7 +447,7 @@ namespace ECOE.Controllers
             ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
             var notam = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId).Count() * 2;
             var nota = resultado.Select(x => x.Nota).Sum();
-            ViewBag.nota =Math.Round(Convert.ToDouble((nota / notam) * Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso)/Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso)),2);
+            ViewBag.nota = Math.Round(Convert.ToDouble((nota / notam) * Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso) / Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso)), 2);
             return View(resultado);
         }
 
@@ -439,7 +459,7 @@ namespace ECOE.Controllers
             ViewBag.Aluno = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno);
 
             var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == TurmaId).ToList();
-            var questoes = bd.AlunoQuestao.Where(x=> x.PessoaId == Aluno).ToList();
+            var questoes = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno).ToList();
             var alunoQuestaoGeral = questoes.Join(avaliacoes,
                                       questao => questao.Questao.AvaliacaoId,
                                       avaliacao => avaliacao.AvaliacaoId,
@@ -453,8 +473,8 @@ namespace ECOE.Controllers
             int cont = 0;
             foreach (var i in avaliacoes)
             {
-                var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId );
-                var alunoQuestao = alunoQuestaoGeral.Where(x => x.Questao.AvaliacaoId == avaliacao.AvaliacaoId );
+                var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId);
+                var alunoQuestao = alunoQuestaoGeral.Where(x => x.Questao.AvaliacaoId == avaliacao.AvaliacaoId);
                 notaMax = alunoQuestao.Count() * 2;
                 if (notaMax > 0)
                 {

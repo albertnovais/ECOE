@@ -57,6 +57,7 @@ namespace ECOE.Controllers
                 return RedirectToAction("LoginAluno", "Login", new { mensagem = 2 });
             }
             FormsAuthentication.SetAuthCookie(u.PessoaId.ToString(), true);
+            
             return RedirectToAction("Index", "Home");
 
         }

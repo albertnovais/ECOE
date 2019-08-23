@@ -30,13 +30,14 @@ namespace ECOE.Models
         public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
         public Nullable<int> DataAvaliacao { get; set; }
+        public Nullable<bool> Dupla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoAvaliacao> AlunoAvaliacao { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
         public virtual Status Status { get; set; }
         public virtual Turma Turma { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Questao> Questao { get; set; }
-        public virtual Pessoa Pessoa { get; set; }
     }
 }

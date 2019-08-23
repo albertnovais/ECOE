@@ -18,8 +18,10 @@ namespace ECOE.Models
         public System.DateTime DataHora { get; set; }
         public double Nota { get; set; }
         public int QuestaoId { get; set; }
+        public int AvaliadorId { get; set; }
     
-        public virtual Questao Questao { get; set; }
         public virtual Pessoa Pessoa { get; set; }
+        public virtual Pessoa Pessoa1 { get; set; }
+        public virtual Questao Questao { get; set; }
     }
 }

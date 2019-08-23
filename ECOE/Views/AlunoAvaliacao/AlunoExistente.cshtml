@@ -153,7 +153,7 @@
                                             <td class="text-right">
                                                 @*@if(item.Pessoa.AlunoQuestao.Where(x=> x.Questao.AvaliacaoId == avaliacao && x.PessoaId == item.PessoaId).ToList().Count()<3)
                         {*@
-                                                <a title="Avaliar" href="@Url.Action("Avaliar", "AlunoAvaliacao", new { PessoaId = item.PessoaId, AvaliacaoId = avaliacao })" class="btn btn-outline-primary btn-just-icon like" style="margin: 0 0 0 0"> <i class="fas fa-plus"></i></a>
+                                                <a title="Avaliar" href="@Url.Action("Avaliar", "AlunoAvaliacao", new { PessoaId = item.PessoaId, AvaliacaoId = avaliacao })" class="btn btn-outline-azul btn-just-icon like" style="margin: 0 0 0 0"> <i class="fas fa-plus"></i></a>
                                                 @*}*@
                                                 @*<a title="Editar" href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">create</i></a>
                         <a title="Remover" href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>*@

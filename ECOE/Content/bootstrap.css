@@ -5,34 +5,36 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-  --blue: #007bff;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #dc3545;
-  --orange: #fd7e14;
-  --yellow: #ffc107;
-  --green: #28a745;
-  --teal: #20c997;
-  --cyan: #17a2b8;
-  --white: #fff;
-  --gray: #6c757d;
-  --gray-dark: #343a40;
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --success: #28a745;
-  --info: #17a2b8;
-  --warning: #ffc107;
-  --danger: #dc3545;
-  --light: #f8f9fa;
-  --dark: #343a40;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --azul: #193762;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --verde: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 *,
@@ -1182,59 +1184,59 @@ pre code {
     max-width: 100%;
   }
   .col-lg-1 {
-    -ms-flex: 0 0 8.333333%;
-    flex: 0 0 8.333333%;
-    max-width: 8.333333%;
+    -ms-flex: 0 0 7.333333%;
+    flex: 0 0 7.333333%;
+    max-width: 7.333333%;
   }
   .col-lg-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
+    -ms-flex: 0 0 15.666667%;
+    flex: 0 0 15.666667%;
+    max-width: 15.666667%;
   }
   .col-lg-3 {
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 25%;
+    -ms-flex: 0 0 24%;
+    flex: 0 0 24%;
+    max-width: 24%;
   }
   .col-lg-4 {
-    -ms-flex: 0 0 33.333333%;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
+    -ms-flex: 0 0 32.333333%;
+    flex: 0 0 32.333333%;
+    max-width: 32.333333%;
   }
   .col-lg-5 {
-    -ms-flex: 0 0 41.666667%;
-    flex: 0 0 41.666667%;
-    max-width: 41.666667%;
+    -ms-flex: 0 0 40.666667%;
+    flex: 0 0 40.666667%;
+    max-width: 40.666667%;
   }
   .col-lg-6 {
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
+    -ms-flex: 0 0 49%;
+    flex: 0 0 49%;
+    max-width: 49%;
   }
   .col-lg-7 {
-    -ms-flex: 0 0 58.333333%;
-    flex: 0 0 58.333333%;
-    max-width: 58.333333%;
+    -ms-flex: 0 0 57.333333%;
+    flex: 0 0 57.333333%;
+    max-width: 57.333333%;
   }
   .col-lg-8 {
-    -ms-flex: 0 0 66.666667%;
-    flex: 0 0 66.666667%;
-    max-width: 66.666667%;
+    -ms-flex: 0 0 65.666667%;
+    flex: 0 0 65.666667%;
+    max-width: 65.666667%;
   }
   .col-lg-9 {
-    -ms-flex: 0 0 75%;
-    flex: 0 0 75%;
-    max-width: 75%;
+    -ms-flex: 0 0 76%;
+    flex: 0 0 76%;
+    max-width: 76%;
   }
   .col-lg-10 {
-    -ms-flex: 0 0 83.333333%;
-    flex: 0 0 83.333333%;
-    max-width: 83.333333%;
+    -ms-flex: 0 0 82.333333%;
+    flex: 0 0 82.333333%;
+    max-width: 82.333333%;
   }
   .col-lg-11 {
-    -ms-flex: 0 0 91.666667%;
-    flex: 0 0 91.666667%;
-    max-width: 91.666667%;
+    -ms-flex: 0 0 90.666667%;
+    flex: 0 0 90.666667%;
+    max-width: 90.666667%;
   }
   .col-lg-12 {
     -ms-flex: 0 0 100%;
@@ -1589,6 +1591,30 @@ pre code {
 .table-hover .table-primary:hover > th {
   background-color: #9fcdff;
 }
+
+.table-azul,
+.table-azul > th,
+.table-azul > td {
+    background-color: #b8daff;
+}
+
+    .table-azul th,
+    .table-azul td,
+    .table-azul thead th,
+    .table-azul tbody + tbody {
+        border-color: #7abaff;
+    }
+
+.table-hover .table-azul:hover {
+    background-color: #9fcdff;
+}
+
+    .table-hover .table-azul:hover > td,
+    .table-hover .table-azul7:hover > th {
+        background-color: #9fcdff;
+    }
+
+
 
 .table-secondary,
 .table-secondary > th,
@@ -2453,6 +2479,41 @@ fieldset:disabled a.btn {
   box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
 }
 
+
+.btn-azul {
+    color: #fff;
+    background-color: #193762;
+    border-color: #193762;
+}
+
+    .btn-azul:hover {
+        color: #fff;
+        background-color: #193762;
+        border-color: #193762;
+    }
+
+    .btn-azul:focus, .btn-azul.focus {
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    }
+
+    .btn-azul.disabled, .btn-azul:disabled {
+        color: #fff;
+        background-color: #193762;
+        border-color: #193762;
+    }
+
+    .btn-azul:not(:disabled):not(.disabled):active, .btn-azul:not(:disabled):not(.disabled).active,
+    .show > .btn-azul.dropdown-toggle {
+        color: #fff;
+        background-color: #193762;
+        border-color: #193762;
+    }
+
+        .btn-azul:not(:disabled):not(.disabled):active:focus, .btn-azul:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-azul.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+
 .btn-secondary {
   color: #fff;
   background-color: #6c757d;
@@ -2722,6 +2783,39 @@ fieldset:disabled a.btn {
 .show > .btn-outline-primary.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
+
+
+.btn-outline-azul {
+    color: #193762;
+    border-color: #193762;
+}
+
+    .btn-outline-azul:hover {
+        color: #fff;
+        background-color: #193762;
+        border-color: #193762;
+    }
+
+    .btn-outline-azul:focus, .btn-outline-azul.focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-outline-azul.disabled, .btn-outline-azul:disabled {
+        color: #193762;
+        background-color: transparent;
+    }
+
+    .btn-outline-azul:not(:disabled):not(.disabled):active, .btn-outline-azul:not(:disabled):not(.disabled).active,
+    .show > .btn-outline-azul.dropdown-toggle {
+        color: #fff;
+        background-color: #193762;
+        border-color: #193762;
+    }
+
+        .btn-outline-azul:not(:disabled):not(.disabled):active:focus, .btn-outline-azul:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-outline-azul.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+        }
 
 .btn-outline-secondary {
   color: #6c757d;
@@ -4978,6 +5072,21 @@ a.badge-primary:focus, a.badge-primary.focus {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 
+.badge-azul {
+    color: #fff;
+    background-color: #193762;
+}
+
+a.badge-azul:hover, a.badge-azul:focus {
+    color: #fff;
+    background-color: #0062cc;
+}
+
+a.badge-azul:focus, a.badge-azul.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
 .badge-secondary {
   color: #fff;
   background-color: #6c757d;
@@ -5143,6 +5252,20 @@ a.badge-dark:focus, a.badge-dark.focus {
 .alert-primary .alert-link {
   color: #002752;
 }
+
+.alert-azul {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+    .alert-azul hr {
+        border-top-color: #9fcdff;
+    }
+
+    .alert-azul .alert-link {
+        color: #002752;
+    }
 
 .alert-secondary {
   color: #383d41;
@@ -5524,6 +5647,23 @@ a.badge-dark:focus, a.badge-dark.focus {
   background-color: #004085;
   border-color: #004085;
 }
+
+.list-group-item-azul {
+    color: #004085;
+    background-color: #b8daff;
+}
+
+    .list-group-item-azul.list-group-item-action:hover, .list-group-item-azul.list-group-item-action:focus {
+        color: #004085;
+        background-color: #9fcdff;
+    }
+
+    .list-group-item-azul.list-group-item-action.active {
+        color: #fff;
+        background-color: #004085;
+        border-color: #004085;
+    }
+
 
 .list-group-item-secondary {
   color: #383d41;
@@ -6517,6 +6657,16 @@ button.bg-primary:focus {
   background-color: #0062cc !important;
 }
 
+.bg-azul {
+    background-color: #193762 !important;
+}
+
+a.bg-azul:hover, a.bg-azul:focus,
+button.bg-azul:hover,
+button.bg-azul:focus {
+    background-color: #0062cc !important;
+}
+
 .bg-secondary {
   background-color: #6c757d !important;
 }
@@ -6637,6 +6787,10 @@ button.bg-dark:focus {
 
 .border-primary {
   border-color: #007bff !important;
+}
+
+.border-azul {
+    border-color: #193762 !important;
 }
 
 .border-secondary {
@@ -9854,6 +10008,14 @@ button.bg-dark:focus {
 
 a.text-primary:hover, a.text-primary:focus {
   color: #0056b3 !important;
+}
+
+.text-azul {
+    color: #193762 !important;
+}
+
+a.text-azul:hover, a.text-azul:focus {
+    color: #0056b3 !important;
 }
 
 .text-secondary {

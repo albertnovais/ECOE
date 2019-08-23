@@ -21,46 +21,50 @@
 <div class="row" style="margin-top:2%;">
     @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
     {
-        <div class="card col-lg-4" style="padding: 0; margin:0;">
+    <div class="card col-lg-4 m-1" style="padding: 0; ">
 
-            <div class="card-header">
-                <b>
-                    Novo Aluno
-                </b>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">http://ecoefadba-001-site1.btempurl.com/Pessoa/CreateAluno?CoordId=<span>@Convert.ToInt32(HttpContext.Current.User.Identity.Name)</span></p>
-                <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
-                 font-family:Arial; ">Casdatrar</a>
-            </div>
+        <div class="card-header">
+            <b>
+                Novo Aluno
+            </b>
         </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">http://ecoefadba-001-site1.btempurl.com/Pessoa/CreateAluno?CoordId=<span>@Convert.ToInt32(HttpContext.Current.User.Identity.Name)</span></p>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+            <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
+                 font-family:Arial; ">Casdatrar</a>
+        </div>
+    </div>
     }
 
     @foreach (var item in Model)
     {
 
-        <div class="card col-lg-4" style="padding: 0; margin:0;">
-            <div class="card-header">
-                <b>
-                    @Html.DisplayFor(modelItem => item.Turma.Nome)
-                </b>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Nome)</p>
-                @if (HttpContext.Current.User.IsInRole("Aluno"))
-                {
-                    <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
+<div class="card col-lg-4 m-1" style="padding: 0;">
+    <div class="card-header">
+        <b>
+            @Html.DisplayFor(modelItem => item.Turma.Nome)
+        </b>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.Nome)</p>
+       
+    </div>
+    <div class="card-footer bg-transparent border-0" >
+        @if (HttpContext.Current.User.IsInRole("Aluno"))
+        {
+            <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-azul" style="font-weight:bold;
                                       font-family:Arial; ">Nota</a>
-                }
-                else
-                {
-                    <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
-                           font-family:Arial; ">Avaliar</a>
-                }
-            </div>
-        </div>
+        }
+        else
+        {
+            <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-azul" style="font-weight:bold; font-family:Arial; ">Avaliar</a>
+        }
+    </div>
+</div>
 
     }
 

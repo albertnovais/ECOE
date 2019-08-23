@@ -20,8 +20,8 @@ namespace ECOE.Models
         public System.DateTime DataHora { get; set; }
         public string Observecao { get; set; }
     
-        public virtual Turma Turma { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual Pessoa Pessoa1 { get; set; }
+        public virtual Turma Turma { get; set; }
     }
 }
