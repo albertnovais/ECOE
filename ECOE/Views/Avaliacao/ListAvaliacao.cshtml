@@ -64,7 +64,7 @@
                                     <tr>
                                         <th>Caso</th>
                                         <th>Dupla</th>
-                                        <th>Data</th>
+                                        @*<th>Data</th>*@
                                         <th>Cadastrou</th>
                                         <th>Turma</th>
                                         <th class="disabled-sorting text-center">Ações</th>
@@ -78,17 +78,17 @@
                                                 @Html.DisplayFor(modelItem => item.Nome)
                                             </td>
                                             <td>
-                                                @if (item.dupla == true)
+                                                @if (item.Dupla == true)
                                                 {
                                                     <span>Sim</span>
                                                 }
-                                                @if (item.dupla == false){
+                                                @if (item.Dupla == false){
                                                     <span > Não </span >
                                                 }
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @Html.DisplayFor(modelItem => item.DataAvaliacao)
-                                            </td>
+                                            </td>*@
                                             <td> @Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Turma.Nome)</td>
                                             <td class="text-right">

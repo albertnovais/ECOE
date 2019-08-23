@@ -57,6 +57,22 @@
                             </a>
                         </li>
                     }
+                    @if (HttpContext.Current.User.IsInRole("Coordenador") || HttpContext.Current.User.IsInRole("Adm"))
+                    {
+                        <li class="nav-item ">
+                            <a class="nav-link" href="@Url.Action("ListTurma", "Turma")">
+                                Turma
+                            </a>
+                        </li>
+                    }
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item ">
+                            <a class="nav-link" href="@Url.Action("ListAvaliacao", "Avaliacao")">
+                                Avaliações
+                            </a>
+                        </li>
+                    }
                 </ul>
                 <div class="form-inline mt-2 mt-md-0">
 
@@ -135,11 +151,10 @@
     <script>
         $(document).ready(function () {
             $('#datatables').DataTable({
-                "scrollX": true,
-               dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
+                    "scrollX": true,
+                //       dom: 'Blfrtip',
+                      "dom": '<"top"fB>rt<"bottom"il>p<"clear">',
+              
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sProcessing": "A processar...",
@@ -160,7 +175,7 @@
                     "oAria": {
                         "sSortAscending": ": Ordenar colunas de forma ascendente",
                         "sSortDescending": ": Ordenar colunas de forma descendente"
-                    }
+                    },
                 }
             }
             )

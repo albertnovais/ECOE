@@ -58,6 +58,7 @@ namespace ECOE.Controllers
         [HttpPost]
         public ActionResult AlunoExistente(string RA1, string RA2, int AvaliacaoId, int TurmaId)
         {
+            var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
             //var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId);
             //if (avaliacao.dupla == true)
             //{
@@ -79,12 +80,13 @@ namespace ECOE.Controllers
                 }
                 else
                 {
-                    //if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa.PessoaId).ToList().Count() > 0)
-                    //{
-                    //    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                    //}
+                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId == pessoa.PessoaId).ToList().Count() != 0)
+                    {
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                    }
                     return RedirectToAction("Avaliar", new { pessoa.PessoaId, AvaliacaoId });
                 }
+               
                 AdicionarAlunoAvaliacao(AvaliacaoId, pessoa.PessoaId);
                 return RedirectToAction("Avaliar", new { pessoa, AvaliacaoId });
             }
@@ -153,6 +155,11 @@ namespace ECOE.Controllers
         [Authorize]
         public ActionResult avaliar(int PessoaId, int AvaliacaoId, string Mensagem)
         {
+            var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
+            if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId== PessoaId).ToList().Count() != 0)
+            {
+                return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+            }
             //if (bd.AlunoQuestao.Where(x => x.PessoaId == PessoaId && x.Questao.AvaliacaoId == AvaliacaoId).Count() != 0) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             ViewBag.Mensagem = Mensagem;
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);

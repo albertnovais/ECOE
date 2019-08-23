@@ -56,12 +56,12 @@
     <div class="card-footer bg-transparent border-0" >
         @if (HttpContext.Current.User.IsInRole("Aluno"))
         {
-            <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-azul" style="font-weight:bold;
+            <a href="@Url.Action("ResultadoIndividual", "AlunoAvaliacao", new {aluno = Convert.ToInt32(HttpContext.Current.User.Identity.Name), AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold;
                                       font-family:Arial; ">Nota</a>
         }
         else
         {
-            <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-azul" style="font-weight:bold; font-family:Arial; ">Avaliar</a>
+            <a href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn btn-primary" style="font-weight:bold; font-family:Arial; ">Avaliar</a>
         }
     </div>
 </div>
