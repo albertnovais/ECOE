@@ -40,98 +40,83 @@
             <i class="material-icons">close</i>
         </button>
         <span style="font-size: 20px; text-align:center;">Cadastro efetuado com sucesso! Avalie o aluno.</span>
-
     </div>
 }
-@*<div class="col-md-offset-2 col-md-12" style="margin-top:2%; text-align:right;">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Exibir descrição do caso
-        </button>
-    </div>*@
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
 {
     @Html.AntiForgeryToken()
-    <div class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-primary card-header-icon">
-                            <div class="card-icon">
-                                <i class="material-icons">person</i>
-                            </div>
-                            <h4 class="card-title" style="font-weight:bold;">@ViewBag.avaliado</h4>
-                        </div>
-                        <div class="toolbar">
-                            <div class="col-md-offset-2 col-md-12" style="margin-top:2%; text-align:right;">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                    Exibir descrição do caso
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <table class=" display table-striped table table-sm" style="width:100%">
-                                <thead class="thead-dark" style="text-align:center;">
-                                    <tr>
-                                        <th>Questões</th>
-                                        <th>Não Realizou</th>
-                                        <th>Realizou Parcialmente</th>
-                                        <th>Realizou Bem</th>
-                                    </tr>
-                                </thead>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.Raw(item.Descricao)
-                                            @{
-                                                qid = "QuestaoId" + (c + 1);
-                                                cont *= 0;
-                                            }
-                                            <input type="hidden" name="@qid" value="@item.QuestaoId" />
-                                            <input type="hidden" name="QuestaoId" value="@item.QuestaoId" />
-                                        </td>
-                                        @for (int j = 0; j < 3; j++)
-                                        {
-                                            valorRadio = cont % 3;
-                                            cont++;
-                                            nomeRadio = "Radio" + (c + 1);
-                                            var label = geral;
-                                            <td>
-                                                <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input" onchange="valid()" />
-                                                @if (valorRadio == 0)
-                                                {
-                                                    <label for="@label">Não Realizou </label>
-                                                }
-                                                @if (valorRadio == 1)
-                                                {
-                                                    <label for="@label" ite> Parcialmente </label>
-                                                }
-                                                @if (valorRadio == 2)
-                                                {
-                                                    <label for="@label">Realizou Bem </label>
-                                                }
-                                            </td>
-                                            geral++;
-                                        }
-                                    </tr>
-                                    c++;
+   
+    <div class="card">
+        <div class="card-header">
+            <div class="row p-1">
+                <h4 class="mr-auto" style="font-weight:bold;">@ViewBag.avaliado</h4>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Exibir descrição do caso
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class=" display table-striped table table-sm" style="width:100%">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Questões</th>
+                        <th>Não Realizou</th>
+                        <th>Realizou Parcialmente</th>
+                        <th>Realizou Bem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.Raw(item.Descricao)
+                                @{
+                                    qid = "QuestaoId" + (c + 1);
+                                    cont *= 0;
                                 }
-                            </table>
-                            <input type="hidden" name="Aluno" value="@ViewBag.aluno">
-                            <input type="hidden" name="AvaliacaoId" value="@ViewBag.ava">
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-12">
-                                    <input id="enviar" disabled="disabled" type="submit" value="Salvar" name="btn-salvar" class="btn btn-primary" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                <input type="hidden" name="@qid" value="@item.QuestaoId" />
+                                <input type="hidden" name="QuestaoId" value="@item.QuestaoId" />
+                            </td>
+                            @for (int j = 0; j < 3; j++)
+                            {
+                                valorRadio = cont % 3;
+                                cont++;
+                                nomeRadio = "Radio" + (c + 1);
+                                var label = geral;
+                                <td>
+                                    <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input" onchange="valid()" />
+                                    @if (valorRadio == 0)
+                                    {
+                                        <label for="@label">Não Realizou </label>
+                                    }
+                                    @if (valorRadio == 1)
+                                    {
+                                        <label for="@label" ite> Parcialmente </label>
+                                    }
+                                    @if (valorRadio == 2)
+                                    {
+                                        <label for="@label">Realizou Bem </label>
+                                    }
+                                </td>
+                                geral++;
+                            }
+                        </tr>
+                        c++;
+                    }
+                </tbody>
+            </table>
+            <input type="hidden" name="Aluno" value="@ViewBag.aluno">
+            <input type="hidden" name="AvaliacaoId" value="@ViewBag.ava">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input id="enviar" disabled="disabled" type="submit" value="Salvar" name="btn-salvar" class="btn btn-primary" />
                 </div>
             </div>
         </div>
     </div>
+
 }
 
 @*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))

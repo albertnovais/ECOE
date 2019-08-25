@@ -25,22 +25,22 @@
     <div class="modal-dialog" role="document">
         @using (Html.BeginForm("RemovePessoa", "Pessoa", FormMethod.Post))
         {
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Remover</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Remover</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Realmente deseja remover
+                </div>
+                <input type="hidden" id="did" name="id" value="" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Remover" class="btn btn-danger">
+                </div>
             </div>
-            <div class="modal-body">
-                Realmente deseja remover
-            </div>
-            <input type="hidden" id="did" name="id" value="" />
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <input type="submit" value="Remover" class="btn btn-danger">
-            </div>
-        </div>
         }
     </div>
 </div>
@@ -49,13 +49,11 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="row">
-            <h4 class="mr-auto" style="font-weight:bold;">Usuários</h4>
-            <div class="mt-2 mt-md-0">
-                <a href="CreatePessoa" class=" btn btn-primary">
-                    Novo Usuário
-                </a>
-            </div>
+        <div class="row p-1">
+            <h4 class="mr-auto" style="font-weight:bold;">Lista de usuários</h4>
+            <a href="CreatePessoa" class=" btn btn-primary">
+                Novo Usuário
+            </a>
         </div>
     </div>
     <div class="card-body">
@@ -79,8 +77,8 @@
                         <td>@Html.DisplayFor(modelItem => item.RA)</td>
                         <td>@Html.DisplayFor(modelItem => item.Acesso.Nome)</td>
                         <td class="text-right">
-                           <a href="@Url.Action("EditPessoa", new { pessoaId = item.PessoaId })" title="Editar" class="like" ><i class="fas fa-edit text-warning"></i></a>
-                           <a title="Remover" data-toggle="modal" data-target="#exampleModal" id="remo" onclick="myFunction('@item.PessoaId')" class="like" ><i class="fas fa-trash-alt text-danger"></i></a>
+                            <a href="@Url.Action("EditPessoa", new { pessoaId = item.PessoaId })" title="Editar" class="like"><i class="fas fa-edit text-warning"></i></a>
+                            <a title="Remover" data-toggle="modal" data-target="#exampleModal" id="remo" onclick="myFunction('@item.PessoaId')" class="like"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
                 }

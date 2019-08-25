@@ -24,10 +24,10 @@
     var nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == id).Nome;
 }
 
-<body class="d-flex flex-column h-100" style="background-color:whitesmoke">
+<body class="d-flex flex-column h-100">
 
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-azul">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
             <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                 <img src="~/IMG/logo-white-fadba.png" style="width:100px; height:auto" />
             </a>
@@ -80,7 +80,7 @@
                         olá,
                         <a href="#" class="font-weight-bolder text-light" style="text-decoration:none">
                             @nome
-                        </a> seja bem vindo(a)!
+                        </a> seja bem vindo(a) ao ECOE!
                     </span>
 
                     <a class="btn btn-outline-light ml-2" href="@Url.Action("Logoff", "Login")">
@@ -93,7 +93,7 @@
 
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0 mt-5">
-        <div class="container mt-5">
+        <div class="container mt-3">
             @RenderBody()
         </div>
     </main>
