@@ -17,28 +17,25 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <i class="material-icons">close</i>
         </button>
-
-
+        @if (Mensagem == "2")
+        {
+            <span style="font-size: 20px; text-align:center;">@ViewBag.Mensagem2</span>
+        }
         @if (Mensagem == "3")
         {
             <span style="font-size: 20px; text-align:center;">Aluno Já foi avaliado nesse Ecoe</span>
         }
         @if (Mensagem == "4")
         {
-            <span style="font-size: 20px; text-align:center;">Este RA não pertence a um aluno</span>
+            <span style="font-size: 20px; text-align:center;">@ViewBag.Mensagem2</span>
         }
-
-
     </div>
 }
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
-
     <div class="form-horizontal" style="margin-top:3%;">
-
         <div class="col-md-12">
             <div class="card ">
                 @*@(dupla == true){
@@ -70,10 +67,7 @@
                     </div>
                     }@if (dupla == false)
                     {*@
-                <div class="card-header card-header-primary card-header-icon">
-                    <div class="card-icon">
-                        <i class="material-icons">person</i>
-                    </div>
+                <div class="card-header">
                     <h4 class="card-title" style="font-weight:bold;">Insira os RA's dos alunos</h4>
                 </div>
                 <div class="card-body">
@@ -97,11 +91,8 @@
                                 <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
                             </a>
                             <input type="submit" value="Avançar" class="btn btn-primary ml-5 mr-2" style="font-weight:bold; font-family:Arial;" />
-
                         </div>
-
                     </row>
-
                 </div>
                 @*}*@
             </div>
@@ -120,7 +111,6 @@
                         <h4 class="card-title text-center" style="font-weight:bold;">@ViewBag.turmaNome </h4>
                         <h5 class="card-title text-center" style="font-weight:bold;">@Model.Count() Alunos matriculados na Turma </h5>
                         <h5 class="card-title text-center" style="font-weight:bold;">@Model.Where(x => x.Pessoa.AlunoQuestao.Where(y => y.Questao.AvaliacaoId == avaliacao).ToList().Count() > 0).Count() Alunos Avaliados </h5>
-
                     </div>
                     <div class="card-body">
                         <div class="toolbar">
@@ -158,7 +148,6 @@
                                             </td>
                                         </tr>
                                     }
-
                                 </tbody>
                             </table>
                         </div>

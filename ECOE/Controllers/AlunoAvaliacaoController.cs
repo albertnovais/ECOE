@@ -42,11 +42,12 @@ namespace ECOE.Controllers
         }
 
         [Authorize]
-        public ActionResult AlunoExistente(int AvaliacaoId, string Mensagem)
+        public ActionResult AlunoExistente(int AvaliacaoId, string Mensagem, string Mensagem2)
         {
             ViewBag.Mensagem = Mensagem;
             var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId);
             var turma = bd.Turma.FirstOrDefault(x => x.TurmaId == avaliacao.TurmaId);
+            ViewBag.Mensagem2 = Mensagem2;
             ViewBag.turmaNome = turma.Nome;
             ViewBag.turma = turma.TurmaId;
             ViewBag.avaliacao = AvaliacaoId;
@@ -59,69 +60,91 @@ namespace ECOE.Controllers
         public ActionResult AlunoExistente(string RA1, string RA2, int AvaliacaoId, int TurmaId)
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
-            //var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId);
-            //if (avaliacao.dupla == true)
-            //{
-            var pessoa = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
-            if (pessoa == null)
+            var avaliacao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId);
+            var pessoa1 = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
+            if (avaliacao.Dupla == false)
             {
-                string Mensagem = "1";
-                return RedirectToAction("NovoAluno", new { AvaliacaoId, RA1, Mensagem });
-            }
-            else if (pessoa.AcessoId != 2)
-            {
-                return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
-            }
-            else
-            {
-                if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId && x.TurmaId == TurmaId) == null)
+                if (pessoa1 == null)
                 {
-                    AdicionarAlunoTurma(TurmaId, pessoa.PessoaId);
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA1 + " Não foi cadastrado" });
+                }
+                if (pessoa1.AcessoId != 2)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
                 }
                 else
                 {
-                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId == pessoa.PessoaId).ToList().Count() != 0)
+                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
+                    {
+                        AdicionarAlunoTurma(TurmaId, pessoa1.PessoaId);
+                    }
+                    else
+                    {
+                        if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId == pessoa1.PessoaId).ToList().Count() != 0)
+                        {
+                            return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                        }
+                        return RedirectToAction("Avaliar", new { pessoa1.PessoaId, AvaliacaoId });
+                    }
+
+                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
+                    return RedirectToAction("Avaliar", new { pessoa1, AvaliacaoId });
+                }
+            }
+            else
+            {
+                var pessoa2 = bd.Pessoa.FirstOrDefault(x => x.RA == RA2);
+                if (pessoa1 == null && pessoa2 == null)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Os alunos com RA's: " + RA1 + " e " + RA2 + " não foram cadastrados" });
+                }
+                else if (pessoa1 == null)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA1 + " não foi cadastrado" });
+                }
+                else if (pessoa2 == null)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA2 + " não foi cadastrado" });
+                }
+                else if (pessoa1.AcessoId != 2 && pessoa2.AcessoId != 2)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "Os RA's: " + RA1 + " e " + RA2 + " não pertencem a alunos" });
+                }
+                else if (pessoa1.AcessoId != 2)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "O RA: " + RA1 + " não pergtence a um aluno" });
+                }
+                else if (pessoa2.AcessoId != 2)
+                {
+                    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "O RA: " + RA2 + " não pergtence a um aluno" });
+                }
+                else
+                {
+                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
+                    {
+                        AdicionarAlunoTurma(TurmaId, pessoa1.PessoaId);
+                    }
+                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa2.PessoaId && x.TurmaId == TurmaId) == null)
+                    {
+                        AdicionarAlunoTurma(TurmaId, pessoa2.PessoaId);
+                    }
+                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa1.PessoaId).ToList().Count() > 0 && bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count() > 0)
                     {
                         return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
                     }
-                    return RedirectToAction("Avaliar", new { pessoa.PessoaId, AvaliacaoId });
+                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa1.PessoaId).ToList().Count() > 0)
+                    {
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                    }
+                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count() > 0)
+                    {
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                    }
+                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
+                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa2.PessoaId);
+                    return RedirectToAction("Avaliar", new { pessoa1 = pessoa1.PessoaId, pessoa2 = pessoa2.PessoaId, AvaliacaoId });
                 }
-               
-                AdicionarAlunoAvaliacao(AvaliacaoId, pessoa.PessoaId);
-                return RedirectToAction("Avaliar", new { pessoa, AvaliacaoId });
             }
-
-            //else
-            //{
-            //    var pessoa1 = bd.Pessoa.FirstOrDefault(x => x.RA == RA1);
-            //    var pessoa2 = bd.Pessoa.FirstOrDefault(x => x.RA == RA2);
-            //    if (pessoa1 == null)
-            //    {
-            //        string Mensagem = "1";
-            //        return RedirectToAction("NovoAluno", new { AvaliacaoId, RA1, Mensagem });
-            //    }
-            //    else if (pessoa.AcessoId != 2)
-            //    {
-            //        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
-            //    }
-            //    else
-            //    {
-            //        if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId && x.TurmaId == TurmaId) == null)
-            //        {
-            //            AdicionarAlunoTurma(TurmaId, pessoa.PessoaId);
-            //        }
-            //        else
-            //        {
-            //            if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa.PessoaId).ToList().Count() > 0)
-            //            {
-            //                return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-            //            }
-            //            return RedirectToAction("Avaliar", new { pessoa.PessoaId, AvaliacaoId });
-            //        }
-            //        AdicionarAlunoAvaliacao(AvaliacaoId, pessoa.PessoaId);
-            //        return RedirectToAction("Avaliar", new { pessoa, AvaliacaoId });
-            //    }
-            //}
 
         }
         [Authorize]
@@ -153,45 +176,63 @@ namespace ECOE.Controllers
         }
 
         [Authorize]
-        public ActionResult avaliar(int PessoaId, int AvaliacaoId, string Mensagem)
+        public ActionResult Avaliar(int? Pessoa1, int? Pessoa2, int AvaliacaoId, string Mensagem)
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
-            if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId== PessoaId).ToList().Count() != 0)
+            if (bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Dupla == true)
             {
                 return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             }
             //if (bd.AlunoQuestao.Where(x => x.PessoaId == PessoaId && x.Questao.AvaliacaoId == AvaliacaoId).Count() != 0) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             ViewBag.Mensagem = Mensagem;
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);
-            ViewBag.avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == PessoaId).Nome;
+            var avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa1).Nome;
+            ViewBag.aluno1 = Pessoa1;
+            if (Pessoa2 != null)
+            {
+                ViewBag.avaliado = avaliado +" "+  bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa2).Nome;
+                ViewBag.aluno2 = Pessoa2;
+            }
+            else
+            {
+                ViewBag.avaliado = avaliado;
+            }
             ViewBag.q = questoes.Select(x => x.Descricao);
             ViewBag.descricao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Descricao;
-            ViewBag.aluno = PessoaId;
             ViewBag.ava = AvaliacaoId;
             ViewBag.cont = questoes.Count();
             return View(questoes);
         }
 
         [HttpPost]
-        public ActionResult avaliar(int AvaliacaoId, int Aluno,
+        public ActionResult Avaliar(int AvaliacaoId, int Aluno1, int? Aluno2,
             int? QuestaoId1, int? QuestaoId2, int? QuestaoId3, int? QuestaoId4, int? QuestaoId5, int? QuestaoId6, int? QuestaoId7, int? QuestaoId8, int? QuestaoId9, int? QuestaoId10,
             int? QuestaoId11, int? QuestaoId12, int? QuestaoId13, int? QuestaoId14, int? QuestaoId15, int? QuestaoId16, int? QuestaoId17, int? QuestaoId18, int? QuestaoId19, int? QuestaoId20,
             int? Radio1, int? Radio2, int? Radio3, int? Radio4, int? Radio5, int? Radio6, int? Radio7, int? Radio8, int? Radio9, int? Radio10,
             int? Radio11, int? Radio12, int? Radio13, int? Radio14, int? Radio15, int? Radio16, int? Radio17, int? Radio18, int? Radio19, int? Radio20)
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
-            if (bd.AlunoQuestao.FirstOrDefault(x => x.QuestaoId == QuestaoId1 && x.PessoaId == Aluno) != null) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+            if (bd.AlunoQuestao.FirstOrDefault(x => x.QuestaoId == QuestaoId1 && x.PessoaId == Aluno1) != null) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             if (Radio1 != null)
             {
-                AlunoQuestao aluno = new AlunoQuestao
+                AlunoQuestao aluno1 = new AlunoQuestao
                 {
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio1),
                     QuestaoId = Convert.ToInt32(QuestaoId1),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
-                bd.AlunoQuestao.Add(aluno);
+                bd.AlunoQuestao.Add(aluno1);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio1),
+                    QuestaoId = Convert.ToInt32(QuestaoId1),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio2 != null)
@@ -201,10 +242,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio2),
                     QuestaoId = Convert.ToInt32(QuestaoId2),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio2),
+                    QuestaoId = Convert.ToInt32(QuestaoId2),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio3 != null)
@@ -214,10 +264,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio3),
                     QuestaoId = Convert.ToInt32(QuestaoId3),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio3),
+                    QuestaoId = Convert.ToInt32(QuestaoId3),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio4 != null)
@@ -227,10 +286,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio4),
                     QuestaoId = Convert.ToInt32(QuestaoId4),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio4),
+                    QuestaoId = Convert.ToInt32(QuestaoId4),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio5 != null)
@@ -240,10 +308,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio5),
                     QuestaoId = Convert.ToInt32(QuestaoId5),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio5),
+                    QuestaoId = Convert.ToInt32(QuestaoId5),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio6 != null)
@@ -253,10 +330,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio6),
                     QuestaoId = Convert.ToInt32(QuestaoId6),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio6),
+                    QuestaoId = Convert.ToInt32(QuestaoId6),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio7 != null)
@@ -266,10 +352,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio7),
                     QuestaoId = Convert.ToInt32(QuestaoId7),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio7),
+                    QuestaoId = Convert.ToInt32(QuestaoId7),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio8 != null)
@@ -279,10 +374,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio8),
                     QuestaoId = Convert.ToInt32(QuestaoId8),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio8),
+                    QuestaoId = Convert.ToInt32(QuestaoId8),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio9 != null)
@@ -292,10 +396,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio9),
                     QuestaoId = Convert.ToInt32(QuestaoId9),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio9),
+                    QuestaoId = Convert.ToInt32(QuestaoId9),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio10 != null)
@@ -305,10 +418,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio10),
                     QuestaoId = Convert.ToInt32(QuestaoId10),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio10),
+                    QuestaoId = Convert.ToInt32(QuestaoId10),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio11 != null)
@@ -318,10 +440,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio11),
                     QuestaoId = Convert.ToInt32(QuestaoId11),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio11),
+                    QuestaoId = Convert.ToInt32(QuestaoId11),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio12 != null)
@@ -331,10 +462,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio12),
                     QuestaoId = Convert.ToInt32(QuestaoId12),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio12),
+                    QuestaoId = Convert.ToInt32(QuestaoId12),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio13 != null)
@@ -344,10 +484,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio13),
                     QuestaoId = Convert.ToInt32(QuestaoId13),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio13),
+                    QuestaoId = Convert.ToInt32(QuestaoId13),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio14 != null)
@@ -357,10 +506,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio14),
                     QuestaoId = Convert.ToInt32(QuestaoId14),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio14),
+                    QuestaoId = Convert.ToInt32(QuestaoId14),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio15 != null)
@@ -370,10 +528,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio15),
                     QuestaoId = Convert.ToInt32(QuestaoId15),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio15),
+                    QuestaoId = Convert.ToInt32(QuestaoId15),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio16 != null)
@@ -383,10 +550,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio16),
                     QuestaoId = Convert.ToInt32(QuestaoId16),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio16),
+                    QuestaoId = Convert.ToInt32(QuestaoId16),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio17 != null)
@@ -396,10 +572,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio17),
                     QuestaoId = Convert.ToInt32(QuestaoId17),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio17),
+                    QuestaoId = Convert.ToInt32(QuestaoId17),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio18 != null)
@@ -409,10 +594,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio18),
                     QuestaoId = Convert.ToInt32(QuestaoId18),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio18),
+                    QuestaoId = Convert.ToInt32(QuestaoId18),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio19 != null)
@@ -422,10 +616,19 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio19),
                     QuestaoId = Convert.ToInt32(QuestaoId19),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio19),
+                    QuestaoId = Convert.ToInt32(QuestaoId19),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
             if (Radio20 != null)
@@ -435,13 +638,22 @@ namespace ECOE.Controllers
                     DataHora = DateTime.Now,
                     Nota = Convert.ToDouble(Radio20),
                     QuestaoId = Convert.ToInt32(QuestaoId20),
-                    PessoaId = Aluno,
+                    PessoaId = Aluno1,
                     AvaliadorId = avaliador
                 };
                 bd.AlunoQuestao.Add(aluno);
+                AlunoQuestao aluno2 = new AlunoQuestao
+                {
+                    DataHora = DateTime.Now,
+                    Nota = Convert.ToDouble(Radio20),
+                    QuestaoId = Convert.ToInt32(QuestaoId20),
+                    PessoaId = Convert.ToInt32(Aluno2),
+                    AvaliadorId = avaliador
+                };
+                bd.AlunoQuestao.Add(aluno2);
                 bd.SaveChanges();
             }
-            return RedirectToAction("ResultadoIndividual", new { Aluno, AvaliacaoId });
+            return RedirectToAction("ResultadoIndividual", new { Aluno1, AvaliacaoId });
 
         }
 
@@ -463,7 +675,7 @@ namespace ECOE.Controllers
         {
 
             var resultado = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno && x.Questao.Avaliacoes.TurmaId == TurmaId);
-            ViewBag.Aluno = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno);
+            ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
 
             var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == TurmaId).ToList();
             var questoes = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno).ToList();
