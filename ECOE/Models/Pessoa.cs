@@ -19,6 +19,8 @@ namespace ECOE.Models
         {
             this.AlunoAvaliacao = new HashSet<AlunoAvaliacao>();
             this.AlunoAvaliacao1 = new HashSet<AlunoAvaliacao>();
+            this.AlunoQuestao = new HashSet<AlunoQuestao>();
+            this.AlunoQuestao1 = new HashSet<AlunoQuestao>();
             this.Avaliacoes = new HashSet<Avaliacoes>();
             this.Curso = new HashSet<Curso>();
             this.Pessoa1 = new HashSet<Pessoa>();
@@ -28,8 +30,6 @@ namespace ECOE.Models
             this.Turma = new HashSet<Turma>();
             this.TurmaPessoa = new HashSet<TurmaPessoa>();
             this.TurmaPessoa1 = new HashSet<TurmaPessoa>();
-            this.AlunoQuestao = new HashSet<AlunoQuestao>();
-            this.AlunoQuestao1 = new HashSet<AlunoQuestao>();
         }
     
         public int PessoaId { get; set; }
@@ -46,6 +46,10 @@ namespace ECOE.Models
         public virtual ICollection<AlunoAvaliacao> AlunoAvaliacao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoAvaliacao> AlunoAvaliacao1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AlunoQuestao> AlunoQuestao1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -66,9 +70,5 @@ namespace ECOE.Models
         public virtual ICollection<TurmaPessoa> TurmaPessoa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TurmaPessoa> TurmaPessoa1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AlunoQuestao> AlunoQuestao1 { get; set; }
     }
 }

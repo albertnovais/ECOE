@@ -146,19 +146,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Acesso.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AlunoAvaliacao.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AlunoQuestao.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Avaliacoes.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Curso.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ECOE.Context.cs">
       <AutoGen>True</AutoGen>
@@ -175,26 +175,41 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ECOE.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ECOE1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECOE1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECOE1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECOE1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECOE1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECOE1.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Pessoa.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PessoaCurso.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Questao.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Turma.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TurmaPessoa.cs">
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Validacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -378,8 +393,25 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="DataTables\Buttons-1.5.6\css\common.scss" />
     <Content Include="DataTables\Buttons-1.5.6\css\mixins.scss" />
+    <EntityDeploy Include="Models\ECOE1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ECOE1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ECOE1.edmx.diagram">
+      <DependentUpon>ECOE1.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <Content Include="Models\ECOE1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECOE1.edmx</DependentUpon>
+      <LastGenOutput>ECOE1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECOE1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECOE1.edmx</DependentUpon>
+      <LastGenOutput>ECOE1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />

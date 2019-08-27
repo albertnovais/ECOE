@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-
 namespace ECOE.Controllers
 {
     public class AlunoAvaliacaoController : Controller
@@ -54,7 +53,6 @@ namespace ECOE.Controllers
             //ViewBag.dupla = avaliacao.dupla;
             var alunos = bd.TurmaPessoa.Where(x => x.TurmaId == turma.TurmaId && x.Pessoa.AcessoId == 2);
             return View(alunos);
-
         }
         [HttpPost]
         public ActionResult AlunoExistente(string RA1, string RA2, int AvaliacaoId, int TurmaId)
@@ -86,7 +84,6 @@ namespace ECOE.Controllers
                         }
                         return RedirectToAction("Avaliar", new { pessoa1.PessoaId, AvaliacaoId });
                     }
-
                     AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
                     return RedirectToAction("Avaliar", new { pessoa1, AvaliacaoId });
                 }

@@ -8,58 +8,35 @@
     var Mensagem = ViewBag.Mensagem;
 }
 
-        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-        <div class="container ">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
-                    @using (Html.BeginForm())
-                    {
-                        @Html.AntiForgeryToken()
 
-
-
-                        <div class="card card-login card-hidden">
-                            <div class="card-header card-header-primary text-center fundoazul">
-                                <h4 class="card-title" style="font-weight: bold">ECOE</h4>
-                            </div>
-                            <div class="card-body ">
-
-                                <div class="input-group has-rose">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">email</i>
-                                        </span>
-                                    </div>
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                </div>
-
-                                <div class="input-group has-rose">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="material-icons">lock_outline</i>
-                                        </span>
-                                    </div>
-                                    @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-                            <div class="card-footer justify-content-center">
-                                <input type="submit" value="Entrar" class="btn btn-outline-primary btn-link btn-lg">
-                            </div>
-                        </div>
-                    }
-                    </div>
-            </div>
-        </div>
-   
-    @if (Mensagem ==2 )
+<div class="form-signin">
+    <div class="text-center mb-4">
+        <img class="mb-4" src="~/IMG/logo-white-fadba.png" alt="" width="200">
+    </div>
+    @using (Html.BeginForm())
     {
+        @Html.AntiForgeryToken()
+        <div class="form-label-group">
+            <input type="email" name="Email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+            <label for="inputEmail">Email</label>
+        </div>
 
-        <div class="alert alert-danger col-md-6" style=" margin:auto ;">
-          
-            <p style="font-size: 20px; text-align:center; margin-bottom:0;">Usuario ou senha Inválidos! </p>
+        <div class="form-label-group">
+            <input type="password" name="Senha" id="inputPassword" class="form-control" placeholder="Senha/RA" required>
+            <label for="inputPassword">Senha/RA</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    }
+    @if (Mensagem == 2)
+    {
+        <div class="alert alert-danger m-3">
+            <button type="button" class=" close btn-outline" data-dismiss="alert" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            Usuario ou senha Inválidos!
         </div>
     }
- 
+    <p class="mt-5 mb-3 text-muted text-center">&copy; ECOE-FADBA</p>
+</div>
+

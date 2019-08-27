@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB_A47AAC_ecoefadbaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="ECOEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Acesso">
     <Key>
       <PropertyRef Name="AcessoId" />
     </Key>
-    <Property Name="AcessoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AcessoId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
   </EntityType>
@@ -17,16 +17,19 @@
     <Property Name="AvaliacaoId" Type="int" Nullable="false" />
     <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
     <Property Name="DataCadastro" Type="datetime" Nullable="false" />
+    <Property Name="DuplaId" Type="int" />
   </EntityType>
   <EntityType Name="AlunoQuestao">
     <Key>
       <PropertyRef Name="PessoaId" />
       <PropertyRef Name="QuestaoId" />
+      <PropertyRef Name="AvaliadorId" />
     </Key>
     <Property Name="PessoaId" Type="int" Nullable="false" />
     <Property Name="DataHora" Type="datetime" Nullable="false" />
     <Property Name="Nota" Type="float" Nullable="false" />
     <Property Name="QuestaoId" Type="int" Nullable="false" />
+    <Property Name="AvaliadorId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Avaliacoes">
     <Key>
@@ -35,12 +38,13 @@
     <Property Name="AvaliacaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PessoaId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="150" Nullable="false" />
-    <Property Name="Descricao" Type="text" Nullable="false" />
+    <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
     <Property Name="DataCadastro" Type="date" Nullable="false" />
     <Property Name="TurmaId" Type="int" Nullable="false" />
     <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
     <Property Name="StatusId" Type="int" />
     <Property Name="DataAvaliacao" Type="int" />
+    <Property Name="Dupla" Type="bit" />
   </EntityType>
   <EntityType Name="Curso">
     <Key>
@@ -57,10 +61,10 @@
     </Key>
     <Property Name="PessoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Senha" Type="varchar" MaxLength="256" />
     <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
-    <Property Name="RA" Type="int" />
+    <Property Name="RA" Type="varchar" MaxLength="50" />
     <Property Name="AcessoId" Type="int" Nullable="false" />
     <Property Name="StatusId" Type="int" Nullable="false" />
   </EntityType>
@@ -79,7 +83,7 @@
       <PropertyRef Name="QuestaoId" />
     </Key>
     <Property Name="QuestaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Descricao" Type="text" Nullable="false" />
+    <Property Name="Descricao" Type="varchar(max)" Nullable="false" />
     <Property Name="DataCadastro" Type="date" Nullable="false" />
     <Property Name="PessoaId" Type="int" Nullable="false" />
     <Property Name="StatusId" Type="int" Nullable="false" />
@@ -89,9 +93,19 @@
     <Key>
       <PropertyRef Name="StatusId" />
     </Key>
-    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Turma">
     <Key>
@@ -115,7 +129,7 @@
     <Property Name="TurmaId" Type="int" Nullable="false" />
     <Property Name="pessoaCadastrou" Type="int" Nullable="false" />
     <Property Name="DataHora" Type="datetime" Nullable="false" />
-    <Property Name="Observecao" Type="text" />
+    <Property Name="Observecao" Type="varchar(max)" />
   </EntityType>
   <Association Name="FK_AlunoAlternativa_Pessoa">
     <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
@@ -150,6 +164,30 @@
       </Principal>
       <Dependent Role="AlunoAvaliacao">
         <PropertyRef Name="PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlunoAvaliacao_Pessoa1">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="0..1" />
+    <End Role="AlunoAvaliacao" Type="Self.AlunoAvaliacao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="PessoaId" />
+      </Principal>
+      <Dependent Role="AlunoAvaliacao">
+        <PropertyRef Name="DuplaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlunoQuestao_Pessoa">
+    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+    <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="PessoaId" />
+      </Principal>
+      <Dependent Role="AlunoQuestao">
+        <PropertyRef Name="AvaliadorId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -405,7 +443,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DB_A47AAC_ecoefadbaModelStoreContainer">
+  <EntityContainer Name="ECOEModelStoreContainer">
     <EntitySet Name="Acesso" EntityType="Self.Acesso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AlunoAvaliacao" EntityType="Self.AlunoAvaliacao" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AlunoQuestao" EntityType="Self.AlunoQuestao" Schema="dbo" store:Type="Tables" />
@@ -415,6 +453,7 @@
     <EntitySet Name="PessoaCurso" EntityType="Self.PessoaCurso" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Questao" EntityType="Self.Questao" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Turma" EntityType="Self.Turma" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TurmaPessoa" EntityType="Self.TurmaPessoa" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_AlunoAlternativa_Pessoa" Association="Self.FK_AlunoAlternativa_Pessoa">
@@ -428,6 +467,14 @@
     <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="Self.FK_AlunoAvaliacao_Pessoa">
       <End Role="Pessoa" EntitySet="Pessoa" />
       <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoAvaliacao_Pessoa1" Association="Self.FK_AlunoAvaliacao_Pessoa1">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoQuestao_Pessoa" Association="Self.FK_AlunoQuestao_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
     </AssociationSet>
     <AssociationSet Name="FK_AlunoQuestao_Questao" Association="Self.FK_AlunoQuestao_Questao">
       <End Role="Questao" EntitySet="Questao" />

@@ -1,13 +1,131 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB_A47AAC_ecoefadbaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="ECOEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ECOEEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Acesso" EntityType="ECOEModel.Acesso" />
+    <EntitySet Name="AlunoAvaliacao" EntityType="ECOEModel.AlunoAvaliacao" />
+    <EntitySet Name="Avaliacoes" EntityType="ECOEModel.Avaliacoes" />
+    <EntitySet Name="Curso" EntityType="ECOEModel.Curso" />
+    <EntitySet Name="Pessoa" EntityType="ECOEModel.Pessoa" />
+    <EntitySet Name="PessoaCurso" EntityType="ECOEModel.PessoaCurso" />
+    <EntitySet Name="Questao" EntityType="ECOEModel.Questao" />
+    <EntitySet Name="Status" EntityType="ECOEModel.Status" />
+    <EntitySet Name="sysdiagrams" EntityType="ECOEModel.sysdiagrams" />
+    <EntitySet Name="Turma" EntityType="ECOEModel.Turma" />
+    <EntitySet Name="TurmaPessoa" EntityType="ECOEModel.TurmaPessoa" />
+    <AssociationSet Name="FK_Pessoa_Acesso" Association="ECOEModel.FK_Pessoa_Acesso">
+      <End Role="Acesso" EntitySet="Acesso" />
+      <End Role="Pessoa" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="ECOEModel.FK_AlunoAvaliacao_Avaliacoes">
+      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="ECOEModel.FK_AlunoAvaliacao_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoAvaliacao_Pessoa1" Association="ECOEModel.FK_AlunoAvaliacao_Pessoa1">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="ECOEModel.FK_Avaliacoes_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Avaliacoes_Status" Association="ECOEModel.FK_Avaliacoes_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Avaliacoes_Turma" Association="ECOEModel.FK_Avaliacoes_Turma">
+      <End Role="Turma" EntitySet="Turma" />
+      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questao_Avaliacoes" Association="ECOEModel.FK_Questao_Avaliacoes">
+      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+      <End Role="Questao" EntitySet="Questao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Curso_Pessoa" Association="ECOEModel.FK_Curso_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Curso" EntitySet="Curso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Curso_Status" Association="ECOEModel.FK_Curso_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Curso" EntitySet="Curso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PessoaCurso_Curso1" Association="ECOEModel.FK_PessoaCurso_Curso1">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Turma_Curso" Association="ECOEModel.FK_Turma_Curso">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="Turma" EntitySet="Turma" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pessoa_Pessoa" Association="ECOEModel.FK_Pessoa_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Pessoa1" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pessoa_Status" Association="ECOEModel.FK_Pessoa_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Pessoa" EntitySet="Pessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PessoaCurso_Pessoa" Association="ECOEModel.FK_PessoaCurso_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PessoaCurso_Pessoa1" Association="ECOEModel.FK_PessoaCurso_Pessoa1">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questao_Pessoa" Association="ECOEModel.FK_Questao_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Questao" EntitySet="Questao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Turma_Pessoa" Association="ECOEModel.FK_Turma_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="Turma" EntitySet="Turma" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurmaPessoa_Pessoa" Association="ECOEModel.FK_TurmaPessoa_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurmaPessoa_Pessoa1" Association="ECOEModel.FK_TurmaPessoa_Pessoa1">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Questao_Status" Association="ECOEModel.FK_Questao_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Questao" EntitySet="Questao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Turma_Status" Association="ECOEModel.FK_Turma_Status">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Turma" EntitySet="Turma" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TurmaPessoa_Turma" Association="ECOEModel.FK_TurmaPessoa_Turma">
+      <End Role="Turma" EntitySet="Turma" />
+      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
+    </AssociationSet>
+    <EntitySet Name="AlunoQuestao" EntityType="ECOEModel.AlunoQuestao" />
+    <AssociationSet Name="FK_AlunoAlternativa_Pessoa" Association="ECOEModel.FK_AlunoAlternativa_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoQuestao_Pessoa" Association="ECOEModel.FK_AlunoQuestao_Pessoa">
+      <End Role="Pessoa" EntitySet="Pessoa" />
+      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlunoQuestao_Questao" Association="ECOEModel.FK_AlunoQuestao_Questao">
+      <End Role="Questao" EntitySet="Questao" />
+      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Acesso">
     <Key>
       <PropertyRef Name="AcessoId" />
     </Key>
-    <Property Name="AcessoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AcessoId" Type="Int32" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Pessoa_Acesso" FromRole="Acesso" ToRole="Pessoa" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Pessoa_Acesso" FromRole="Acesso" ToRole="Pessoa" />
   </EntityType>
   <EntityType Name="AlunoAvaliacao">
     <Key>
@@ -18,20 +136,10 @@
     <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
     <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
     <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_AlunoAvaliacao_Avaliacoes" FromRole="AlunoAvaliacao" ToRole="Avaliacoes" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_AlunoAvaliacao_Pessoa" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
-  </EntityType>
-  <EntityType Name="AlunoQuestao">
-    <Key>
-      <PropertyRef Name="PessoaId" />
-      <PropertyRef Name="QuestaoId" />
-    </Key>
-    <Property Name="PessoaId" Type="Int32" Nullable="false" />
-    <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Nota" Type="Double" Nullable="false" />
-    <Property Name="QuestaoId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_AlunoAlternativa_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
-    <NavigationProperty Name="Questao" Relationship="Self.FK_AlunoQuestao_Questao" FromRole="AlunoQuestao" ToRole="Questao" />
+    <Property Name="DuplaId" Type="Int32" />
+    <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel.FK_AlunoAvaliacao_Avaliacoes" FromRole="AlunoAvaliacao" ToRole="Avaliacoes" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_AlunoAvaliacao_Pessoa" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
+    <NavigationProperty Name="Pessoa1" Relationship="ECOEModel.FK_AlunoAvaliacao_Pessoa1" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
   </EntityType>
   <EntityType Name="Avaliacoes">
     <Key>
@@ -39,58 +147,61 @@
     </Key>
     <Property Name="AvaliacaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="PessoaId" Type="Int32" Nullable="false" />
-    <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="TurmaId" Type="Int32" Nullable="false" />
     <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="StatusId" Type="Int32" />
     <Property Name="DataAvaliacao" Type="Int32" />
-    <NavigationProperty Name="AlunoAvaliacao" Relationship="Self.FK_AlunoAvaliacao_Avaliacoes" FromRole="Avaliacoes" ToRole="AlunoAvaliacao" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Avaliacoes_Pessoa" FromRole="Avaliacoes" ToRole="Pessoa" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Avaliacoes_Status" FromRole="Avaliacoes" ToRole="Status" />
-    <NavigationProperty Name="Turma" Relationship="Self.FK_Avaliacoes_Turma" FromRole="Avaliacoes" ToRole="Turma" />
-    <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_Avaliacoes" FromRole="Avaliacoes" ToRole="Questao" />
+    <Property Name="Dupla" Type="Boolean" />
+    <NavigationProperty Name="AlunoAvaliacao" Relationship="ECOEModel.FK_AlunoAvaliacao_Avaliacoes" FromRole="Avaliacoes" ToRole="AlunoAvaliacao" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Avaliacoes_Pessoa" FromRole="Avaliacoes" ToRole="Pessoa" />
+    <NavigationProperty Name="Status" Relationship="ECOEModel.FK_Avaliacoes_Status" FromRole="Avaliacoes" ToRole="Status" />
+    <NavigationProperty Name="Turma" Relationship="ECOEModel.FK_Avaliacoes_Turma" FromRole="Avaliacoes" ToRole="Turma" />
+    <NavigationProperty Name="Questao" Relationship="ECOEModel.FK_Questao_Avaliacoes" FromRole="Avaliacoes" ToRole="Questao" />
   </EntityType>
   <EntityType Name="Curso">
     <Key>
       <PropertyRef Name="CursoId" />
     </Key>
     <Property Name="CursoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="StatusId" Type="Int32" />
     <Property Name="PessoaId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Curso_Pessoa" FromRole="Curso" ToRole="Pessoa" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Curso_Status" FromRole="Curso" ToRole="Status" />
-    <NavigationProperty Name="PessoaCurso" Relationship="Self.FK_PessoaCurso_Curso1" FromRole="Curso" ToRole="PessoaCurso" />
-    <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Curso" FromRole="Curso" ToRole="Turma" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Curso_Pessoa" FromRole="Curso" ToRole="Pessoa" />
+    <NavigationProperty Name="Status" Relationship="ECOEModel.FK_Curso_Status" FromRole="Curso" ToRole="Status" />
+    <NavigationProperty Name="PessoaCurso" Relationship="ECOEModel.FK_PessoaCurso_Curso1" FromRole="Curso" ToRole="PessoaCurso" />
+    <NavigationProperty Name="Turma" Relationship="ECOEModel.FK_Turma_Curso" FromRole="Curso" ToRole="Turma" />
   </EntityType>
   <EntityType Name="Pessoa">
     <Key>
       <PropertyRef Name="PessoaId" />
     </Key>
     <Property Name="PessoaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Senha" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
     <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
-    <Property Name="RA" Type="Int32" />
+    <Property Name="RA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="AcessoId" Type="Int32" Nullable="false" />
     <Property Name="StatusId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Acesso" Relationship="Self.FK_Pessoa_Acesso" FromRole="Pessoa" ToRole="Acesso" />
-    <NavigationProperty Name="AlunoAvaliacao" Relationship="Self.FK_AlunoAvaliacao_Pessoa" FromRole="Pessoa" ToRole="AlunoAvaliacao" />
-    <NavigationProperty Name="AlunoQuestao" Relationship="Self.FK_AlunoAlternativa_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
-    <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Pessoa" FromRole="Pessoa" ToRole="Avaliacoes" />
-    <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_Pessoa" FromRole="Pessoa" ToRole="Curso" />
-    <NavigationProperty Name="Pessoa1" Relationship="Self.FK_Pessoa_Pessoa" FromRole="Pessoa" ToRole="Pessoa1" />
-    <NavigationProperty Name="Pessoa2" Relationship="Self.FK_Pessoa_Pessoa" FromRole="Pessoa1" ToRole="Pessoa" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Pessoa_Status" FromRole="Pessoa" ToRole="Status" />
-    <NavigationProperty Name="PessoaCurso" Relationship="Self.FK_PessoaCurso_Pessoa" FromRole="Pessoa" ToRole="PessoaCurso" />
-    <NavigationProperty Name="PessoaCurso1" Relationship="Self.FK_PessoaCurso_Pessoa1" FromRole="Pessoa" ToRole="PessoaCurso" />
-    <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_Pessoa" FromRole="Pessoa" ToRole="Questao" />
-    <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Pessoa" FromRole="Pessoa" ToRole="Turma" />
-    <NavigationProperty Name="TurmaPessoa" Relationship="Self.FK_TurmaPessoa_Pessoa" FromRole="Pessoa" ToRole="TurmaPessoa" />
-    <NavigationProperty Name="TurmaPessoa1" Relationship="Self.FK_TurmaPessoa_Pessoa1" FromRole="Pessoa" ToRole="TurmaPessoa" />
+    <NavigationProperty Name="Acesso" Relationship="ECOEModel.FK_Pessoa_Acesso" FromRole="Pessoa" ToRole="Acesso" />
+    <NavigationProperty Name="AlunoAvaliacao" Relationship="ECOEModel.FK_AlunoAvaliacao_Pessoa" FromRole="Pessoa" ToRole="AlunoAvaliacao" />
+    <NavigationProperty Name="AlunoAvaliacao1" Relationship="ECOEModel.FK_AlunoAvaliacao_Pessoa1" FromRole="Pessoa" ToRole="AlunoAvaliacao" />
+    <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel.FK_Avaliacoes_Pessoa" FromRole="Pessoa" ToRole="Avaliacoes" />
+    <NavigationProperty Name="Curso" Relationship="ECOEModel.FK_Curso_Pessoa" FromRole="Pessoa" ToRole="Curso" />
+    <NavigationProperty Name="Pessoa1" Relationship="ECOEModel.FK_Pessoa_Pessoa" FromRole="Pessoa" ToRole="Pessoa1" />
+    <NavigationProperty Name="Pessoa2" Relationship="ECOEModel.FK_Pessoa_Pessoa" FromRole="Pessoa1" ToRole="Pessoa" />
+    <NavigationProperty Name="Status" Relationship="ECOEModel.FK_Pessoa_Status" FromRole="Pessoa" ToRole="Status" />
+    <NavigationProperty Name="PessoaCurso" Relationship="ECOEModel.FK_PessoaCurso_Pessoa" FromRole="Pessoa" ToRole="PessoaCurso" />
+    <NavigationProperty Name="PessoaCurso1" Relationship="ECOEModel.FK_PessoaCurso_Pessoa1" FromRole="Pessoa" ToRole="PessoaCurso" />
+    <NavigationProperty Name="Questao" Relationship="ECOEModel.FK_Questao_Pessoa" FromRole="Pessoa" ToRole="Questao" />
+    <NavigationProperty Name="Turma" Relationship="ECOEModel.FK_Turma_Pessoa" FromRole="Pessoa" ToRole="Turma" />
+    <NavigationProperty Name="TurmaPessoa" Relationship="ECOEModel.FK_TurmaPessoa_Pessoa" FromRole="Pessoa" ToRole="TurmaPessoa" />
+    <NavigationProperty Name="TurmaPessoa1" Relationship="ECOEModel.FK_TurmaPessoa_Pessoa1" FromRole="Pessoa" ToRole="TurmaPessoa" />
+    <NavigationProperty Name="AlunoQuestao" Relationship="ECOEModel.FK_AlunoAlternativa_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
+    <NavigationProperty Name="AlunoQuestao1" Relationship="ECOEModel.FK_AlunoQuestao_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
   </EntityType>
   <EntityType Name="PessoaCurso">
     <Key>
@@ -101,55 +212,65 @@
     <Property Name="CursoId" Type="Int32" Nullable="false" />
     <Property Name="Data" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Curso" Relationship="Self.FK_PessoaCurso_Curso1" FromRole="PessoaCurso" ToRole="Curso" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_PessoaCurso_Pessoa" FromRole="PessoaCurso" ToRole="Pessoa" />
-    <NavigationProperty Name="Pessoa1" Relationship="Self.FK_PessoaCurso_Pessoa1" FromRole="PessoaCurso" ToRole="Pessoa" />
+    <NavigationProperty Name="Curso" Relationship="ECOEModel.FK_PessoaCurso_Curso1" FromRole="PessoaCurso" ToRole="Curso" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_PessoaCurso_Pessoa" FromRole="PessoaCurso" ToRole="Pessoa" />
+    <NavigationProperty Name="Pessoa1" Relationship="ECOEModel.FK_PessoaCurso_Pessoa1" FromRole="PessoaCurso" ToRole="Pessoa" />
   </EntityType>
   <EntityType Name="Questao">
     <Key>
       <PropertyRef Name="QuestaoId" />
     </Key>
     <Property Name="QuestaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="PessoaId" Type="Int32" Nullable="false" />
     <Property Name="StatusId" Type="Int32" Nullable="false" />
     <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="AlunoQuestao" Relationship="Self.FK_AlunoQuestao_Questao" FromRole="Questao" ToRole="AlunoQuestao" />
-    <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Questao_Avaliacoes" FromRole="Questao" ToRole="Avaliacoes" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Questao_Pessoa" FromRole="Questao" ToRole="Pessoa" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Questao_Status" FromRole="Questao" ToRole="Status" />
+    <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel.FK_Questao_Avaliacoes" FromRole="Questao" ToRole="Avaliacoes" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Questao_Pessoa" FromRole="Questao" ToRole="Pessoa" />
+    <NavigationProperty Name="Status" Relationship="ECOEModel.FK_Questao_Status" FromRole="Questao" ToRole="Status" />
+    <NavigationProperty Name="AlunoQuestao" Relationship="ECOEModel.FK_AlunoQuestao_Questao" FromRole="Questao" ToRole="AlunoQuestao" />
   </EntityType>
   <EntityType Name="Status">
     <Key>
       <PropertyRef Name="StatusId" />
     </Key>
-    <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StatusId" Type="Int32" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Status" FromRole="Status" ToRole="Avaliacoes" />
-    <NavigationProperty Name="Curso" Relationship="Self.FK_Curso_Status" FromRole="Status" ToRole="Curso" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Pessoa_Status" FromRole="Status" ToRole="Pessoa" />
-    <NavigationProperty Name="Questao" Relationship="Self.FK_Questao_Status" FromRole="Status" ToRole="Questao" />
-    <NavigationProperty Name="Turma" Relationship="Self.FK_Turma_Status" FromRole="Status" ToRole="Turma" />
+    <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel.FK_Avaliacoes_Status" FromRole="Status" ToRole="Avaliacoes" />
+    <NavigationProperty Name="Curso" Relationship="ECOEModel.FK_Curso_Status" FromRole="Status" ToRole="Curso" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Pessoa_Status" FromRole="Status" ToRole="Pessoa" />
+    <NavigationProperty Name="Questao" Relationship="ECOEModel.FK_Questao_Status" FromRole="Status" ToRole="Questao" />
+    <NavigationProperty Name="Turma" Relationship="ECOEModel.FK_Turma_Status" FromRole="Status" ToRole="Turma" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="Turma">
     <Key>
       <PropertyRef Name="TurmaId" />
     </Key>
     <Property Name="TurmaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="CursoId" Type="Int32" Nullable="false" />
     <Property Name="StatusId" Type="Int32" Nullable="false" />
     <Property Name="PessoaId" Type="Int32" Nullable="false" />
     <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Ano" Type="Int32" />
     <Property Name="Periodo" Type="Int32" />
-    <NavigationProperty Name="Avaliacoes" Relationship="Self.FK_Avaliacoes_Turma" FromRole="Turma" ToRole="Avaliacoes" />
-    <NavigationProperty Name="Curso" Relationship="Self.FK_Turma_Curso" FromRole="Turma" ToRole="Curso" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_Turma_Pessoa" FromRole="Turma" ToRole="Pessoa" />
-    <NavigationProperty Name="Status" Relationship="Self.FK_Turma_Status" FromRole="Turma" ToRole="Status" />
-    <NavigationProperty Name="TurmaPessoa" Relationship="Self.FK_TurmaPessoa_Turma" FromRole="Turma" ToRole="TurmaPessoa" />
+    <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel.FK_Avaliacoes_Turma" FromRole="Turma" ToRole="Avaliacoes" />
+    <NavigationProperty Name="Curso" Relationship="ECOEModel.FK_Turma_Curso" FromRole="Turma" ToRole="Curso" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_Turma_Pessoa" FromRole="Turma" ToRole="Pessoa" />
+    <NavigationProperty Name="Status" Relationship="ECOEModel.FK_Turma_Status" FromRole="Turma" ToRole="Status" />
+    <NavigationProperty Name="TurmaPessoa" Relationship="ECOEModel.FK_TurmaPessoa_Turma" FromRole="Turma" ToRole="TurmaPessoa" />
   </EntityType>
   <EntityType Name="TurmaPessoa">
     <Key>
@@ -161,13 +282,13 @@
     <Property Name="pessoaCadastrou" Type="Int32" Nullable="false" />
     <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Observecao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Pessoa" Relationship="Self.FK_TurmaPessoa_Pessoa" FromRole="TurmaPessoa" ToRole="Pessoa" />
-    <NavigationProperty Name="Pessoa1" Relationship="Self.FK_TurmaPessoa_Pessoa1" FromRole="TurmaPessoa" ToRole="Pessoa" />
-    <NavigationProperty Name="Turma" Relationship="Self.FK_TurmaPessoa_Turma" FromRole="TurmaPessoa" ToRole="Turma" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_TurmaPessoa_Pessoa" FromRole="TurmaPessoa" ToRole="Pessoa" />
+    <NavigationProperty Name="Pessoa1" Relationship="ECOEModel.FK_TurmaPessoa_Pessoa1" FromRole="TurmaPessoa" ToRole="Pessoa" />
+    <NavigationProperty Name="Turma" Relationship="ECOEModel.FK_TurmaPessoa_Turma" FromRole="TurmaPessoa" ToRole="Turma" />
   </EntityType>
   <Association Name="FK_Pessoa_Acesso">
-    <End Role="Acesso" Type="Self.Acesso" Multiplicity="1" />
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Acesso" Role="Acesso" Multiplicity="1" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Acesso">
         <PropertyRef Name="AcessoId" />
@@ -178,8 +299,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AlunoAvaliacao_Avaliacoes">
-    <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="1" />
-    <End Role="AlunoAvaliacao" Type="Self.AlunoAvaliacao" Multiplicity="*" />
+    <End Type="ECOEModel.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+    <End Type="ECOEModel.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Avaliacoes">
         <PropertyRef Name="AvaliacaoId" />
@@ -190,8 +311,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_AlunoAvaliacao_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="AlunoAvaliacao" Type="Self.AlunoAvaliacao" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -201,33 +322,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_AlunoAlternativa_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
+  <Association Name="FK_AlunoAvaliacao_Pessoa1">
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="0..1" />
+    <End Type="ECOEModel.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
       </Principal>
-      <Dependent Role="AlunoQuestao">
-        <PropertyRef Name="PessoaId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_AlunoQuestao_Questao">
-    <End Role="Questao" Type="Self.Questao" Multiplicity="1" />
-    <End Role="AlunoQuestao" Type="Self.AlunoQuestao" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Questao">
-        <PropertyRef Name="QuestaoId" />
-      </Principal>
-      <Dependent Role="AlunoQuestao">
-        <PropertyRef Name="QuestaoId" />
+      <Dependent Role="AlunoAvaliacao">
+        <PropertyRef Name="DuplaId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Avaliacoes_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -238,8 +347,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Avaliacoes_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-    <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+    <End Type="ECOEModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="ECOEModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Status">
         <PropertyRef Name="StatusId" />
@@ -250,8 +359,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Avaliacoes_Turma">
-    <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
-    <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="*" />
+    <End Type="ECOEModel.Turma" Role="Turma" Multiplicity="1" />
+    <End Type="ECOEModel.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Turma">
         <PropertyRef Name="TurmaId" />
@@ -262,8 +371,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Questao_Avaliacoes">
-    <End Role="Avaliacoes" Type="Self.Avaliacoes" Multiplicity="1" />
-    <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+    <End Type="ECOEModel.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+    <End Type="ECOEModel.Questao" Role="Questao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Avaliacoes">
         <PropertyRef Name="AvaliacaoId" />
@@ -274,8 +383,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Curso_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.Curso" Role="Curso" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -286,8 +395,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Curso_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-    <End Role="Curso" Type="Self.Curso" Multiplicity="*" />
+    <End Type="ECOEModel.Status" Role="Status" Multiplicity="0..1" />
+    <End Type="ECOEModel.Curso" Role="Curso" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Status">
         <PropertyRef Name="StatusId" />
@@ -298,8 +407,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PessoaCurso_Curso1">
-    <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
-    <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+    <End Type="ECOEModel.Curso" Role="Curso" Multiplicity="1" />
+    <End Type="ECOEModel.PessoaCurso" Role="PessoaCurso" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Curso">
         <PropertyRef Name="CursoId" />
@@ -310,8 +419,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Turma_Curso">
-    <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
-    <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+    <End Type="ECOEModel.Curso" Role="Curso" Multiplicity="1" />
+    <End Type="ECOEModel.Turma" Role="Turma" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Curso">
         <PropertyRef Name="CursoId" />
@@ -322,8 +431,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Pessoa_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="Pessoa1" Type="Self.Pessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa1" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -334,8 +443,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Pessoa_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="1" />
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Status" Role="Status" Multiplicity="1" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Status">
         <PropertyRef Name="StatusId" />
@@ -346,8 +455,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PessoaCurso_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.PessoaCurso" Role="PessoaCurso" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -358,8 +467,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_PessoaCurso_Pessoa1">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="PessoaCurso" Type="Self.PessoaCurso" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.PessoaCurso" Role="PessoaCurso" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -370,8 +479,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Questao_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.Questao" Role="Questao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -382,8 +491,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Turma_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.Turma" Role="Turma" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -394,8 +503,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TurmaPessoa_Pessoa">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.TurmaPessoa" Role="TurmaPessoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -406,8 +515,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TurmaPessoa_Pessoa1">
-    <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
-    <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.TurmaPessoa" Role="TurmaPessoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pessoa">
         <PropertyRef Name="PessoaId" />
@@ -418,8 +527,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Questao_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="1" />
-    <End Role="Questao" Type="Self.Questao" Multiplicity="*" />
+    <End Type="ECOEModel.Status" Role="Status" Multiplicity="1" />
+    <End Type="ECOEModel.Questao" Role="Questao" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Status">
         <PropertyRef Name="StatusId" />
@@ -430,8 +539,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Turma_Status">
-    <End Role="Status" Type="Self.Status" Multiplicity="1" />
-    <End Role="Turma" Type="Self.Turma" Multiplicity="*" />
+    <End Type="ECOEModel.Status" Role="Status" Multiplicity="1" />
+    <End Type="ECOEModel.Turma" Role="Turma" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Status">
         <PropertyRef Name="StatusId" />
@@ -442,8 +551,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TurmaPessoa_Turma">
-    <End Role="Turma" Type="Self.Turma" Multiplicity="1" />
-    <End Role="TurmaPessoa" Type="Self.TurmaPessoa" Multiplicity="*" />
+    <End Type="ECOEModel.Turma" Role="Turma" Multiplicity="1" />
+    <End Type="ECOEModel.TurmaPessoa" Role="TurmaPessoa" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Turma">
         <PropertyRef Name="TurmaId" />
@@ -453,113 +562,55 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ECOEEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Acesso" EntityType="Self.Acesso" />
-    <EntitySet Name="AlunoAvaliacao" EntityType="Self.AlunoAvaliacao" />
-    <EntitySet Name="AlunoQuestao" EntityType="Self.AlunoQuestao" />
-    <EntitySet Name="Avaliacoes" EntityType="Self.Avaliacoes" />
-    <EntitySet Name="Curso" EntityType="Self.Curso" />
-    <EntitySet Name="Pessoa" EntityType="Self.Pessoa" />
-    <EntitySet Name="PessoaCurso" EntityType="Self.PessoaCurso" />
-    <EntitySet Name="Questao" EntityType="Self.Questao" />
-    <EntitySet Name="Status" EntityType="Self.Status" />
-    <EntitySet Name="Turma" EntityType="Self.Turma" />
-    <EntitySet Name="TurmaPessoa" EntityType="Self.TurmaPessoa" />
-    <AssociationSet Name="FK_Pessoa_Acesso" Association="Self.FK_Pessoa_Acesso">
-      <End Role="Acesso" EntitySet="Acesso" />
-      <End Role="Pessoa" EntitySet="Pessoa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="Self.FK_AlunoAvaliacao_Avaliacoes">
-      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="Self.FK_AlunoAvaliacao_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AlunoAlternativa_Pessoa" Association="Self.FK_AlunoAlternativa_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_AlunoQuestao_Questao" Association="Self.FK_AlunoQuestao_Questao">
-      <End Role="Questao" EntitySet="Questao" />
-      <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="Self.FK_Avaliacoes_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Avaliacoes_Status" Association="Self.FK_Avaliacoes_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Avaliacoes_Turma" Association="Self.FK_Avaliacoes_Turma">
-      <End Role="Turma" EntitySet="Turma" />
-      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Questao_Avaliacoes" Association="Self.FK_Questao_Avaliacoes">
-      <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-      <End Role="Questao" EntitySet="Questao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Curso_Pessoa" Association="Self.FK_Curso_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="Curso" EntitySet="Curso" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Curso_Status" Association="Self.FK_Curso_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Curso" EntitySet="Curso" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PessoaCurso_Curso1" Association="Self.FK_PessoaCurso_Curso1">
-      <End Role="Curso" EntitySet="Curso" />
-      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Turma_Curso" Association="Self.FK_Turma_Curso">
-      <End Role="Curso" EntitySet="Curso" />
-      <End Role="Turma" EntitySet="Turma" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Pessoa_Pessoa" Association="Self.FK_Pessoa_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="Pessoa1" EntitySet="Pessoa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Pessoa_Status" Association="Self.FK_Pessoa_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Pessoa" EntitySet="Pessoa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PessoaCurso_Pessoa" Association="Self.FK_PessoaCurso_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PessoaCurso_Pessoa1" Association="Self.FK_PessoaCurso_Pessoa1">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="PessoaCurso" EntitySet="PessoaCurso" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Questao_Pessoa" Association="Self.FK_Questao_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="Questao" EntitySet="Questao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Turma_Pessoa" Association="Self.FK_Turma_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="Turma" EntitySet="Turma" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TurmaPessoa_Pessoa" Association="Self.FK_TurmaPessoa_Pessoa">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TurmaPessoa_Pessoa1" Association="Self.FK_TurmaPessoa_Pessoa1">
-      <End Role="Pessoa" EntitySet="Pessoa" />
-      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Questao_Status" Association="Self.FK_Questao_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Questao" EntitySet="Questao" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Turma_Status" Association="Self.FK_Turma_Status">
-      <End Role="Status" EntitySet="Status" />
-      <End Role="Turma" EntitySet="Turma" />
-    </AssociationSet>
-    <AssociationSet Name="FK_TurmaPessoa_Turma" Association="Self.FK_TurmaPessoa_Turma">
-      <End Role="Turma" EntitySet="Turma" />
-      <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
-    </AssociationSet>
-  </EntityContainer>
+  <EntityType Name="AlunoQuestao">
+    <Key>
+      <PropertyRef Name="PessoaId" />
+      <PropertyRef Name="QuestaoId" />
+      <PropertyRef Name="AvaliadorId" />
+    </Key>
+    <Property Name="PessoaId" Type="Int32" Nullable="false" />
+    <Property Name="DataHora" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Nota" Type="Double" Nullable="false" />
+    <Property Name="QuestaoId" Type="Int32" Nullable="false" />
+    <Property Name="AvaliadorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Pessoa" Relationship="ECOEModel.FK_AlunoAlternativa_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
+    <NavigationProperty Name="Pessoa1" Relationship="ECOEModel.FK_AlunoQuestao_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
+    <NavigationProperty Name="Questao" Relationship="ECOEModel.FK_AlunoQuestao_Questao" FromRole="AlunoQuestao" ToRole="Questao" />
+  </EntityType>
+  <Association Name="FK_AlunoAlternativa_Pessoa">
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.AlunoQuestao" Role="AlunoQuestao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="PessoaId" />
+      </Principal>
+      <Dependent Role="AlunoQuestao">
+        <PropertyRef Name="PessoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlunoQuestao_Pessoa">
+    <End Type="ECOEModel.Pessoa" Role="Pessoa" Multiplicity="1" />
+    <End Type="ECOEModel.AlunoQuestao" Role="AlunoQuestao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pessoa">
+        <PropertyRef Name="PessoaId" />
+      </Principal>
+      <Dependent Role="AlunoQuestao">
+        <PropertyRef Name="AvaliadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlunoQuestao_Questao">
+    <End Type="ECOEModel.Questao" Role="Questao" Multiplicity="1" />
+    <End Type="ECOEModel.AlunoQuestao" Role="AlunoQuestao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questao">
+        <PropertyRef Name="QuestaoId" />
+      </Principal>
+      <Dependent Role="AlunoQuestao">
+        <PropertyRef Name="QuestaoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "CreateQuestao";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var avaliacaoId = ViewBag.avaliacaoId;
 
 }
 
@@ -15,7 +16,7 @@
                         <i class="material-icons">question_answer</i>
                     </div>
                     <h4 class="card-title">
-                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.avan</span>
+                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.grupoNome</span>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -36,11 +37,14 @@
                         </div>
                         <div class="card-footer ml-auto mr-auto">
                             <div>
-                                <div class="col-md-offset-2 col-md-2">
-                                    <a href="ListAvaliacao">
+                                <div>
+                                    <a href="@Url.Action("ListGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
                                         <input type="button" value="Concluir e Sair" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
                                     </a>
-                                </div>
+                                    <a href="@Url.Action("CreateGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
+                                        <input type="button" value="Concluir e Criar Novo Grupo" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
+                                    </a>
+                                </div>  
                             </div>
                             <div>
                                 <input type="submit" value="Salvar" class="btn btn-primary pull-right">
