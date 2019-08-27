@@ -376,3 +376,4 @@ C:\Users\alber\source\repos\ECOE\ECOE\bin\pt-br\System.Web.Optimization.resource
 C:\Users\alber\source\repos\ECOE\ECOE\obj\Debug\ECOE.csproj.CopyComplete
 C:\Users\alber\source\repos\ECOE\ECOE\obj\Debug\ECOE.dll
 C:\Users\alber\source\repos\ECOE\ECOE\obj\Debug\ECOE.pdb
+C:\Users\alber\source\repos\ECOE\ECOE\obj\Debug\ECOE.csprojAssemblyReference.cache

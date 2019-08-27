@@ -367,6 +367,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="IMG\FADBA 2019 %282%29.png" />
+    <Content Include="IMG\logo-azul.png" />
+    <Content Include="IMG\logo-white-fadba.png" />
     <Content Include="IMG\logo_fadba.png" />
     <Content Include="Models\ECOE.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

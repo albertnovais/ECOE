@@ -16,10 +16,10 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
       <publishTime>10/09/2013 15:29:20</publishTime>
     </File>
     <File Include="bin/ECOE.dll">
-      <publishTime>08/27/2019 13:36:43</publishTime>
+      <publishTime>08/27/2019 16:31:08</publishTime>
     </File>
     <File Include="bin/ECOE.pdb">
-      <publishTime>08/27/2019 13:36:43</publishTime>
+      <publishTime>08/27/2019 16:31:08</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>07/06/2018 10:03:48</publishTime>
@@ -758,6 +758,15 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
     </File>
     <File Include="Global.asax">
       <publishTime>03/21/2019 17:14:38</publishTime>
+    </File>
+    <File Include="IMG/FADBA 2019 %282%29.png">
+      <publishTime>07/23/2019 11:51:55</publishTime>
+    </File>
+    <File Include="IMG/logo-azul.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="IMG/logo-white-fadba.png">
+      <publishTime>07/27/2019 19:59:42</publishTime>
     </File>
     <File Include="IMG/logo_fadba.png">
       <publishTime>06/04/2019 14:31:34</publishTime>
@@ -1711,7 +1720,7 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
       <publishTime>08/04/2019 00:51:52</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/27/2019 13:36:08</publishTime>
+      <publishTime>08/27/2019 16:34:38</publishTime>
     </File>
   </ItemGroup>
 </Project>
