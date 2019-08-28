@@ -5,6 +5,7 @@
 
     ViewBag.Title = "ListQuestao";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 @* Modal Excluir *@
@@ -36,18 +37,12 @@
 @* Modal Excluir Fim *@
 
 
-<div class="col-md-offset-2 col-md-12" style="margin-top:2%; text-align:right;">
-    <a href="@Url.Action("CreateQuestao","Avaliacao")" class=" btn btn-primary">
-        Adicionar Questão
-    </a>
-</div>
-
 <div class="card">
     <div class="card-header">
         <div class="row p-1">
             <h4 class="mr-auto" style="font-weight:bold;">Lista de questões</h4>
-            <a href="@Url.Action("CreateQuestao","Avaliacao")" class=" btn btn-primary">
-                <i class="material-icons">add</i>
+            <a href="@Url.Action("CreateQuestao", new { AvaliacaoId = ViewBag.avaliacao })" class=" btn btn-primary">
+                Adicionar Questão
             </a>
         </div>
     </div>

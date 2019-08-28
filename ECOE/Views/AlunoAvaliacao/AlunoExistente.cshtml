@@ -139,9 +139,9 @@
                                             <td>@Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
                                             <td>@Html.DisplayFor(modelItem => item.Pessoa.RA)</td>
                                             <td class="text-right">
-                                                @if (item.Pessoa.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == avaliacao && x.AvaliadorId == avaliador).ToList().Count() < 1)
+                                                @if (item.Pessoa.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == avaliacao && x.AvaliadorId == avaliador).ToList().Count() < 1 || dupla == false)
                                                 {
-                                                    <a title="Avaliar" href="@Url.Action("Avaliar", "AlunoAvaliacao", new { PessoaId = item.PessoaId, AvaliacaoId = avaliacao })" class="btn-link"> <i class="fas fa-plus text-primary"></i></a>
+                                                    <a title="Avaliar" href="@Url.Action("Avaliar", "AlunoAvaliacao", new { Pessoa1 = item.PessoaId, AvaliacaoId = avaliacao })" class="btn-link"> <i class="fas fa-plus text-primary"></i></a>
                                                 }
                                                 @*@<a title="Editar" href="#" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">create</i></a>
                                                     <a title="Remover" href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>*@

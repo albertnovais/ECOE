@@ -111,11 +111,11 @@ namespace ECOE.Controllers
         //}
 
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult CreateQuestao(int GrupoId)
+        public ActionResult CreateQuestao(int AvaliacaoId)
         {
-            ViewBag.grupoId = GrupoId;
+            ViewBag.avaliacaoID = AvaliacaoId;
             //ViewBag.grupoNome = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).Nome;
-            //ViewBag.avaliacaoId = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).AvaliacaoId;
+            ViewBag.Nome = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Nome;
             return View();
         }
 
@@ -176,15 +176,13 @@ namespace ECOE.Controllers
         //    return View(list);
         //}
 
-        //[Authorize(Roles = "Adm , Coordenador")]
-        //public ActionResult ListQuestao(int grupoId)
-        //{
-        //    var list = bd.Questao.Where(x => x.GrupoId == grupoId /*&& x.StatusId == 1*/).ToList();
-        //   var grupo = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == grupoId);
-        //    ViewBag.avaliacao = grupo.Avaliacoes.Nome;
-        //    ViewBag.grupo = grupo.Nome;
+        [Authorize(Roles = "Adm , Coordenador")]
+        public ActionResult ListQuestao(int AvaliacaoId)
+        {
+            var list = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId /*&& x.StatusId == 1*/).ToList();
+            ViewBag.avaliacao = AvaliacaoId;
 
-        //    return View(list);
-        //}
+            return View(list);
+        }
     }
 }

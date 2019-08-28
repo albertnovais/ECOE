@@ -63,83 +63,57 @@ namespace ECOE.Controllers
             if (avaliacao.Dupla == false)
             {
                 if (pessoa1 == null)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA1 + " Não foi cadastrado" });
-                }
                 if (pessoa1.AcessoId != 2)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4" });
-                }
                 else
                 {
+                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId == pessoa1.PessoaId).ToList().Count() != 0) 
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
                     if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
-                    {
                         AdicionarAlunoTurma(TurmaId, pessoa1.PessoaId);
-                    }
-                    else
-                    {
-                        if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.AvaliadorId == avaliador && x.PessoaId == pessoa1.PessoaId).ToList().Count() != 0)
-                        {
-                            return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                        }
-                        return RedirectToAction("Avaliar", new { pessoa1.PessoaId, AvaliacaoId });
-                    }
+
                     AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
-                    return RedirectToAction("Avaliar", new { pessoa1, AvaliacaoId });
+                    return RedirectToAction("Avaliar", new { pessoa1.PessoaId, AvaliacaoId });
                 }
             }
             else
             {
                 var pessoa2 = bd.Pessoa.FirstOrDefault(x => x.RA == RA2);
                 if (pessoa1 == null && pessoa2 == null)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Os alunos com RA's: " + RA1 + " e " + RA2 + " não foram cadastrados" });
-                }
                 else if (pessoa1 == null)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA1 + " não foi cadastrado" });
-                }
                 else if (pessoa2 == null)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "2", Mensagem2 = "Aluno com o RA: " + RA2 + " não foi cadastrado" });
-                }
                 else if (pessoa1.AcessoId != 2 && pessoa2.AcessoId != 2)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "Os RA's: " + RA1 + " e " + RA2 + " não pertencem a alunos" });
-                }
                 else if (pessoa1.AcessoId != 2)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "O RA: " + RA1 + " não pergtence a um aluno" });
-                }
                 else if (pessoa2.AcessoId != 2)
-                {
                     return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "4", Mensagem2 = "O RA: " + RA2 + " não pergtence a um aluno" });
-                }
                 else
                 {
-                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
-                    {
-                        AdicionarAlunoTurma(TurmaId, pessoa1.PessoaId);
-                    }
-                    if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa2.PessoaId && x.TurmaId == TurmaId) == null)
-                    {
-                        AdicionarAlunoTurma(TurmaId, pessoa2.PessoaId);
-                    }
-                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa1.PessoaId).ToList().Count() > 0 && bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count() > 0)
-                    {
+                    var alunoQuestao1 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa1.PessoaId).ToList().Count();
+                    var alunoQuestao2 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count();
+
+                    if (alunoQuestao1 > 0 && alunoQuestao2 > 0)
                         return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                    }
-                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa1.PessoaId).ToList().Count() > 0)
-                    {
+                    else if (alunoQuestao1 > 0)
                         return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                    }
-                    if (bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count() > 0)
-                    {
+                    else if (alunoQuestao2 > 0)
                         return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                    else
+                    {
+                        if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
+                            AdicionarAlunoTurma(TurmaId, pessoa1.PessoaId);
+                        if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa2.PessoaId && x.TurmaId == TurmaId) == null)
+                            AdicionarAlunoTurma(TurmaId, pessoa2.PessoaId);
+
+                        AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
+                        AdicionarAlunoAvaliacao(AvaliacaoId, pessoa2.PessoaId);
+                        return RedirectToAction("Avaliar", new { pessoa1 = pessoa1.PessoaId, pessoa2 = pessoa2.PessoaId, AvaliacaoId });
                     }
-                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa1.PessoaId);
-                    AdicionarAlunoAvaliacao(AvaliacaoId, pessoa2.PessoaId);
-                    return RedirectToAction("Avaliar", new { pessoa1 = pessoa1.PessoaId, pessoa2 = pessoa2.PessoaId, AvaliacaoId });
                 }
             }
 
@@ -160,7 +134,6 @@ namespace ECOE.Controllers
         [HttpPost]
         public ActionResult NovoAluno(Pessoa pessoa, int AvaliacaoId, int TurmaId)
         {
-
             if (bd.Pessoa.FirstOrDefault(x => x.RA == pessoa.RA || x.Email == pessoa.Email) != null) return RedirectToAction("NovoAluno", new { AvaliacaoId, Mensagem = "2" });
             pessoa.AcessoId = 2;
             pessoa.StatusId = 1;
@@ -177,23 +150,21 @@ namespace ECOE.Controllers
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
             if (bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Dupla == true)
-            {
                 return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-            }
             //if (bd.AlunoQuestao.Where(x => x.PessoaId == PessoaId && x.Questao.AvaliacaoId == AvaliacaoId).Count() != 0) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             ViewBag.Mensagem = Mensagem;
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);
-            var avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa1).Nome;
+            var avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa1).Nome.ToString();
             ViewBag.aluno1 = Pessoa1;
+
             if (Pessoa2 != null)
             {
-                ViewBag.avaliado = avaliado +" "+  bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa2).Nome;
+                ViewBag.avaliado = avaliado + " " + bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa2).Nome;
                 ViewBag.aluno2 = Pessoa2;
             }
             else
-            {
                 ViewBag.avaliado = avaliado;
-            }
+
             ViewBag.q = questoes.Select(x => x.Descricao);
             ViewBag.descricao = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Descricao;
             ViewBag.ava = AvaliacaoId;
