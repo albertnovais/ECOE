@@ -131,8 +131,7 @@ namespace ECOE.Controllers
             questao.StatusId = 1;
             questao.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
             bd.Questao.Add(questao);
-            bd.SaveChanges();
-            
+            bd.SaveChanges();            
             //return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = questao.GrupoId });
             return RedirectToAction("CreateQuestao", "Avaliacao", new { avaliacaoId= questao.AvaliacaoId });
         }
