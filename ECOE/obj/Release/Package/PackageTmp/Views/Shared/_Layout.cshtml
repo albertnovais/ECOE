@@ -107,15 +107,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
+
 
     <!--
     Scripts Adicionais
 
     Modal
-
-
 
     Editor de texto TinyMCE
 
@@ -124,6 +124,14 @@
     Paginação
 
     -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#NomeU').autocomplete({
+                source: '@Url.Action("Search", "Pessoa")'
+            })
+        })
+    </script>
+
     <!--Abrir Modal-->
     <script>
         $('#myModal').on('shown.bs.modal', function () {
@@ -131,19 +139,17 @@
         })
     </script>
 
-    <!-- WebService ViaCEP
-    https://viacep.com.br/
-    -->
     <!--
        API para Edição de Texto
        TinyMCE https://www.tiny.cloud
     -->
+
     <script>
         tinymce.init({
             selector: '#mytextarea',
-            plugins: "image, print, ",
+            plugins: "image, print",
             language: 'pt_BR',
-            language_url: "https://localhost:44300/Scripts/pt_BR.js"
+            language_url: "http://localhost:50168/Scripts/pt_BR.js"
         });
     </script>
     <!--Datatables-->
@@ -151,10 +157,26 @@
     <script>
         $(document).ready(function () {
             $('#datatables').DataTable({
-                    "scrollX": true,
-                //       dom: 'Blfrtip',
-                      "dom": '<"top"fB>rt<"bottom"il>p<"clear">',
-              
+                "dom": '<"top"fB>rt<"bottom"il>p<"clear">',
+                colReorder: true,
+                responsive: true,
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copiar',
+                        autoPrint: false,
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'PDF',
+                        autoPrint: false,
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Excel',
+                    },
+                ],
+                "pagingType": "first_last_numbers",
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sProcessing": "A processar...",

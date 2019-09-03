@@ -198,7 +198,7 @@ namespace ECOE.Controllers
         }
 
         [HttpPost]
-        public ActionResult Avaliar(int AvaliacaoId, int Aluno1, int? Aluno2,
+        public ActionResult Avaliar(int AvaliacaoId, int Aluno1, int? Aluno2, string Radio,
             int? QuestaoId1, int? QuestaoId2, int? QuestaoId3, int? QuestaoId4, int? QuestaoId5, int? QuestaoId6, int? QuestaoId7, int? QuestaoId8, int? QuestaoId9, int? QuestaoId10,
             int? QuestaoId11, int? QuestaoId12, int? QuestaoId13, int? QuestaoId14, int? QuestaoId15, int? QuestaoId16, int? QuestaoId17, int? QuestaoId18, int? QuestaoId19, int? QuestaoId20,
             int? QuestaoId21, int? QuestaoId22, int? QuestaoId23, int? QuestaoId24, int? QuestaoId25, int? QuestaoId26, int? QuestaoId27, int? QuestaoId28, int? QuestaoId29, int? QuestaoId30,
@@ -206,6 +206,9 @@ namespace ECOE.Controllers
             int? Radio11, int? Radio12, int? Radio13, int? Radio14, int? Radio15, int? Radio16, int? Radio17, int? Radio18, int? Radio19, int? Radio20,
             int? Radio21, int? Radio22, int? Radio23, int? Radio24, int? Radio25, int? Radio26, int? Radio27, int? Radio28, int? Radio29, int? Radio30)
         {
+           
+            var radios = Radio.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
             if (bd.AlunoQuestao.FirstOrDefault(x => x.QuestaoId == QuestaoId1 && x.PessoaId == Aluno1) != null) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
             if (Radio1 != null)

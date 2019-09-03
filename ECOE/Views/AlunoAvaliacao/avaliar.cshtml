@@ -10,7 +10,7 @@
     var qid = "";
     var Mensagem = ViewBag.Mensagem;
     var c = 0;
-    var geral = 1;
+    var geral = 0;
 
 }
 
@@ -46,7 +46,7 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
 {
     @Html.AntiForgeryToken()
-   
+
     <div class="card">
         <div class="card-header">
             <div class="row p-1">
@@ -86,7 +86,7 @@
                                 nomeRadio = "Radio" + (c + 1);
                                 var label = geral;
                                 <td>
-                                    <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input" onchange="valid()" />
+                                    <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input" onchange="preencher()" />
                                     @if (valorRadio == 0)
                                     {
                                         <label for="@label">Não Realizou </label>
@@ -110,6 +110,8 @@
             <input type="hidden" name="Aluno1" value="@ViewBag.aluno1">
             <input type="hidden" name="Aluno2" value="@ViewBag.aluno2">
             <input type="hidden" name="AvaliacaoId" value="@ViewBag.ava">
+            <input type="hidden" name=Radio[] value="" id="rad">
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12">
                     <input id="enviar" disabled="disabled" type="submit" value="Salvar" name="btn-salvar" class="btn btn-primary" />
@@ -183,15 +185,28 @@
             </div>
         </div>
     }*@
+
 <script>
-    var x = 0;
-    function valid() {
-        x++;
-        if (x !==@c) {
-            $("#enviar").attr("disabled");
+    var radio = [];
+    var cont = 0;
+    function preencher() {
+        for (i = 1; i < @c*3; i++) {
+            if ($("#" + i).prop("checked")) {
+                radio[cont] = $("#" + i).val()
+                
+                cont++
+                
+            }
+        }
+        console.log(radio)
+        if (cont !==@c) {
+            cont = 0;
+            $("#enviar").attr("disabled")
         }
         else {
-            $("#enviar").removeAttr("disabled");
+            console.log(radio)
+            $("#rad").val(radio);
+            $("#enviar").removeAttr("disabled")
         }
     }
 </script>

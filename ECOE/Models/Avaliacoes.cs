@@ -29,7 +29,7 @@ namespace ECOE.Models
         public int TurmaId { get; set; }
         public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
-        public Nullable<int> DataAvaliacao { get; set; }
+        public Nullable<System.DateTime> DataAvaliacao { get; set; }
         public Nullable<bool> Dupla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

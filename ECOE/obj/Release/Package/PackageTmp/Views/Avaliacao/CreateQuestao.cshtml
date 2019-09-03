@@ -16,7 +16,7 @@
                         <i class="material-icons">question_answer</i>
                     </div>
                     <h4 class="card-title">
-                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.grupoNome</span>
+                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.avaliacaoNome</span>
                     </h4>
                 </div>
                 <div class="card-body">
@@ -38,11 +38,11 @@
                         <div class="card-footer ml-auto mr-auto">
                             <div>
                                 <div>
-                                    <a href="@Url.Action("ListGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
+                                    <a href="@Url.Action("ListQuestao","Avaliacao", new { avaliacaoId = avaliacaoId})">
                                         <input type="button" value="Concluir e Sair" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
                                     </a>
-                                    <a href="@Url.Action("CreateGrupo","Avaliacao", new { avaliacaoId = avaliacaoId})">
-                                        <input type="button" value="Concluir e Criar Novo Grupo" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
+                                    <a href="@Url.Action("CreateQuestao","Avaliacao", new { avaliacaoId = avaliacaoId})">
+                                        <input type="button" value="Concluir e Criar Nova Questao" class="btn btn-success" style="font-weight:bold; font-family:Arial;" />
                                     </a>
                                 </div>  
                             </div>

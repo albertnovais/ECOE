@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="AcessoId" />
     </Key>
-    <Property Name="AcessoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AcessoId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
   </EntityType>
@@ -43,7 +43,7 @@
     <Property Name="TurmaId" Type="int" Nullable="false" />
     <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
     <Property Name="StatusId" Type="int" />
-    <Property Name="DataAvaliacao" Type="int" />
+    <Property Name="DataAvaliacao" Type="date" />
     <Property Name="Dupla" Type="bit" />
   </EntityType>
   <EntityType Name="Curso">
@@ -61,7 +61,7 @@
     </Key>
     <Property Name="PessoaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="100" />
+    <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Senha" Type="varchar" MaxLength="256" />
     <Property Name="PessoaCadastrou" Type="int" Nullable="false" />
     <Property Name="RA" Type="varchar" MaxLength="50" />
@@ -93,7 +93,7 @@
     <Key>
       <PropertyRef Name="StatusId" />
     </Key>
-    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusId" Type="int" Nullable="false" />
     <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Descricao" Type="text" />
   </EntityType>

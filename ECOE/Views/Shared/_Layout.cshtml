@@ -117,8 +117,6 @@
 
     Modal
 
-
-
     Editor de texto TinyMCE
 
     Datatables
@@ -126,7 +124,6 @@
     Paginação
 
     -->
-
     <script type="text/javascript">
         $(document).ready(function () {
             $('#NomeU').autocomplete({
@@ -146,6 +143,7 @@
        API para Edição de Texto
        TinyMCE https://www.tiny.cloud
     -->
+
     <script>
         tinymce.init({
             selector: '#mytextarea',
@@ -177,20 +175,7 @@
                         extend: 'excelHtml5',
                         text: 'Excel',
                     },
-                    {
-                        extend: 'colvis',
-                        text: "Ocultar coluna",
-                        columns: ':gt(0)'
-                    }
-
                 ],
-                //        dom: 'Bfrtip',
-                //buttons: [
-                //    'copyHtml5':,
-                //    'excelHtml5',
-                //    'csvHtml5',
-                //    'pdfHtml5'
-                //],
                 "pagingType": "first_last_numbers",
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
