@@ -7,7 +7,7 @@
     int cont = 0;
     int valorRadio;
     var nomeRadio = "";
-    var qid = "";
+    var Questao = "";
     var Mensagem = ViewBag.Mensagem;
     var c = 0;
     var geral = 0;
@@ -73,10 +73,9 @@
                             <td>
                                 @Html.Raw(item.Descricao)
                                 @{
-                                    qid = "QuestaoId" + (c + 1);
                                     cont *= 0;
                                 }
-                                <input type="hidden" name="@qid" value="@item.QuestaoId" />
+
                                 <input type="hidden" name="QuestaoId" value="@item.QuestaoId" />
                             </td>
                             @for (int j = 0; j < 3; j++)
@@ -107,11 +106,17 @@
                     }
                 </tbody>
             </table>
+
+            @foreach (var item in Model)
+            {
+                Questao += "," + item.QuestaoId;
+            }
+
+            <input type="hidden" name="Questao" value="@Questao" />
             <input type="hidden" name="Aluno1" value="@ViewBag.aluno1">
             <input type="hidden" name="Aluno2" value="@ViewBag.aluno2">
             <input type="hidden" name="AvaliacaoId" value="@ViewBag.ava">
             <input type="hidden" name=Radio[] value="" id="rad">
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-12">
                     <input id="enviar" disabled="disabled" type="submit" value="Salvar" name="btn-salvar" class="btn btn-primary" />
@@ -122,69 +127,6 @@
 
 }
 
-@*@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h3>@ViewBag.avaliado</h3>
-        <table class="table table-striped">
-            <thead class="thead-dark" style="text-align:center;">
-                <tr>
-                    <th scope="col" style="width: 58%;">Questões</th>
-                    <th scope="col" style="width: 14%;">Não Realizou</th>
-                    <th scope="col" style="width: 14%;">Realizou Parcialmente</th>
-                    <th scope="col" style="width: 14%;">Realizou Bem</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var item in q)
-                {
-                    <tr>
-                        <td class="row">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col">@item</div>
-                                </div>
-                            </div>
-
-                            @foreach (var i in Model)
-                            {
-
-                                qid = "QuestaoId" + (cont + 1);
-                                cont++;
-
-                                <input type="hidden" name="@qid" value="@i.QuestaoId" />
-                                <input type="hidden" name="QuestaoId" value="@i.QuestaoId" />
-
-                            }
-                            @{
-                                cont *= 0;
-                            }
-                        </td>
-
-                        @for (int j = 0; j < 3; j++)
-                        {
-                            valorRadio = cont % 3;
-                            cont++;
-                            nomeRadio = "Radio" + (c + 1);
-
-                            <td style="text-align:center;">
-                                <input id="@nomeRadio" name="@nomeRadio" value="@valorRadio" type="radio" onchange="valid()" />
-                            </td>
-                        }
-                    </tr>
-                    c++;
-                }
-            </tbody>
-        </table>
-        <input type="hidden" name="Aluno" value="@ViewBag.aluno">
-        <input type="hidden" name="AvaliacaoId" value="@ViewBag.ava">
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-12">
-                <input id="enviar" disabled="disabled" type="submit" value="Salvar" name="btn-salvar" class="btn btn-primary" />
-            </div>
-        </div>
-    }*@
 
 <script>
     var radio = [];
@@ -193,9 +135,7 @@
         for (i = 1; i < @c*3; i++) {
             if ($("#" + i).prop("checked")) {
                 radio[cont] = $("#" + i).val()
-                
                 cont++
-                
             }
         }
         console.log(radio)

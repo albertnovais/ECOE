@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d38e2f6d5a4473d950d024de2017398" Name="Diagram1" ZoomLevel="29">
+        <EntityTypeShape EntityType="ECOEModel1.Acesso" Width="1.5" PointX="3.75" PointY="8" />
+        <EntityTypeShape EntityType="ECOEModel1.AlunoAvaliacao" Width="1.5" PointX="13.5" PointY="10.5" />
+        <EntityTypeShape EntityType="ECOEModel1.AlunoQuestao" Width="1.5" PointX="15.75" PointY="10.5" />
+        <EntityTypeShape EntityType="ECOEModel1.Avaliacoes" Width="1.5" PointX="8.25" PointY="9.875" />
+        <EntityTypeShape EntityType="ECOEModel1.Curso" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="ECOEModel1.Pessoa" Width="1.5" PointX="6" PointY="9" />
+        <EntityTypeShape EntityType="ECOEModel1.PessoaCurso" Width="1.5" PointX="8.25" PointY="6.625" />
+        <EntityTypeShape EntityType="ECOEModel1.Questao" Width="1.5" PointX="10.5" PointY="10.375" />
+        <EntityTypeShape EntityType="ECOEModel1.Status" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="ECOEModel1.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ECOEModel1.Turma" Width="1.5" PointX="11.25" PointY="6.125" />
+        <EntityTypeShape EntityType="ECOEModel1.TurmaPessoa" Width="1.5" PointX="13.5" PointY="7.125" />
+        <AssociationConnector Association="ECOEModel1.FK_Pessoa_Acesso" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoAvaliacao_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoAvaliacao_Pessoa1" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoAlternativa_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoQuestao_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_AlunoQuestao_Questao" />
+        <AssociationConnector Association="ECOEModel1.FK_Avaliacoes_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_Avaliacoes_Status" />
+        <AssociationConnector Association="ECOEModel1.FK_Avaliacoes_Turma" />
+        <AssociationConnector Association="ECOEModel1.FK_Questao_Avaliacoes" />
+        <AssociationConnector Association="ECOEModel1.FK_Curso_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_Curso_Status" />
+        <AssociationConnector Association="ECOEModel1.FK_PessoaCurso_Curso1" />
+        <AssociationConnector Association="ECOEModel1.FK_Turma_Curso" />
+        <AssociationConnector Association="ECOEModel1.FK_Pessoa_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_Pessoa_Status" />
+        <AssociationConnector Association="ECOEModel1.FK_PessoaCurso_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_PessoaCurso_Pessoa1" />
+        <AssociationConnector Association="ECOEModel1.FK_Questao_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_Turma_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_TurmaPessoa_Pessoa" />
+        <AssociationConnector Association="ECOEModel1.FK_TurmaPessoa_Pessoa1" />
+        <AssociationConnector Association="ECOEModel1.FK_Questao_Status" />
+        <AssociationConnector Association="ECOEModel1.FK_Turma_Status" />
+        <AssociationConnector Association="ECOEModel1.FK_TurmaPessoa_Turma" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
