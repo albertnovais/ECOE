@@ -16,7 +16,7 @@ namespace ECOE.Controllers
             var usu = Convert.ToInt32(HttpContext.User.Identity.Name);
             var turmas = bd.TurmaPessoa.Where(x => x.PessoaId == usu).ToList();
             var alunoAvaliacao = bd.AlunoAvaliacao.Where(x => x.PessoaId == usu);
-            var todasAvaliacoes = bd.Avaliacoes.Where(x => x.StatusId != 2).ToList();
+            var todasAvaliacoes = bd.Avaliacoes.Where(x => x.StatusId != 2 && x.DataAvaliacao > DateTime.Now).ToList();
 
             if (bd.Pessoa.FirstOrDefault(x => x.PessoaId == usu).AcessoId == 2)
             {

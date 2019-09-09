@@ -47,12 +47,12 @@
         </div>
     </div>
     <div class="card-body">
-        <table id="datatables" class=" display table-striped table table-sm" style="width:100%">
+        <table id="datatables" class="display table-striped table table-sm" style="width:100%">
             <thead class="thead-dark">
                 <tr>
                     <th>Caso</th>
                     <th>Dupla</th>
-                    @*<th>Data</th>*@
+                    <th>Data</th>
                     <th>Cadastrou</th>
                     <th>Turma</th>
                     <th class="disabled-sorting text-center">Ações</th>
@@ -75,15 +75,16 @@
                                 <span> Não </span>
                             }
                         </td>
-                        @*<td>s
-                                @Html.DisplayFor(modelItem => item.DataAvaliacao)
-                            </td>*@
+                        <td>
+                            @Convert.ToDateTime(item.DataAvaliacao).ToShortDateString()
+                        </td>
                         <td> @Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
                         <td>@Html.DisplayFor(modelItem => item.Turma.Nome)</td>
                         <td class="text-right">
                             <a title="Mostrar Questões" href="@Url.Action("ListQuestao","Avaliacao", new { avaliacaoId = item.AvaliacaoId})" class="btn-link"><i class="fas fa-clipboard text-info"></i></a>
                             <a title="Criar Questão" href="@Url.Action("CreateQuestao","Avaliacao", new { avaliacaoId = item.AvaliacaoId})" class="btn-link"><i class="fas fa-plus text-primary"></i></a>
                             <a href="@Url.Action("EditAvaliacao", new { avaliacaoId = item.AvaliacaoId })" title="Editar" class="btn-link"><i class="fas fa-edit text-warning"> </i></a>
+                            <a title="Avaliar" href="@Url.Action("AlunoExistente", "AlunoAvaliacao", new { AvaliacaoId = item.AvaliacaoId })" class="btn-link" style="font-weight:bold;"><i class="fas fa-edit text-success"> </i></a>
                             <a href="#" title="Remover" data-toggle="modal" data-target="#exampleModal" class="btn-link" id="remo" onclick="myFunction('@item.AvaliacaoId')"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
@@ -93,7 +94,7 @@
         </table>
     </div>
 </div>
-               
+
 @* Script de Remover *@
 
 <script>

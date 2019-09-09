@@ -10,12 +10,8 @@ namespace ECOE.Controllers
     public class AlunoAvaliacaoController : Controller
     {
         ECOEEntities bd = new ECOEEntities();
-        //[Authorize]
-        //public ActionResult Escolha(int AvaliacaoId)
-        //{
-        //    ViewBag.avaliacao = AvaliacaoId;
-        //    return View();
-        //}
+        
+        [HttpPost]
         public bool AdicionarAlunoTurma(int TurmaId, int PessoaId)
         {
             var turma = new TurmaPessoa();
@@ -28,6 +24,7 @@ namespace ECOE.Controllers
             return true;
         }
 
+        [HttpPost]
         public bool AdicionarAlunoAvaliacao(int AvaliacaoId, int PessoaId)
         {
             var alunoAvaliacao = new AlunoAvaliacao();
@@ -39,6 +36,7 @@ namespace ECOE.Controllers
             bd.SaveChanges();
             return true;
         }
+        [HttpPost]
         public bool AdicionarAlunoQuestao(int? radio, int? questao, int? aluno)
         {
             AlunoQuestao Aluno = new AlunoQuestao
@@ -68,6 +66,7 @@ namespace ECOE.Controllers
             var alunos = bd.TurmaPessoa.Where(x => x.TurmaId == turma.TurmaId && x.Pessoa.AcessoId == 2);
             return View(alunos);
         }
+
         [HttpPost]
         public ActionResult AlunoExistente(string RA1, string RA2, int AvaliacaoId, int TurmaId)
         {
@@ -131,8 +130,8 @@ namespace ECOE.Controllers
                     }
                 }
             }
-
         }
+
         [Authorize]
         public ActionResult NovoAluno(int? AvaliacaoId, int? RA1, string Mensagem)
         {
@@ -164,10 +163,7 @@ namespace ECOE.Controllers
         public ActionResult Avaliar(int? Pessoa1, int? Pessoa2, int AvaliacaoId, string Mensagem)
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
-            //if (bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Dupla == true)
-            //    return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-
-            var alunoQuestao1 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa1).ToList().Count();
+                       var alunoQuestao1 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa1).ToList().Count();
             var alunoQuestao2 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa2).ToList().Count();
 
             if (alunoQuestao1 > 0 && alunoQuestao2 > 0)
@@ -177,9 +173,10 @@ namespace ECOE.Controllers
             else if (alunoQuestao2 > 0)
                 return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
 
-            ViewBag.Mensagem = Mensagem;
+            
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);
             var avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa1).Nome;
+            ViewBag.Mensagem = Mensagem;
             ViewBag.aluno1 = Pessoa1;
 
             if (Pessoa2 != null)
@@ -198,722 +195,81 @@ namespace ECOE.Controllers
         }
 
         [HttpPost]
-        public ActionResult Avaliar(int AvaliacaoId, int Aluno1, int? Aluno2, string Radio, string Questao
-            //int? QuestaoId1, int? QuestaoId2, int? QuestaoId3, int? QuestaoId4, int? QuestaoId5, int? QuestaoId6, int? QuestaoId7, int? QuestaoId8, int? QuestaoId9, int? QuestaoId10,
-            //int? QuestaoId11, int? QuestaoId12, int? QuestaoId13, int? QuestaoId14, int? QuestaoId15, int? QuestaoId16, int? QuestaoId17, int? QuestaoId18, int? QuestaoId19, int? QuestaoId20,
-            //int? QuestaoId21, int? QuestaoId22, int? QuestaoId23, int? QuestaoId24, int? QuestaoId25, int? QuestaoId26, int? QuestaoId27, int? QuestaoId28, int? QuestaoId29, int? QuestaoId30,
-            //int? Radio1, int? Radio2, int? Radio3, int? Radio4, int? Radio5, int? Radio6, int? Radio7, int? Radio8, int? Radio9, int? Radio10,
-            //int? Radio11, int? Radio12, int? Radio13, int? Radio14, int? Radio15, int? Radio16, int? Radio17, int? Radio18, int? Radio19, int? Radio20,
-            //int? Radio21, int? Radio22, int? Radio23, int? Radio24, int? Radio25, int? Radio26, int? Radio27, int? Radio28, int? Radio29, int? Radio30
-            )
+        public ActionResult Avaliar(int AvaliacaoId, int Aluno1, int? Aluno2, string Radio, string Questao)
         {
-
             var radios = Radio.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var questoes = Questao.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
 
-            if(bd.Avaliacoes.FirstOrDefault(x=> x.AvaliacaoId == AvaliacaoId).Questao.Count() != radios.Length)
+            if (bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Questao.Count() != radios.Length)
             {
 
             }
             else
             {
-                for(int i = 0; i< questoes.Length; i++)
+                for (int i = 0; i < questoes.Length; i++)
                 {
                     AdicionarAlunoQuestao(Convert.ToInt32(radios[i]), Convert.ToInt32(questoes[i]), Aluno1);
-                      if (Aluno2 != null)
-                            AdicionarAlunoQuestao(Convert.ToInt32(radios[i]), Convert.ToInt32(questoes[i]), Aluno2);
+                    if (Aluno2 != null)
+                        AdicionarAlunoQuestao(Convert.ToInt32(radios[i]), Convert.ToInt32(questoes[i]), Aluno2);
                 }
             }
 
-
-            int h = 2;
-            if (1 == h)
-            {
-                //if (bd.AlunoQuestao.FirstOrDefault(x => x.QuestaoId == QuestaoId1 && x.PessoaId == Aluno1) != null) return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
-                //if (Radio1 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio1, QuestaoId1, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio1, QuestaoId1, Aluno2);
-                //}
-                //if (Radio2 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio2, QuestaoId2, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio2, QuestaoId2, Aluno2);
-                //}
-                //if (Radio3 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio3, QuestaoId3, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio3, QuestaoId3, Aluno2);
-                //}
-                //if (Radio4 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio4, QuestaoId4, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio4, QuestaoId4, Aluno2);
-                //}
-                //if (Radio5 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio5, QuestaoId5, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio5, QuestaoId5, Aluno2);
-                //}
-                //if (Radio6 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio6, QuestaoId6, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio6, QuestaoId6, Aluno2);
-                //}
-                //if (Radio7 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio7, QuestaoId7, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio7, QuestaoId7, Aluno2);
-                //}
-                //if (Radio8 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio8, QuestaoId8, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio8, QuestaoId8, Aluno2);
-                //}
-                //if (Radio9 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio9, QuestaoId9, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio9, QuestaoId9, Aluno2);
-                //}
-                //if (Radio10 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio10, QuestaoId10, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio10, QuestaoId10, Aluno2);
-                //}
-                //if (Radio11 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio11, QuestaoId11, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio11, QuestaoId11, Aluno2);
-                //}
-                //if (Radio12 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio12, QuestaoId12, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio12, QuestaoId12, Aluno2);
-                //}
-                //if (Radio13 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio13, QuestaoId13, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio13, QuestaoId13, Aluno2);
-                //}
-                //if (Radio14 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio14, QuestaoId14, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio14, QuestaoId14, Aluno2);
-                //}
-                //if (Radio15 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio15, QuestaoId15, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio15, QuestaoId15, Aluno2);
-                //}
-                //if (Radio16 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio16, QuestaoId16, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio16, QuestaoId16, Aluno2);
-                //}
-                //if (Radio17 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio17, QuestaoId17, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio17, QuestaoId17, Aluno2);
-                //}
-                //if (Radio18 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio18, QuestaoId18, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio18, QuestaoId18, Aluno2);
-                //}
-                //if (Radio19 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio19, QuestaoId19, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio19, QuestaoId19, Aluno2);
-                //}
-                //if (Radio20 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio20, QuestaoId20, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio20, QuestaoId20, Aluno2);
-                //}
-                //if (Radio21 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio21, QuestaoId21, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio21, QuestaoId21, Aluno2);
-                //}
-                //if (Radio22 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio22, QuestaoId22, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio22, QuestaoId22, Aluno2);
-                //}
-                //if (Radio23 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio23, QuestaoId23, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio23, QuestaoId23, Aluno2);
-                //}
-                //if (Radio24 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio24, QuestaoId24, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio24, QuestaoId24, Aluno2);
-                //}
-                //if (Radio25 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio25, QuestaoId25, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio25, QuestaoId25, Aluno2);
-                //}
-                //if (Radio26 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio26, QuestaoId26, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio26, QuestaoId26, Aluno2);
-                //}
-                //if (Radio27 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio27, QuestaoId27, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio27, QuestaoId27, Aluno2);
-                //}
-                //if (Radio28 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio28, QuestaoId28, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio28, QuestaoId28, Aluno2);
-                //}
-                //if (Radio29 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio29, QuestaoId29, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio29, QuestaoId29, Aluno2);
-                //}
-                //if (Radio30 != null)
-                //{
-                //    AdicionarAlunoQuestao(Radio30, QuestaoId30, Aluno1);
-                //    if (Aluno2 != null)
-                //        AdicionarAlunoQuestao(Radio30, QuestaoId30, Aluno2);
-                //}
-            }
-            if (1 == h)
-            {
-                //if (Radio1 != null)
-                //{
-                //    AlunoQuestao aluno1 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio1),
-                //        QuestaoId = Convert.ToInt32(QuestaoId1),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno1);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio1),
-                //        QuestaoId = Convert.ToInt32(QuestaoId1),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio2 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio2),
-                //        QuestaoId = Convert.ToInt32(QuestaoId2),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio2),
-                //        QuestaoId = Convert.ToInt32(QuestaoId2),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio3 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio3),
-                //        QuestaoId = Convert.ToInt32(QuestaoId3),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio3),
-                //        QuestaoId = Convert.ToInt32(QuestaoId3),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio4 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio4),
-                //        QuestaoId = Convert.ToInt32(QuestaoId4),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio4),
-                //        QuestaoId = Convert.ToInt32(QuestaoId4),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio5 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio5),
-                //        QuestaoId = Convert.ToInt32(QuestaoId5),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio5),
-                //        QuestaoId = Convert.ToInt32(QuestaoId5),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio6 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio6),
-                //        QuestaoId = Convert.ToInt32(QuestaoId6),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio6),
-                //        QuestaoId = Convert.ToInt32(QuestaoId6),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio7 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio7),
-                //        QuestaoId = Convert.ToInt32(QuestaoId7),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio7),
-                //        QuestaoId = Convert.ToInt32(QuestaoId7),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio8 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio8),
-                //        QuestaoId = Convert.ToInt32(QuestaoId8),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio8),
-                //        QuestaoId = Convert.ToInt32(QuestaoId8),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio9 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio9),
-                //        QuestaoId = Convert.ToInt32(QuestaoId9),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio9),
-                //        QuestaoId = Convert.ToInt32(QuestaoId9),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio10 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio10),
-                //        QuestaoId = Convert.ToInt32(QuestaoId10),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio10),
-                //        QuestaoId = Convert.ToInt32(QuestaoId10),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio11 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio11),
-                //        QuestaoId = Convert.ToInt32(QuestaoId11),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio11),
-                //        QuestaoId = Convert.ToInt32(QuestaoId11),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio12 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio12),
-                //        QuestaoId = Convert.ToInt32(QuestaoId12),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio12),
-                //        QuestaoId = Convert.ToInt32(QuestaoId12),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio13 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio13),
-                //        QuestaoId = Convert.ToInt32(QuestaoId13),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio13),
-                //        QuestaoId = Convert.ToInt32(QuestaoId13),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio14 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio14),
-                //        QuestaoId = Convert.ToInt32(QuestaoId14),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio14),
-                //        QuestaoId = Convert.ToInt32(QuestaoId14),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio15 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio15),
-                //        QuestaoId = Convert.ToInt32(QuestaoId15),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio15),
-                //        QuestaoId = Convert.ToInt32(QuestaoId15),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio16 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio16),
-                //        QuestaoId = Convert.ToInt32(QuestaoId16),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio16),
-                //        QuestaoId = Convert.ToInt32(QuestaoId16),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio17 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio17),
-                //        QuestaoId = Convert.ToInt32(QuestaoId17),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio17),
-                //        QuestaoId = Convert.ToInt32(QuestaoId17),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio18 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio18),
-                //        QuestaoId = Convert.ToInt32(QuestaoId18),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio18),
-                //        QuestaoId = Convert.ToInt32(QuestaoId18),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio19 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio19),
-                //        QuestaoId = Convert.ToInt32(QuestaoId19),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio19),
-                //        QuestaoId = Convert.ToInt32(QuestaoId19),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-                //if (Radio20 != null)
-                //{
-                //    AlunoQuestao aluno = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio20),
-                //        QuestaoId = Convert.ToInt32(QuestaoId20),
-                //        PessoaId = Aluno1,
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno);
-                //    AlunoQuestao aluno2 = new AlunoQuestao
-                //    {
-                //        DataHora = DateTime.Now,
-                //        Nota = Convert.ToDouble(Radio20),
-                //        QuestaoId = Convert.ToInt32(QuestaoId20),
-                //        PessoaId = Convert.ToInt32(Aluno2),
-                //        AvaliadorId = avaliador
-                //    };
-                //    bd.AlunoQuestao.Add(aluno2);
-                //    bd.SaveChanges();
-                //}
-            }
-
-            if(Aluno2!= null)          
-                return RedirectToAction("ResultadoIndividual", new { Aluno1,Aluno2, AvaliacaoId });
+            if (Aluno2 != null)
+                return RedirectToAction("ResultadoIndividual", new { Aluno1, Aluno2, AvaliacaoId });
             else
-                return RedirectToAction("ResultadoIndividual", new { Aluno = Aluno1,  AvaliacaoId });
-
-
+                return RedirectToAction("ResultadoIndividual", new { Aluno = Aluno1, AvaliacaoId });
         }
 
         [Authorize]
-public ActionResult ResultadoIndividual(int Aluno, int? Aluno2, int AvaliacaoId)
-{
-
-    var resultado = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno && x.Questao.AvaliacaoId == AvaliacaoId);
-    ViewBag.Avaliacao = AvaliacaoId;
-    ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
-    var notam = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId).Count() * 2;
-    var nota = resultado.Select(x => x.Nota).Sum();
-    ViewBag.nota = Math.Round(Convert.ToDouble((nota / notam) * Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso) / Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso)), 2);
-    return View(resultado);
-}
-
-[Authorize]
-public ActionResult Resultado(int Aluno, int TurmaId)
-{
-
-    var resultado = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno && x.Questao.Avaliacoes.TurmaId == TurmaId);
-    ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
-
-    var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == TurmaId).ToList();
-    var questoes = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno).ToList();
-    var alunoQuestaoGeral = questoes.Join(avaliacoes,
-                              questao => questao.Questao.AvaliacaoId,
-                              avaliacao => avaliacao.AvaliacaoId,
-                              (questao, avaliacao) => questao
-                              );
-
-    var notaMax = 0.0;
-    var notaTotal = 0.0;
-    var nota = 0.0;
-    object[] notaAvaliacao = new object[avaliacoes.Count()];
-    int cont = 0;
-    foreach (var i in avaliacoes)
-    {
-        var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId);
-        var alunoQuestao = alunoQuestaoGeral.Where(x => x.Questao.AvaliacaoId == avaliacao.AvaliacaoId);
-        notaMax = alunoQuestao.Count() * 2;
-        if (notaMax > 0)
+        public ActionResult ResultadoIndividual(int Aluno, int? Aluno2, int AvaliacaoId)
         {
-            notaTotal = alunoQuestao.Sum(x => x.Nota);
-            nota += (notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso);
+            var resultado = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno && x.Questao.AvaliacaoId == AvaliacaoId);
+            ViewBag.Avaliacao = AvaliacaoId;
+            ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
+            var notam = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId).Count() * 2;
+            var nota = resultado.Select(x => x.Nota).Sum();
+            ViewBag.nota = Math.Round(Convert.ToDouble((nota / notam) * Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso) / Convert.ToDouble(bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Peso)), 2);
+            return View(resultado);
         }
-        notaAvaliacao[cont] = avaliacao.Nome + ": " + Math.Round((notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso), 2);
-        cont++;
-    }
-    ViewBag.avaliacoesNotas = notaAvaliacao;
-    ViewBag.nota = Math.Round(nota, 2);
-    return View(resultado);
-}
+
+        [Authorize]
+        public ActionResult Resultado(int Aluno, int TurmaId)
+        {
+
+            var resultado = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno && x.Questao.Avaliacoes.TurmaId == TurmaId);
+            ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Aluno).Nome;
+
+            var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == TurmaId).ToList();
+            var questoes = bd.AlunoQuestao.Where(x => x.PessoaId == Aluno).ToList();
+            var alunoQuestaoGeral = questoes.Join(avaliacoes,
+                                      questao => questao.Questao.AvaliacaoId,
+                                      avaliacao => avaliacao.AvaliacaoId,
+                                      (questao, avaliacao) => questao
+                                      );
+
+            var notaMax = 0.0;
+            var notaTotal = 0.0;
+            var nota = 0.0;
+            object[] notaAvaliacao = new object[avaliacoes.Count()];
+            int cont = 0;
+            foreach (var i in avaliacoes)
+            {
+                var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId);
+                var alunoQuestao = alunoQuestaoGeral.Where(x => x.Questao.AvaliacaoId == avaliacao.AvaliacaoId);
+                notaMax = alunoQuestao.Count() * 2;
+                if (notaMax > 0)
+                {
+                    notaTotal = alunoQuestao.Sum(x => x.Nota);
+                    nota += (notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso);
+                }
+                notaAvaliacao[cont] = avaliacao.Nome + ": " + Math.Round((notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso), 2);
+                cont++;
+            }
+            ViewBag.avaliacoesNotas = notaAvaliacao;
+            ViewBag.nota = Math.Round(nota, 2);
+            return View(resultado);
+        }
 
 
     }
