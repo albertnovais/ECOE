@@ -61,10 +61,10 @@
                 {
                     <tr>
                         <td>@Html.Raw(item.Descricao)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DataCadastro)</td>
+                        <td>@item.DataCadastro.ToShortDateString()</td>
                         <td class="text-right">
-                            <a href="@Url.Action("EditQuestao", new { questaoID = item.QuestaoId })" title="Editar" class="btn btn-link btn-warning btn-just-icon edit"><i class="material-icons">create</i></a>
-                            <button title="Remover" data-toggle="modal" data-target="#exampleModal" class="btn btn-link btn-danger btn-just-icon remove" id="remo" onclick="myFunction('@item.QuestaoId')"><i class="material-icons">close</i></button>
+                            <a href="@Url.Action("EditQuestao", new { questaoID = item.QuestaoId })" title="Editar" class="btn-link"><i class="fas fa-edit text-warning"></i></a>
+                            <a href="#" title="Remover" data-toggle="modal" data-target="#exampleModal" class="btn-link" id="remo" onclick="myFunction('@item.QuestaoId')"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
                 }

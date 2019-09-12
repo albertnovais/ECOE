@@ -11,6 +11,7 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Questao
     {
@@ -19,8 +20,9 @@ namespace ECOE.Models
         {
             this.AlunoQuestao = new HashSet<AlunoQuestao>();
         }
-    
+        
         public int QuestaoId { get; set; }
+        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Descricao { get; set; }
         public System.DateTime DataCadastro { get; set; }
         public int PessoaId { get; set; }
@@ -29,8 +31,8 @@ namespace ECOE.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
-        public virtual Avaliacoes Avaliacoes { get; set; }
         public virtual Pessoa Pessoa { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Avaliacoes Avaliacoes { get; set; }
     }
 }

@@ -12,17 +12,15 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-primary card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">edit</i>
-                </div>
                 <h4 class="card-title" style="font-weight:bold;">
                     Editar @Model.Nome
                 </h4>
             </div>
-            <div class="card-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="card-body">
+
 
                     <div class="row">
                         <div class="col-md-12">
@@ -56,51 +54,44 @@
                                 @Html.ValidationMessageFor(model => model.Periodo, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                    </div>                                     
+                    </div>
 
-                        
-                        @*Status*@
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group has-rose bmd-form-group">
-                                    <select class="custom-select " name="StatusId" title="Status" data-style="btn btn-link" id="exampleFormControlSelect1">
 
-                                        @if (Model.StatusId == 2)
-                                        {
-                                            <option value="2">Selecione o Status </option>
-                                            <option value="1" class="dropdown-item">Ativar</option>
-                                        }
-                                        @if (Model.StatusId == 1)
-                                        {
-                                            <option value="1">Selecione o Status </option>
-                                            <option value="2">Desativar</option>
-                                        }
-                                    </select>
-                                </div>
+                    @*Status*@
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group has-rose bmd-form-group">
+                                <select class="custom-select " name="StatusId" title="Status" data-style="btn btn-link" id="exampleFormControlSelect1">
+
+                                    @if (Model.StatusId == 2)
+                                    {
+                                        <option value="2">Selecione o Status </option>
+                                        <option value="1" class="dropdown-item">Ativar</option>
+                                    }
+                                    @if (Model.StatusId == 1)
+                                    {
+                                        <option value="1">Selecione o Status </option>
+                                        <option value="2">Desativar</option>
+                                    }
+                                </select>
                             </div>
                         </div>
+                    </div>
 
-                        @*Botões*@
-                        <div class="card-footer ml-auto mr-auto">
-                            <div>
-                                <div class="col-md-offset-2 col-md-2">
-                                    <a href="ListaTurma"  >
-                                        <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
-                                    </a>
-                                </div>
-                            </div>
-                            <div>
-                                <input type="submit" value="Salvar" class="btn btn-primary pull-right">
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
+                    @*Botões*@
 
-
-                   
-                }
-            </div>
-    </div>
-</div>
+                </div>
+                <div class="card-footer" style="text-align:right">
+                    <row>
+                        <a href="ListTurma" class="btn btn-danger" style="font-weight:bold; font-family:Arial;">
+                            Cancelar
+                        </a>
+                        <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                    </row>
+                </div>
+            }
+        </div>
+        </div>
     </div>
 
 

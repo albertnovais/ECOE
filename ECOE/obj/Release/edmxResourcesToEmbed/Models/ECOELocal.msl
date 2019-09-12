@@ -32,6 +32,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Avaliacoes">
+      <EntityTypeMapping TypeName="ECOEModel1.Avaliacoes">
+        <MappingFragment StoreEntitySet="Avaliacoes">
+          <ScalarProperty Name="Dupla" ColumnName="Dupla" />
+          <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Peso" ColumnName="Peso" />
+          <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+          <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Curso">
       <EntityTypeMapping TypeName="ECOEModel1.Curso">
         <MappingFragment StoreEntitySet="Curso">
@@ -120,22 +136,6 @@
           <ScalarProperty Name="pessoaCadastrou" ColumnName="pessoaCadastrou" />
           <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
           <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Avaliacoes">
-      <EntityTypeMapping TypeName="ECOEModel1.Avaliacoes">
-        <MappingFragment StoreEntitySet="Avaliacoes">
-          <ScalarProperty Name="Dupla" ColumnName="Dupla" />
-          <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
-          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-          <ScalarProperty Name="Peso" ColumnName="Peso" />
-          <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
-          <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
-          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
-          <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

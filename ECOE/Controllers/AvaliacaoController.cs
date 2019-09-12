@@ -114,7 +114,7 @@ namespace ECOE.Controllers
         public ActionResult CreateQuestao(int AvaliacaoId)
         {
             ViewBag.avaliacaoID = AvaliacaoId;
-            //ViewBag.grupoNome = bd.GrupoQuestao.FirstOrDefault(x => x.GrupoId == GrupoId).Nome;
+            ViewBag.avaliacaoNome = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Nome;
             ViewBag.Nome = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == AvaliacaoId).Nome;
             return View();
         }

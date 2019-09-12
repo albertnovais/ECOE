@@ -49,7 +49,7 @@
           <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
           <Property Name="StatusId" Type="int" />
           <Property Name="DataAvaliacao" Type="date" />
-          <Property Name="Dupla" Type="bit" />
+          <Property Name="Dupla" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -574,7 +574,6 @@
           <EntitySet Name="Acesso" EntityType="ECOEModel1.Acesso" />
           <EntitySet Name="AlunoAvaliacao" EntityType="ECOEModel1.AlunoAvaliacao" />
           <EntitySet Name="AlunoQuestao" EntityType="ECOEModel1.AlunoQuestao" />
-          <EntitySet Name="Avaliacoes" EntityType="ECOEModel1.Avaliacoes" />
           <EntitySet Name="Curso" EntityType="ECOEModel1.Curso" />
           <EntitySet Name="Pessoa" EntityType="ECOEModel1.Pessoa" />
           <EntitySet Name="PessoaCurso" EntityType="ECOEModel1.PessoaCurso" />
@@ -586,10 +585,6 @@
           <AssociationSet Name="FK_Pessoa_Acesso" Association="ECOEModel1.FK_Pessoa_Acesso">
             <End Role="Acesso" EntitySet="Acesso" />
             <End Role="Pessoa" EntitySet="Pessoa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes">
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
           </AssociationSet>
           <AssociationSet Name="FK_AlunoAvaliacao_Pessoa" Association="ECOEModel1.FK_AlunoAvaliacao_Pessoa">
             <End Role="Pessoa" EntitySet="Pessoa" />
@@ -610,22 +605,6 @@
           <AssociationSet Name="FK_AlunoQuestao_Questao" Association="ECOEModel1.FK_AlunoQuestao_Questao">
             <End Role="Questao" EntitySet="Questao" />
             <End Role="AlunoQuestao" EntitySet="AlunoQuestao" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="ECOEModel1.FK_Avaliacoes_Pessoa">
-            <End Role="Pessoa" EntitySet="Pessoa" />
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Avaliacoes_Status" Association="ECOEModel1.FK_Avaliacoes_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Avaliacoes_Turma" Association="ECOEModel1.FK_Avaliacoes_Turma">
-            <End Role="Turma" EntitySet="Turma" />
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Questao_Avaliacoes" Association="ECOEModel1.FK_Questao_Avaliacoes">
-            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
-            <End Role="Questao" EntitySet="Questao" />
           </AssociationSet>
           <AssociationSet Name="FK_Curso_Pessoa" Association="ECOEModel1.FK_Curso_Pessoa">
             <End Role="Pessoa" EntitySet="Pessoa" />
@@ -687,6 +666,27 @@
             <End Role="Turma" EntitySet="Turma" />
             <End Role="TurmaPessoa" EntitySet="TurmaPessoa" />
           </AssociationSet>
+          <EntitySet Name="Avaliacoes" EntityType="ECOEModel1.Avaliacoes" />
+          <AssociationSet Name="FK_AlunoAvaliacao_Avaliacoes" Association="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="AlunoAvaliacao" EntitySet="AlunoAvaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Pessoa" Association="ECOEModel1.FK_Avaliacoes_Pessoa">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Status" Association="ECOEModel1.FK_Avaliacoes_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacoes_Turma" Association="ECOEModel1.FK_Avaliacoes_Turma">
+            <End Role="Turma" EntitySet="Turma" />
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Questao_Avaliacoes" Association="ECOEModel1.FK_Questao_Avaliacoes">
+            <End Role="Avaliacoes" EntitySet="Avaliacoes" />
+            <End Role="Questao" EntitySet="Questao" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Acesso">
           <Key>
@@ -707,9 +707,9 @@
           <Property Name="PessoaCadastrou" Type="Int32" Nullable="false" />
           <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DuplaId" Type="Int32" />
-          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes" FromRole="AlunoAvaliacao" ToRole="Avaliacoes" />
           <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_AlunoAvaliacao_Pessoa" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
           <NavigationProperty Name="Pessoa1" Relationship="ECOEModel1.FK_AlunoAvaliacao_Pessoa1" FromRole="AlunoAvaliacao" ToRole="Pessoa" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes" FromRole="AlunoAvaliacao" ToRole="Avaliacoes" />
         </EntityType>
         <EntityType Name="AlunoQuestao">
           <Key>
@@ -725,26 +725,6 @@
           <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_AlunoAlternativa_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
           <NavigationProperty Name="Pessoa1" Relationship="ECOEModel1.FK_AlunoQuestao_Pessoa" FromRole="AlunoQuestao" ToRole="Pessoa" />
           <NavigationProperty Name="Questao" Relationship="ECOEModel1.FK_AlunoQuestao_Questao" FromRole="AlunoQuestao" ToRole="Questao" />
-        </EntityType>
-        <EntityType Name="Avaliacoes">
-          <Key>
-            <PropertyRef Name="AvaliacaoId" />
-          </Key>
-          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PessoaId" Type="Int32" Nullable="false" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TurmaId" Type="Int32" Nullable="false" />
-          <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="DataAvaliacao" Type="DateTime" Precision="0" />
-          <Property Name="Dupla" Type="Boolean" />
-          <NavigationProperty Name="AlunoAvaliacao" Relationship="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes" FromRole="Avaliacoes" ToRole="AlunoAvaliacao" />
-          <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_Avaliacoes_Pessoa" FromRole="Avaliacoes" ToRole="Pessoa" />
-          <NavigationProperty Name="Status" Relationship="ECOEModel1.FK_Avaliacoes_Status" FromRole="Avaliacoes" ToRole="Status" />
-          <NavigationProperty Name="Turma" Relationship="ECOEModel1.FK_Avaliacoes_Turma" FromRole="Avaliacoes" ToRole="Turma" />
-          <NavigationProperty Name="Questao" Relationship="ECOEModel1.FK_Questao_Avaliacoes" FromRole="Avaliacoes" ToRole="Questao" />
         </EntityType>
         <EntityType Name="Curso">
           <Key>
@@ -776,7 +756,6 @@
           <NavigationProperty Name="AlunoAvaliacao1" Relationship="ECOEModel1.FK_AlunoAvaliacao_Pessoa1" FromRole="Pessoa" ToRole="AlunoAvaliacao" />
           <NavigationProperty Name="AlunoQuestao" Relationship="ECOEModel1.FK_AlunoAlternativa_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
           <NavigationProperty Name="AlunoQuestao1" Relationship="ECOEModel1.FK_AlunoQuestao_Pessoa" FromRole="Pessoa" ToRole="AlunoQuestao" />
-          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Pessoa" FromRole="Pessoa" ToRole="Avaliacoes" />
           <NavigationProperty Name="Curso" Relationship="ECOEModel1.FK_Curso_Pessoa" FromRole="Pessoa" ToRole="Curso" />
           <NavigationProperty Name="Pessoa1" Relationship="ECOEModel1.FK_Pessoa_Pessoa" FromRole="Pessoa" ToRole="Pessoa1" />
           <NavigationProperty Name="Pessoa2" Relationship="ECOEModel1.FK_Pessoa_Pessoa" FromRole="Pessoa1" ToRole="Pessoa" />
@@ -787,6 +766,7 @@
           <NavigationProperty Name="Turma" Relationship="ECOEModel1.FK_Turma_Pessoa" FromRole="Pessoa" ToRole="Turma" />
           <NavigationProperty Name="TurmaPessoa" Relationship="ECOEModel1.FK_TurmaPessoa_Pessoa" FromRole="Pessoa" ToRole="TurmaPessoa" />
           <NavigationProperty Name="TurmaPessoa1" Relationship="ECOEModel1.FK_TurmaPessoa_Pessoa1" FromRole="Pessoa" ToRole="TurmaPessoa" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Pessoa" FromRole="Pessoa" ToRole="Avaliacoes" />
         </EntityType>
         <EntityType Name="PessoaCurso">
           <Key>
@@ -812,9 +792,9 @@
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="AvaliacaoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AlunoQuestao" Relationship="ECOEModel1.FK_AlunoQuestao_Questao" FromRole="Questao" ToRole="AlunoQuestao" />
-          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Questao_Avaliacoes" FromRole="Questao" ToRole="Avaliacoes" />
           <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_Questao_Pessoa" FromRole="Questao" ToRole="Pessoa" />
           <NavigationProperty Name="Status" Relationship="ECOEModel1.FK_Questao_Status" FromRole="Questao" ToRole="Status" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Questao_Avaliacoes" FromRole="Questao" ToRole="Avaliacoes" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -823,11 +803,11 @@
           <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Descricao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Status" FromRole="Status" ToRole="Avaliacoes" />
           <NavigationProperty Name="Curso" Relationship="ECOEModel1.FK_Curso_Status" FromRole="Status" ToRole="Curso" />
           <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_Pessoa_Status" FromRole="Status" ToRole="Pessoa" />
           <NavigationProperty Name="Questao" Relationship="ECOEModel1.FK_Questao_Status" FromRole="Status" ToRole="Questao" />
           <NavigationProperty Name="Turma" Relationship="ECOEModel1.FK_Turma_Status" FromRole="Status" ToRole="Turma" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Status" FromRole="Status" ToRole="Avaliacoes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -851,11 +831,11 @@
           <Property Name="Turno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Ano" Type="Int32" />
           <Property Name="Periodo" Type="Int32" />
-          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Turma" FromRole="Turma" ToRole="Avaliacoes" />
           <NavigationProperty Name="Curso" Relationship="ECOEModel1.FK_Turma_Curso" FromRole="Turma" ToRole="Curso" />
           <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_Turma_Pessoa" FromRole="Turma" ToRole="Pessoa" />
           <NavigationProperty Name="Status" Relationship="ECOEModel1.FK_Turma_Status" FromRole="Turma" ToRole="Status" />
           <NavigationProperty Name="TurmaPessoa" Relationship="ECOEModel1.FK_TurmaPessoa_Turma" FromRole="Turma" ToRole="TurmaPessoa" />
+          <NavigationProperty Name="Avaliacoes" Relationship="ECOEModel1.FK_Avaliacoes_Turma" FromRole="Turma" ToRole="Avaliacoes" />
         </EntityType>
         <EntityType Name="TurmaPessoa">
           <Key>
@@ -880,18 +860,6 @@
             </Principal>
             <Dependent Role="Pessoa">
               <PropertyRef Name="AcessoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AlunoAvaliacao_Avaliacoes">
-          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
-          <End Type="ECOEModel1.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Avaliacoes">
-              <PropertyRef Name="AvaliacaoId" />
-            </Principal>
-            <Dependent Role="AlunoAvaliacao">
-              <PropertyRef Name="AvaliacaoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -952,54 +920,6 @@
             </Principal>
             <Dependent Role="AlunoQuestao">
               <PropertyRef Name="QuestaoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Avaliacoes_Pessoa">
-          <End Type="ECOEModel1.Pessoa" Role="Pessoa" Multiplicity="1" />
-          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pessoa">
-              <PropertyRef Name="PessoaId" />
-            </Principal>
-            <Dependent Role="Avaliacoes">
-              <PropertyRef Name="PessoaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Avaliacoes_Status">
-          <End Type="ECOEModel1.Status" Role="Status" Multiplicity="0..1" />
-          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="Avaliacoes">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Avaliacoes_Turma">
-          <End Type="ECOEModel1.Turma" Role="Turma" Multiplicity="1" />
-          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Turma">
-              <PropertyRef Name="TurmaId" />
-            </Principal>
-            <Dependent Role="Avaliacoes">
-              <PropertyRef Name="TurmaId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Questao_Avaliacoes">
-          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
-          <End Type="ECOEModel1.Questao" Role="Questao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Avaliacoes">
-              <PropertyRef Name="AvaliacaoId" />
-            </Principal>
-            <Dependent Role="Questao">
-              <PropertyRef Name="AvaliacaoId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1183,6 +1103,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Avaliacoes">
+          <Key>
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PessoaId" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DataCadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TurmaId" Type="Int32" Nullable="false" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="DataAvaliacao" Type="DateTime" Precision="0" />
+          <Property Name="Dupla" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AlunoAvaliacao" Relationship="ECOEModel1.FK_AlunoAvaliacao_Avaliacoes" FromRole="Avaliacoes" ToRole="AlunoAvaliacao" />
+          <NavigationProperty Name="Pessoa" Relationship="ECOEModel1.FK_Avaliacoes_Pessoa" FromRole="Avaliacoes" ToRole="Pessoa" />
+          <NavigationProperty Name="Status" Relationship="ECOEModel1.FK_Avaliacoes_Status" FromRole="Avaliacoes" ToRole="Status" />
+          <NavigationProperty Name="Turma" Relationship="ECOEModel1.FK_Avaliacoes_Turma" FromRole="Avaliacoes" ToRole="Turma" />
+          <NavigationProperty Name="Questao" Relationship="ECOEModel1.FK_Questao_Avaliacoes" FromRole="Avaliacoes" ToRole="Questao" />
+        </EntityType>
+        <Association Name="FK_AlunoAvaliacao_Avaliacoes">
+          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+          <End Type="ECOEModel1.AlunoAvaliacao" Role="AlunoAvaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="AlunoAvaliacao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Pessoa">
+          <End Type="ECOEModel1.Pessoa" Role="Pessoa" Multiplicity="1" />
+          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="PessoaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="PessoaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Status">
+          <End Type="ECOEModel1.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacoes_Turma">
+          <End Type="ECOEModel1.Turma" Role="Turma" Multiplicity="1" />
+          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turma">
+              <PropertyRef Name="TurmaId" />
+            </Principal>
+            <Dependent Role="Avaliacoes">
+              <PropertyRef Name="TurmaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Questao_Avaliacoes">
+          <End Type="ECOEModel1.Avaliacoes" Role="Avaliacoes" Multiplicity="1" />
+          <End Type="ECOEModel1.Questao" Role="Questao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Avaliacoes">
+              <PropertyRef Name="AvaliacaoId" />
+            </Principal>
+            <Dependent Role="Questao">
+              <PropertyRef Name="AvaliacaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1217,22 +1217,6 @@
                 <ScalarProperty Name="Nota" ColumnName="Nota" />
                 <ScalarProperty Name="DataHora" ColumnName="DataHora" />
                 <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Avaliacoes">
-            <EntityTypeMapping TypeName="ECOEModel1.Avaliacoes">
-              <MappingFragment StoreEntitySet="Avaliacoes">
-                <ScalarProperty Name="Dupla" ColumnName="Dupla" />
-                <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Peso" ColumnName="Peso" />
-                <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
-                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
-                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1324,6 +1308,22 @@
                 <ScalarProperty Name="pessoaCadastrou" ColumnName="pessoaCadastrou" />
                 <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
                 <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliacoes">
+            <EntityTypeMapping TypeName="ECOEModel1.Avaliacoes">
+              <MappingFragment StoreEntitySet="Avaliacoes">
+                <ScalarProperty Name="Dupla" ColumnName="Dupla" />
+                <ScalarProperty Name="DataAvaliacao" ColumnName="DataAvaliacao" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="TurmaId" ColumnName="TurmaId" />
+                <ScalarProperty Name="DataCadastro" ColumnName="DataCadastro" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaId" ColumnName="PessoaId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

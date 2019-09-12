@@ -15,7 +15,7 @@ namespace ECOE.Controllers
         public bool CriarPessoa(Pessoa pessoa)
         {
             pessoa.StatusId = 1;
-            
+
             bd.Pessoa.Add(pessoa);
             bd.SaveChanges();
             return true;
@@ -34,25 +34,32 @@ namespace ECOE.Controllers
         }
 
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult ListaPessoa(string Mensagem)
+        public ActionResult ListaPessoa(string Mensagem, bool? alunos)
         {
             ViewBag.Mensagem = Mensagem;
             var l = Convert.ToInt32(HttpContext.User.Identity.Name);
             var logado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == l).AcessoId;
             List<Pessoa> lista;
-
-            if (logado == 4)
+            if (alunos == true)
             {
-                lista = bd.Pessoa.Where(x => x.AcessoId != 1 || x.AcessoId != 2 && x.StatusId == 1).OrderBy(x => x.Nome).ToList();
-            }
-            else if (logado == 1)
-            {
-                lista = bd.Pessoa.Where(x => x.AcessoId != 2).OrderBy(x => x.StatusId).ToList();
+                lista = bd.Pessoa.Where(x => x.AcessoId == 2 && x.StatusId == 1).ToList();
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                if (logado == 4)
+                {
+                    lista = bd.Pessoa.Where(x => x.AcessoId != 1 || x.AcessoId != 2 && x.StatusId == 1).OrderBy(x => x.Nome).ToList();
+                }
+                else if (logado == 1)
+                {
+                    lista = bd.Pessoa.Where(x => x.AcessoId != 2).OrderBy(x => x.StatusId).ToList();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
+
 
             return View(lista);
         }

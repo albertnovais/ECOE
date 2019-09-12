@@ -1,8 +1,11 @@
 ﻿@model ECOE.Models.Avaliacoes
+
 @{
     ViewBag.Title = "CreateAvaliacao";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
 <div class="form-horizontal" style="margin-top:3%;">
 
     <div class="col-md-12">
@@ -25,6 +28,7 @@
                                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
                             </div>
                         </div>
+
                         <div class="col-md-4">
                             <div class="form-group bmd-form-group has-rose">
                                 <label class="bmd-label-floating">Peso</label>
@@ -32,22 +36,29 @@
                                 @Html.ValidationMessageFor(model => model.Peso, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group has-rose">
-                                <input type="checkbox" name="dupla" class="" value=" true">
-                                <label class="bmd-label-floating">Dupla</label>
-                                @*@Html.RadioButtonFor(model => model.dupla, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.dupla, "", new { @class = "text-danger" })*@
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group bmd-form-group">
-                                <label class="bmd-label-floating"></label>
+                        <div class="form-group col-md-4">
+                            <label class="bmd-label-floating">Escolha a Turma</label>
+                            <div class="form-group">
                                 @Html.DropDownList("TurmaId", ViewBag.turma as IEnumerable<SelectListItem>, "Turma", htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.TurmaId, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Data do Cadastro</label>
+                                @Html.EditorFor(model => model.DataCadastro, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.DataCadastro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="bmd-label-floating">Dupla</label>
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.Dupla)
+                                @Html.ValidationMessageFor(model => model.Dupla, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
                     </div>
+
                     <div class="col-md-12">
                         <div class="form-group has-rose bmd-form-group">
                             <textarea id="mytextarea" rows="20" name="Descricao"></textarea>
@@ -66,3 +77,9 @@
         </div>
     </div>
 </div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
