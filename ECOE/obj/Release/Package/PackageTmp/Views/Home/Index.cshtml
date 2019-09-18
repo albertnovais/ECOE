@@ -22,7 +22,6 @@
     @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
     {
         <div class="card col-lg-4 m-1" style="padding: 0; ">
-
             <div class="card-header">
                 <b>
                     Novo Aluno
@@ -39,6 +38,17 @@
         </div>
     }
 
+    <div class="card col-lg-4 m-1" style="padding: 0; ">
+        <div class="card-header">
+            <b>
+                Troca de RA
+            </b>
+        </div>
+        <div class="card-footer bg-transparent border-0">
+            <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
+                 font-family:Arial; ">Trocar</a>
+        </div>
+    </div>
     @foreach (var item in Model)
     {
 

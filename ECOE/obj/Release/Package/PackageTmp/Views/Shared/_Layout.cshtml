@@ -52,6 +52,11 @@
                             </a>
                         </li>
                         <li class="nav-item ">
+                            <a class="nav-link" href="@Url.Action("ListaPessoa", "Pessoa", new { alunos = true})">
+                                Alunos
+                            </a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link" href="@Url.Action("ListCurso", "Curso")">
                                 Cursos
                             </a>
@@ -107,6 +112,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>

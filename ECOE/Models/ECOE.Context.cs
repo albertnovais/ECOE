@@ -15,7 +15,15 @@ namespace ECOE.Models
     
     public partial class ECOEEntities : DbContext
     {
-       
+        public ECOEEntities()
+            : base("name=ECOEEntities")
+        {
+        }
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            throw new UnintentionalCodeFirstException();
+        }
     
         public virtual DbSet<Acesso> Acesso { get; set; }
         public virtual DbSet<AlunoAvaliacao> AlunoAvaliacao { get; set; }

@@ -11,7 +11,7 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Pessoa
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +21,7 @@ namespace ECOE.Models
             this.AlunoAvaliacao1 = new HashSet<AlunoAvaliacao>();
             this.AlunoQuestao = new HashSet<AlunoQuestao>();
             this.AlunoQuestao1 = new HashSet<AlunoQuestao>();
+            this.Avaliacoes = new HashSet<Avaliacoes>();
             this.Curso = new HashSet<Curso>();
             this.Pessoa1 = new HashSet<Pessoa>();
             this.PessoaCurso = new HashSet<PessoaCurso>();
@@ -29,13 +30,10 @@ namespace ECOE.Models
             this.Turma = new HashSet<Turma>();
             this.TurmaPessoa = new HashSet<TurmaPessoa>();
             this.TurmaPessoa1 = new HashSet<TurmaPessoa>();
-            this.Avaliacoes = new HashSet<Avaliacoes>();
         }
     
         public int PessoaId { get; set; }
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PessoaCadastrou { get; set; }
@@ -52,6 +50,8 @@ namespace ECOE.Models
         public virtual ICollection<AlunoQuestao> AlunoQuestao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoQuestao> AlunoQuestao1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -70,7 +70,5 @@ namespace ECOE.Models
         public virtual ICollection<TurmaPessoa> TurmaPessoa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TurmaPessoa> TurmaPessoa1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
     }
 }

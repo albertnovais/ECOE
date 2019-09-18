@@ -44,7 +44,7 @@
     <Property Name="Peso" Type="decimal" Precision="18" Scale="2" />
     <Property Name="StatusId" Type="int" />
     <Property Name="DataAvaliacao" Type="date" />
-    <Property Name="Dupla" Type="bit" />
+    <Property Name="Dupla" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Curso">
     <Key>

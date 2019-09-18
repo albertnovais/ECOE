@@ -17,17 +17,19 @@ namespace ECOE.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Status()
         {
+            this.Avaliacoes = new HashSet<Avaliacoes>();
             this.Curso = new HashSet<Curso>();
             this.Pessoa = new HashSet<Pessoa>();
             this.Questao = new HashSet<Questao>();
             this.Turma = new HashSet<Turma>();
-            this.Avaliacoes = new HashSet<Avaliacoes>();
         }
     
         public int StatusId { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Curso> Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -36,7 +38,5 @@ namespace ECOE.Models
         public virtual ICollection<Questao> Questao { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Turma> Turma { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Avaliacoes> Avaliacoes { get; set; }
     }
 }

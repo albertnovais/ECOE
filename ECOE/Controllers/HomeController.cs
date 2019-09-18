@@ -47,5 +47,12 @@ namespace ECOE.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult Sobre()
+        {
+            return View();
+        }
+
     }
+    
 }
