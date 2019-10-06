@@ -1,15 +1,19 @@
 ﻿@model IEnumerable<ECOE.Models.Avaliacoes>
-    
+
 @{
 
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
 
 @if (ViewBag.mostrar == 1)
 {
-    <div class="alert alert-success mb-1" style="margin:auto">
+    <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
@@ -44,14 +48,20 @@
                 Troca de RA
             </b>
         </div>
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text">Alunos Cadastrados no primeiro semestre de 2019</p>
+        </div>
         <div class="card-footer bg-transparent border-0">
-            <a href="@Url.Action("CreateAluno", "Pessoa", new { CoordId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) })" class="btn btn-success" style="font-weight:bold;
-                 font-family:Arial; ">Trocar</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                <b>
+                    Trocar
+                </b>
+            </button>
         </div>
     </div>
     @foreach (var item in Model)
     {
-
         <div class="card col-lg-4 m-1" style="padding: 0;">
             <div class="card-header">
                 <b>
@@ -79,3 +89,53 @@
     }
 
 </div>
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Trocar RA</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body">
+                    <div class="col-md-12 row">
+                        <div class="form-group col-md-6">
+                            <label class="">Nome do Aluno</label>
+                            <input name="Nome" id="nome" type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="">Antigo RA</label>
+                            <input name="RA" id="ra" type="text" disabled class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Trocar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#nome').autocomplete({
+            source: '/Pessoa/SearchAluno',
+            select: function (event, ui) {
+                //set tagids to save
+                $("#nome").val(ui.item.id);
+                $("#ra").val(ui.item.ra);
+                //Tags for display
+                this.value = ui.item.value;
+                return false;
+            }
+        });
+    });
+</script>

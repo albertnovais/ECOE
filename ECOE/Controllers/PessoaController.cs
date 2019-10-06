@@ -151,6 +151,10 @@ namespace ECOE.Controllers
         {
             return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId != 2).Select(a => new { label = a.Nome, id = a.PessoaId }), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult SearchAluno(string term)
+        {
+            return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId == 2).Select(a => new { label = a.Nome, id = a.PessoaId, ra= a.RA }), JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

@@ -138,7 +138,7 @@
                     </div>
                     @foreach (var i in avaliacoes)
                     {
-                        var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId);
+                        var avaliacao = avaliacoes.FirstOrDefault(x => x.AvaliacaoId == i.AvaliacaoId && i.);
                         var alunoQuestao = alunoQuestaoGeral.Where(x => x.Questao.AvaliacaoId == i.AvaliacaoId);
                         notaMax = alunoQuestao.Count() * 2;
                         if (notaMax > 0)
