@@ -11,6 +11,15 @@ namespace ECOE.Controllers
     public class LoginController : Controller
     {
         ECOEEntities bd = new ECOEEntities();
+
+        public PartialViewResult Logado(int? mensagem)
+        {
+            var id = Convert.ToInt32(HttpContext.User.Identity.Name);
+            ViewBag.nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == id).Nome;
+
+            return PartialView();
+        }
+
         // GET: Login
         public ActionResult Login(int? mensagem)
         {
@@ -35,29 +44,6 @@ namespace ECOE.Controllers
             }
            
             FormsAuthentication.SetAuthCookie(u.PessoaId.ToString(), true);
-            return RedirectToAction("Index", "Home");
-
-        }
-
-        public ActionResult LoginAluno(int? mensagem)
-        {
-            if (mensagem != null)
-            {
-                ViewBag.Mensagem = mensagem;
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult LoginAluno(Pessoa pessoa)
-        {
-            var u = bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email && x.RA == pessoa.RA);
-            if (u == null)
-            {
-                return RedirectToAction("LoginAluno", "Login", new { mensagem = 2 });
-            }
-            FormsAuthentication.SetAuthCookie(u.PessoaId.ToString(), true);
-            
             return RedirectToAction("Index", "Home");
 
         }
