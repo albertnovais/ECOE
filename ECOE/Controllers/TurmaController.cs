@@ -153,7 +153,7 @@ namespace ECOE.Controllers
 
             //var notaMax = 0.0;
             //var notaTotal = 0.0;
-            //var nota = 0.0;
+            //var nota = 0.0    ;
             //object [] notaAvaliacao = new object [avaliacoes.Count()];
             //int cont = 0;
             //foreach (var i in avaliacoes)

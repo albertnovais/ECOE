@@ -57,6 +57,11 @@
         </div>
     </div>
     <div class="card-body">
+        <div id="Filtro">
+            <a href="@Url.Action("ListaPessoa", new { alunos = true })" title="Alunos" class="btn btn-outline-secondary">Alunos</a>
+            <a href="@Url.Action("ListaPessoa")" title="Usuarios" class="btn btn-outline-secondary">Usuários</a>
+
+        </div>
         <table id="datatables" class=" display table-striped table table-sm" style="width:100%">
             <thead class="thead-dark">
                 <tr>
@@ -67,7 +72,6 @@
                     <th class="disabled-sorting text-center">Ações</th>
                 </tr>
             </thead>
-
             <tbody>
                 @foreach (var item in Model)
                 {

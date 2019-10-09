@@ -1,7 +1,5 @@
 {
-  "ProjectFilePath": "c:\\Users\\alber\\Desktop\\ECOE\\ECOE\\ECOE.csproj",
-  "TargetFramework": "v4.6.1",
-  "TagHelpers": [],
+  "FilePath": "c:\\Users\\albert.mascarenhas\\source\\repos\\ECOE\\ECOE\\ECOE.csproj",
   "Configuration": {
     "ConfigurationName": "UnsupportedRazor",
     "LanguageVersion": "1.0",
@@ -10,5 +8,12 @@
         "ExtensionName": "UnsupportedRazorExtension"
       }
     ]
-  }
+  },
+  "ProjectWorkspaceState": {
+    "TagHelpers": [],
+    "CSharpLanguageVersion": 703
+  },
+  "RootNamespace": null,
+  "Documents": [],
+  "SerializationFormat": "0.2"
 }
