@@ -9,7 +9,7 @@
     var turman = ViewBag.turman;
     var Mensagem = ViewBag.Mensagem;
     ECOEEntities bd = new ECOEEntities();
-    var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == turma).ToList();
+    var avaliacoes = bd.Avaliacoes.Where(x => x.TurmaId == turma && x.StatusId == 1).ToList();
     var questoes = bd.AlunoQuestao.ToList();
     var alunoQuestaoGeral = questoes.Join(avaliacoes,
                                       questao => questao.Questao.AvaliacaoId,
@@ -127,7 +127,6 @@
 
 @* Modal Excluir Fim *@
 
-
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -152,7 +151,7 @@
                     <div class="card-body">
                         <div class="toolbar">
                             @*Media da turma: @Math.Round(nota,2)*@
-                            <div>
+                            <div id="medias">
                                 @foreach (var item in notaAvaliacao)
                                 {
                                     <span> Media em @item</span>
@@ -166,7 +165,7 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>RA</th>
-                                        <th>avaliação</th>
+                                        <th>avaliação 1</th>
                                         <th>Nota</th>
                                         <th class="disabled-sorting">Ações</th>
                                     </tr>
@@ -175,7 +174,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>RA</th>
-                                        <th>avaliação</th>
+                                        <th>avaliação 1</th>
                                         <th>Nota</th>
                                         <th>Ações</th>
                                     </tr>
@@ -191,6 +190,7 @@
                                                 <td>
                                                     @foreach (var i in avaliacoes)
                                                     {
+
                                                         if (cont != 2)
                                                         {
                                                             cont = 1;
@@ -204,8 +204,9 @@
                                                             nota += (notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso);
                                                             notaindividual = avaliacao.Nome + ": " + Math.Round((notaTotal / notaMax) * Convert.ToDouble(avaliacao.Peso), 2);
                                                             <span>@notaindividual</span>
-                                                            <br />
                                                         }
+
+
                                                         cont++;
                                                         mediaTurma += nota;
                                                     }
@@ -228,6 +229,10 @@
                                     }
                                 </tbody>
                             </table>
+                            @{ 
+                                mediaTurma = mediaTurma / alunoQuestaoGeral.Count();
+                            }
+                            <input type="hidden" id="mediaturma" value="@Math.Round(mediaTurma,2)" />
                         </div>
                     </div>
                 </div>
@@ -237,6 +242,10 @@
 </div>
 
 <script>
+
+    $(document).ready(function () {
+        $('#medias').append("Media da turma: " + $('#mediaturma').val())
+    });
 
     function myFunction(id) {
         $("#did").val(id);

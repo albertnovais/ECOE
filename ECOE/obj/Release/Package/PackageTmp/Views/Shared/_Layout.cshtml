@@ -7,25 +7,17 @@
     <title>@ViewBag.Title - ECOE</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-
+    <link rel="shortcut icon" type="image/x-icon" href="~/IMG/FavIcon.png">
     <script src="https://kit.fontawesome.com/aa3f46289b.js"></script>
     <!-- TinyMCE -->
-
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=8bna9ekf0ugwcthe2mwnwnlb699fmxx3o750mucxseru2706"></script>
-
     <title>Desafio</title>
-
+    <style type="text/css">
+    </style>
 </head>
-@using ECOE.Models;
-@{
-    ECOEEntities bd = new ECOEEntities();
-    var id = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-    var nome = bd.Pessoa.FirstOrDefault(x => x.PessoaId == id).Nome;
-}
 
 <body class="d-flex flex-column h-100">
-
+    <div class="loader" style="display:inline"></div>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
             <a class="navbar-brand" href="@Url.Action("Index", "Home")">
@@ -48,12 +40,7 @@
                     {
                         <li class="nav-item ">
                             <a class="nav-link" href="@Url.Action("ListaPessoa", "Pessoa")">
-                                Usuarios
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link" href="@Url.Action("ListaPessoa", "Pessoa", new { alunos = true})">
-                                Alunos
+                                Pessoas
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -84,23 +71,19 @@
                         </li>
                     }
                 </ul>
-                <div class="form-inline mt-2 mt-md-0">
 
-                    <span class="text-light">
-                        olá,
-                        <a href="#" class="font-weight-bolder text-light" style="text-decoration:none">
-                            @nome
-                        </a> seja bem vindo(a) ao ECOE!
-                    </span>
+                @Html.Action("Logado", "Login")
 
-                    <a class="btn btn-outline-light ml-2" href="@Url.Action("Logoff", "Login")">
-                        Sair
-                    </a>
-                </div>
             </div>
         </nav>
     </header>
 
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
+    <script src="~/Scripts/Site.js"></script>
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0 mt-5">
         <div class="container mt-3">
@@ -114,116 +97,19 @@
         </div>
     </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+
     @RenderSection("scripts", required: false)
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
 
 
-    <!--
-    Scripts Adicionais
 
-    Modal
 
-    Editor de texto TinyMCE
 
-    Datatables
 
-    Paginação
 
-    -->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#NomeU').autocomplete({
-                source: '@Url.Action("Search", "Pessoa")'
-            })
-        })
-    </script>
-
-    <!--Abrir Modal-->
-    <script>
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myButton').trigger('focus')
-        })
-    </script>
-
-    <!--
-       API para Edição de Texto
-       TinyMCE https://www.tiny.cloud
-    -->
-
-    <script>
-        tinymce.init({
-            selector: '#mytextarea',
-            plugins: "image, print",
-            language: 'pt_BR',
-            language_url: "http://localhost:50168/Scripts/pt_BR.js"
-        });
-    </script>
-    <!--Datatables-->
-
-    <script>
-        $(document).ready(function () {
-            $('#datatables').DataTable({
-                "dom": '<"top"fB>rt<"bottom"il>p<"clear">',
-                colReorder: true,
-                responsive: true,
-                buttons: [
-                    {
-                        extend: 'copyHtml5',
-                        text: 'Copiar',
-                        autoPrint: false,
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: 'PDF',
-                        autoPrint: false,
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        text: 'Excel',
-                    },
-                ],
-                "pagingType": "first_last_numbers",
-                "language": {
-                    "sEmptyTable": "Nenhum registro encontrado",
-                    "sProcessing": "A processar...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "Não foram encontrados resultados",
-                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                    "sInfoEmpty": "Mostrando de 0 até 0 de 0 registros",
-                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Procurar:",
-                    "sUrl": "",
-                    "oPaginate": {
-                        "sFirst": "Primeiro",
-                        "sPrevious": "Anterior",
-                        "sNext": "Seguinte",
-                        "sLast": "Último"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": Ordenar colunas de forma ascendente",
-                        "sSortDescending": ": Ordenar colunas de forma descendente"
-                    },
-                }
-            }
-            )
-        });
-    </script>
-
-    <!--Paginação-->
-    <script>
-        $(document).ready(function () {
-            var item = $('a[href*="' + window.location.pathname + '"]');
-            item.parent().addClass("active");
-            item.parent().parent().parent().addClass("active menu-open");
-        });
-    </script>
 </body>
+
 
 
 </html>

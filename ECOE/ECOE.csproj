@@ -154,72 +154,53 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Acesso.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AlunoAvaliacao.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AlunoQuestao.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Avaliacoes.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Curso.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ECOE.Context.cs">
+    <Compile Include="Models\ECOE02.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECOE.Context.tt</DependentUpon>
+      <DependentUpon>ECOE02.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ECOE.cs">
+    <Compile Include="Models\ECOE02.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECOE.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ECOE.Designer.cs">
+    <Compile Include="Models\ECOE02.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ECOE.edmx</DependentUpon>
+      <DependentUpon>ECOE02.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\EcoeTeste.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcoeTeste.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EcoeTeste.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EcoeTeste.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcoeTeste.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Pessoa.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PessoaCurso.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Questao.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Status.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\teste.cs" />
     <Compile Include="Models\Turma.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TurmaPessoa.cs">
-      <DependentUpon>EcoeTeste.tt</DependentUpon>
+      <DependentUpon>ECOE02.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Validacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -443,48 +424,31 @@
     <Content Include="IMG\logo-white-fadba.png" />
     <Content Include="IMG\logo_fadba.png" />
     <Content Include="IMG\stethoscope.png" />
-    <Content Include="Models\ECOE.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ECOE.edmx</DependentUpon>
-      <LastGenOutput>ECOE.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ECOE.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ECOE.edmx</DependentUpon>
-      <LastGenOutput>ECOE.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\ECOE.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ECOE.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ECOE.edmx.diagram">
-      <DependentUpon>ECOE.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Models\EcoeTeste.edmx">
+    <Content Include="Models\ECOE02.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECOE02.edmx</DependentUpon>
+      <LastGenOutput>ECOE02.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECOE02.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECOE02.edmx</DependentUpon>
+      <LastGenOutput>ECOE02.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\ECOE02.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EcoeTeste.Designer.cs</LastGenOutput>
+      <LastGenOutput>ECOE02.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\EcoeTeste.edmx.diagram">
-      <DependentUpon>EcoeTeste.edmx</DependentUpon>
+    <Content Include="Models\ECOE02.edmx.diagram">
+      <DependentUpon>ECOE02.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
-    <Content Include="Models\EcoeTeste.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EcoeTeste.edmx</DependentUpon>
-      <LastGenOutput>EcoeTeste.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\EcoeTeste.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EcoeTeste.edmx</DependentUpon>
-      <LastGenOutput>EcoeTeste.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -584,8 +548,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Sobre.cshtml" />
     <Content Include="Views\Login\Logado.cshtml" />
-    <Content Include="Views\Pessoa\Modal_Editar_RA.cshtml" />
-    <Content Include="Views\Home\Modal_Mensagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,9 +14,8 @@ namespace ECOE.Controllers
         //Cria Pessoa
         public bool CriarPessoa(Pessoa pessoa)
         {
-            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email || x.RA == pessoa.RA) != null)
-                return false;
             pessoa.StatusId = 1;
+
             bd.Pessoa.Add(pessoa);
             bd.SaveChanges();
             return true;
@@ -24,7 +23,6 @@ namespace ECOE.Controllers
         public bool EditarPessoa(Pessoa pessoa)
         {
             var p = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId);
-            if (p == null) return false;
             p.Nome = pessoa.Nome;
             p.Email = pessoa.Email;
             p.StatusId = pessoa.StatusId;
@@ -35,9 +33,8 @@ namespace ECOE.Controllers
             return true;
         }
 
-
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult ListaPessoa(Mensagem Mensagem, bool? alunos)
+        public ActionResult ListaPessoa(string Mensagem, bool? alunos)
         {
             ViewBag.Mensagem = Mensagem;
             var l = Convert.ToInt32(HttpContext.User.Identity.Name);
@@ -77,18 +74,11 @@ namespace ECOE.Controllers
         [HttpPost]
         public ActionResult CreatePessoa(Pessoa pessoa)
         {
-            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email) != null) return RedirectToAction("CreatePessoa", "Pessoa", new { texto = "Email já cadastrado", tipo = 2 });
+            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email) != null) return RedirectToAction("CreatePessoa", "Pessoa", new { Mensagem = "2" });
             pessoa.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
-            if (CriarPessoa(pessoa))
-            {
-                return RedirectToAction("ListaPessoa", "Pessoa", new { texto = "Pessoa criada com sucesso", tipo = 1 });
-            }
-            else
-            {
-                return RedirectToAction("CreatePessoa", "Pessoa", new { texto = "Opa algo deu errado", tipo = 2 });
-            }
+            CriarPessoa(pessoa);
+            return RedirectToAction("ListaPessoa", "Pessoa", new { Mensagem = "1" });
 
-            
         }
 
         [Authorize(Roles = "Adm , Coordenador")]
@@ -98,32 +88,11 @@ namespace ECOE.Controllers
             return View(pessoa);
         }
 
-
         [HttpPost]
         public ActionResult EditPessoa(Pessoa pessoa)
         {
             EditarPessoa(pessoa);
             return RedirectToAction("ListaPessoa", "Pessoa", new { Mensagem = "1" });
-        }
-        [Authorize(Roles = "Adm , Coordenador, Avaliador")]
-        public PartialViewResult Modal_Editar_RA()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
-        public ActionResult Modal_Editar_RA(Pessoa pessoa)
-        {
-            var p = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId);
-            p.RA = pessoa.RA;
-            p.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
-            bd.Entry(p).State = System.Data.Entity.EntityState.Modified;
-            bd.SaveChanges();
-
-            var texto = "Edição Efetuada com Sucesso";
-            var tipo = 1;
-           
-            return RedirectToAction("ListaPessoa", "Pessoa", new {  texto, tipo });
         }
 
         [Authorize(Roles = "Adm , Coordenador, Avaliador")]
@@ -184,7 +153,7 @@ namespace ECOE.Controllers
         }
         public ActionResult SearchAluno(string term)
         {
-            return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId == 2).Select(a => new { label = a.Nome, id = a.PessoaId, ra = a.RA }), JsonRequestBehavior.AllowGet);
+            return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId == 2).Select(a => new { label = a.Nome, id = a.PessoaId, ra= a.RA }), JsonRequestBehavior.AllowGet);
         }
 
     }

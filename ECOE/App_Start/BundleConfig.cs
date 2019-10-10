@@ -25,8 +25,8 @@ namespace ECOE
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/DataTables/datatables.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/DataTables/datatables.min.css"));
 
         }
     }

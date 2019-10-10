@@ -1,1 +1,16 @@
-﻿
+﻿.ui-autocomplete {
+    z-index: 1050;
+}
+
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background: url('https://www.blogson.com.br/wp-content/uploads/2017/10/584b607f5c2ff075429dc0e7b8d142ef.gif') 50% 50% no-repeat white;
+    opacity: .8;
+}
