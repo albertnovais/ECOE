@@ -47,6 +47,11 @@ namespace ECOE.Controllers
 
         }
 
+        public PartialViewResult Modal_Mensagem(Mensagem mensagem)
+        {
+            return PartialView(mensagem);
+        }
+
         [Authorize]
         public ActionResult Sobre()
         {

@@ -8,17 +8,7 @@
 
 @if (Mensagem != null)
 {
-    <div class="alert alert-success col-md-8 " style="margin-top:1%; margin:auto; margin-bottom:1%;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="material-icons">close</i>
-        </button>
-
-        @if (Mensagem == "1")
-        {
-            <span style="font-size: 20px; text-align:center;">Cadastro efetuado com sucesso!</span>
-        }
-
-    </div>
+   @Html.Action("Modal_Mensagem","Home", new { Mensagem })
 }
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

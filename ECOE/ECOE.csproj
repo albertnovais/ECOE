@@ -198,6 +198,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EcoeTeste.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Mensagem.cs" />
     <Compile Include="Models\Pessoa.cs">
       <DependentUpon>EcoeTeste.tt</DependentUpon>
     </Compile>
@@ -583,6 +584,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Sobre.cshtml" />
     <Content Include="Views\Login\Logado.cshtml" />
+    <Content Include="Views\Pessoa\Modal_Editar_RA.cshtml" />
+    <Content Include="Views\Home\Modal_Mensagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
