@@ -11,19 +11,15 @@
     @Html.HiddenFor(model => model.CursoId)
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header card-header-primary card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">edit</i>
-                </div>
-                <h4 class="card-title" style="font-weight:bold;">
-                    Editar @Model.Nome
+            <div class="card-header">
+                <h4 class="card-title">
+                     Editar <b> @Model.Nome</b>
                 </h4>
             </div>
-            <div class="card-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group has-rose bmd-form-group">
@@ -34,7 +30,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        
+
 
                         <div class="col-md-4">
                             <div class="form-group has-rose bmd-form-group">
@@ -56,22 +52,16 @@
                     </div>
 
 
-                    <div class="card-footer ml-auto mr-auto">
-                        <div>
-                            <div class="col-md-offset-2 col-md-2">
-                                <a href="ListCurso" class="btn btn-danger" style="font-weight:bold; font-family:Arial;">
-                                    Cancelar
-                                </a>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="submit" value="Salvar" class="btn btn-primary pull-right">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-
-                }
-            </div>
+                </div>
+                <div class="card-footer" style="text-align:right">
+                    <row>
+                        <a href="ListCurso" class="btn btn-danger" style="font-weight:bold; font-family:Arial;">
+                            Cancelar
+                        </a>
+                        <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                    </row>
+                </div>
+            }
         </div>
     </div>
 </div>

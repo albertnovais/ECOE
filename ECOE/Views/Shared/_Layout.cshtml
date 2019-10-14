@@ -8,7 +8,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="shortcut icon" type="image/x-icon" href="~/IMG/FavIcon.png">
-    <script src="https://kit.fontawesome.com/aa3f46289b.js"></script>
     <!-- TinyMCE -->
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=8bna9ekf0ugwcthe2mwnwnlb699fmxx3o750mucxseru2706"></script>
     <title>Desafio</title>
@@ -23,6 +22,7 @@
             <a class="navbar-brand" href="@Url.Action("Index", "Home")">
                 <img src="~/IMG/logo-white-fadba.png" style="width:100px; height:auto" />
             </a>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,7 +53,7 @@
                     {
                         <li class="nav-item ">
                             <a class="nav-link" href="@Url.Action("ListTurma", "Turma")">
-                                Turma
+                                Turmas
                             </a>
                         </li>
                     }
@@ -80,9 +80,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
     <script src="~/Scripts/Site.js"></script>
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0 mt-5">
@@ -97,7 +95,9 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <script type="text/javascript" src="~/DataTables/datatables.min.js"></script>
 
     @RenderSection("scripts", required: false)
 

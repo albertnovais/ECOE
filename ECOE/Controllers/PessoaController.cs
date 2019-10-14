@@ -14,8 +14,9 @@ namespace ECOE.Controllers
         //Cria Pessoa
         public bool CriarPessoa(Pessoa pessoa)
         {
+            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email || x.RA == pessoa.RA) != null)
+                return false;
             pessoa.StatusId = 1;
-
             bd.Pessoa.Add(pessoa);
             bd.SaveChanges();
             return true;
@@ -23,6 +24,7 @@ namespace ECOE.Controllers
         public bool EditarPessoa(Pessoa pessoa)
         {
             var p = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId);
+            if (p == null) return false;
             p.Nome = pessoa.Nome;
             p.Email = pessoa.Email;
             p.StatusId = pessoa.StatusId;
@@ -33,8 +35,9 @@ namespace ECOE.Controllers
             return true;
         }
 
+
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult ListaPessoa(string Mensagem, bool? alunos)
+        public ActionResult ListaPessoa(Mensagem Mensagem, bool? alunos)
         {
             ViewBag.Mensagem = Mensagem;
             var l = Convert.ToInt32(HttpContext.User.Identity.Name);
@@ -65,7 +68,7 @@ namespace ECOE.Controllers
         }
 
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult CreatePessoa(string Mensagem)
+        public ActionResult CreatePessoa(Mensagem Mensagem)
         {
             ViewBag.Mensagem = Mensagem;
             return View();
@@ -74,30 +77,62 @@ namespace ECOE.Controllers
         [HttpPost]
         public ActionResult CreatePessoa(Pessoa pessoa)
         {
-            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email) != null) return RedirectToAction("CreatePessoa", "Pessoa", new { Mensagem = "2" });
+            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email) != null) return RedirectToAction("CreatePessoa", "Pessoa", new { texto = "Email já cadastrado", tipo = 2 });
             pessoa.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
-            CriarPessoa(pessoa);
-            return RedirectToAction("ListaPessoa", "Pessoa", new { Mensagem = "1" });
+            if (CriarPessoa(pessoa))
+            {
+                return RedirectToAction("ListaPessoa", "Pessoa", new { texto = "Pessoa criada com sucesso", tipo = 1 });
+            }
+            else
+            {
+                return RedirectToAction("CreatePessoa", "Pessoa", new { texto = "Opa algo deu errado", tipo = 2 });
+            }
 
+            
         }
 
         [Authorize(Roles = "Adm , Coordenador")]
-        public ActionResult EditPessoa(int pessoaId)
+        public ActionResult EditPessoa(int pessoaId, Mensagem Mensagem)
         {
+            ViewBag.Mensagem = Mensagem;
             var pessoa = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoaId);
             return View(pessoa);
         }
 
+
         [HttpPost]
         public ActionResult EditPessoa(Pessoa pessoa)
         {
-            EditarPessoa(pessoa);
-            return RedirectToAction("ListaPessoa", "Pessoa", new { Mensagem = "1" });
+            if(EditarPessoa(pessoa))
+            return RedirectToAction("ListaPessoa", "Pessoa", new { texto = "Pessoa criada com sucesso", tipo = 1 });
+            else
+                return RedirectToAction("EditPessoa", "Pessoa", new { texto = "Opa algo deu errado", tipo = 2 });
+        }
+        [Authorize(Roles = "Adm , Coordenador, Avaliador")]
+        public PartialViewResult Modal_Editar_RA()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Modal_Editar_RA(Pessoa pessoa)
+        {
+            var p = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId);
+            p.RA = pessoa.RA;
+            p.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
+            bd.Entry(p).State = System.Data.Entity.EntityState.Modified;
+            bd.SaveChanges();
+
+            var texto = "Edição Efetuada com Sucesso";
+            var tipo = 1;
+           
+            return RedirectToAction("Index", "Home", new {  texto, tipo });
         }
 
         [Authorize(Roles = "Adm , Coordenador, Avaliador")]
-        public ActionResult TrocarSenha(int pessoaId, string Mensagem)
+        public ActionResult TrocarSenha(int pessoaId, Mensagem Mensagem)
         {
+            ViewBag.Mensagem = Mensagem;
             var pessoa = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoaId);
             return View(pessoa);
         }
@@ -111,12 +146,12 @@ namespace ECOE.Controllers
                 p.Senha = pessoa.Senha;
                 bd.Entry(p).State = System.Data.Entity.EntityState.Modified;
                 bd.SaveChanges();
-                return RedirectToAction("Index", "Home", new { Mensagem = "1" });
+                return RedirectToAction("Index", "Home", new { texto = "Senha com sucesso", tipo = 1 });
             }
             else
             {
-                return RedirectToAction("TrocarSenha", new { pessoa.PessoaId, Mensagem = "2" });
-            }
+                return RedirectToAction("TrocarSenha", new { pessoa.PessoaId, texto = "Opa algo deu errado", tipo = 2 });
+                }
         }
 
         [HttpPost]
@@ -127,10 +162,10 @@ namespace ECOE.Controllers
             p.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
             bd.Entry(p).State = System.Data.Entity.EntityState.Modified;
             bd.SaveChanges();
-            return RedirectToAction("ListaPessoa", "Pessoa", new { Mensagem = "1" });
+            return RedirectToAction("ListaPessoa", "Pessoa", new { texto = "Pessoa deletada com sucesso", tipo = 1 });
         }
 
-        public ActionResult CreateAluno(int CoordId, int? Mensagem)
+        public ActionResult CreateAluno(int CoordId, Mensagem Mensagem)
         {
             ViewBag.Coord = CoordId;
             ViewBag.Mensagem = Mensagem;
@@ -140,11 +175,15 @@ namespace ECOE.Controllers
         [HttpPost]
         public ActionResult CreateAluno(Pessoa pessoa)
         {
-            if (bd.Pessoa.FirstOrDefault(x => x.RA == pessoa.RA || x.Email == pessoa.Email) != null) return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, Mensagem = 2 });
+            if(pessoa.RA == null)
+            {
+                return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Preencha o campo RA", tipo = 2 });
+            }
+            if (bd.Pessoa.FirstOrDefault(x => x.RA == pessoa.RA || x.Email == pessoa.Email) != null) return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Opa algo deu errado", tipo = 2 });
             pessoa.AcessoId = 2;
             pessoa.PessoaCadastrou = pessoa.PessoaCadastrou;
             CriarPessoa(pessoa);
-            return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, Mensagem = 1 });
+            return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Aluno adicionado com sucesso com sucesso", tipo = 1 });
         }
 
         public ActionResult Search(string term)
@@ -153,7 +192,7 @@ namespace ECOE.Controllers
         }
         public ActionResult SearchAluno(string term)
         {
-            return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId == 2).Select(a => new { label = a.Nome, id = a.PessoaId, ra= a.RA }), JsonRequestBehavior.AllowGet);
+            return Json(bd.Pessoa.Where(c => c.Nome.StartsWith(term) && c.AcessoId == 2).Select(a => new { label = a.Nome, id = a.PessoaId, ra = a.RA }), JsonRequestBehavior.AllowGet);
         }
 
     }

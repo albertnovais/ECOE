@@ -11,9 +11,9 @@ namespace ECOE.Controllers
     {
         ECOEEntities bd = new ECOEEntities();
         // GET: Relatorio
-        public ActionResult Index()
+        public ActionResult Index(Mensagem Mensagem)
         {
-            var p = bd.Pessoa.ToList();
+            ViewBag.Mensagem = Mensagem;
             return View();
         }
     }

@@ -7,13 +7,13 @@
 
 
 @*<div class="alert alert-success col-md-6 mt-2" style="margin:auto; margin-bottom:1%;">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <i class="material-icons">close</i>
-    </button>
-    <span style="font-size: 20px; text-align:center; font-weight:bolder;">
-        A nota do aluno foi: @ViewBag.nota
-    </span>
-</div>*@
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="material-icons">close</i>
+        </button>
+        <span style="font-size: 20px; text-align:center; font-weight:bolder;">
+            A nota do aluno foi: @ViewBag.nota
+        </span>
+    </div>*@
 
 <div class="content">
     <div class="container-fluid">
@@ -49,27 +49,38 @@
                                         @Html.Raw(item.Questao.Descricao)
                                     </td>
                                     <td>
-                                        @if (item.Nota == 0)
+
+                                        @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador") && item.Questao.Avaliacoes.DataAvaliacao <= DateTime.Now)
                                         {
-                                            <span>
-                                                Não Realizou
-                                            </span>
-                                        }
-                                        else if (item.Nota == 1)
-                                        {
-                                            <span>
-                                                Realizou Parcialmente
-                                            </span>
+                                            @Html.Action("EditarNota","AlunoAvaliacao", new {QuestaoId = item.QuestaoId, AvaliadorId = item.AvaliadorId, Nota =item.Nota ,  PessoaId = item.PessoaId })
+
                                         }
                                         else
                                         {
-                                            <span>
-                                                Realizou
-                                            </span>
+                                            if (item.Nota == 0)
+                                            {
+                                                <span>
+                                                    Não Realizou
+                                                </span>
+
+                                            }
+                                            else if (item.Nota == 1)
+                                            {
+                                                <span>
+                                                    Realizou Parcialmente
+                                                </span>
+                                            }
+                                            else if (item.Nota == 2)
+                                            {
+                                                <span>
+                                                    Realizou
+                                                </span>
+                                            }
                                         }
+
                                     </td>
                                 </tr>
-                            }   
+                            }
                         </table>
                     </div>
                 </div>
@@ -83,3 +94,15 @@
         <input type="button" value="Sair" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
     </a>
 </div>
+<script>
+
+    var alterado = false;
+    $(document).ready(function (e) {
+        $('select').change(function () {
+            console.log($(this).val())
+            alterado = true;
+        })
+    });
+
+
+</script>

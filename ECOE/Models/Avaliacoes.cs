@@ -11,6 +11,7 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class Avaliacoes
     {
@@ -20,15 +21,19 @@ namespace ECOE.Models
             this.AlunoAvaliacao = new HashSet<AlunoAvaliacao>();
             this.Questao = new HashSet<Questao>();
         }
-    
+
+        
         public int AvaliacaoId { get; set; }
         public int PessoaId { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public System.DateTime DataCadastro { get; set; }
         public int TurmaId { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<System.DateTime> DataAvaliacao { get; set; }
         public Nullable<bool> Dupla { get; set; }
     

@@ -4,25 +4,43 @@
 
     ViewBag.Title = "Inicio";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    var Mensagem = ViewBag.Mensagem;
 }
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<link href="~/Content/Site.css" rel="stylesheet" />
 
-@if (ViewBag.mostrar == 1)
-{
-    <div class="alert alert-success">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+
+
+<div class="row">
+
+    @if (Mensagem != null)
+    {
+        @Html.Action("Modal_Mensagem", "Home", new { Mensagem })
+    }
+
+    <div class="alert alert-success col-md-10 mb-2 text-center" style="margin:auto">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <i class="fas fa-times"></i>
         </button>
-        <span style="font-size: 20px; text-align:center; font-weight:bolder;">
+        <span style="font-size: 20px;font-weight:bolder;">
             Escolha o caso que deseja avaliar
         </span>
     </div>
-}
-<div class="row">
+
+
+    @*<div class="card col-lg-12 row">
+        <div class="col-sm-6">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="col-sm-6">
+           
+             <canvas id="myChart2"></canvas>
+
+        </div>
+    </div>*@
     @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
     {
         <div class="card col-lg-4 m-1" style="padding: 0; ">
@@ -91,51 +109,102 @@
 </div>
 
 
+
+@*<script>
+    var quantidadeArray = @Html.Raw(Json.Encode(ViewBag.quantidades));
+    var cursos = @Html.Raw(Json.Encode(ViewBag.curso));
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+
+        var c;
+    var q;
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AvaliacoesCurso")",
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data)
+                var cores =poolColors(data.Nomes.length);
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        title: "Avaliações po Curso",
+                        labels: data.Nomes,
+                        datasets: [{
+                            label: data.Nomes,
+                            data: data.quantidades,
+                            backgroundColor: cores,
+                            borderWidth: 1
+                        }]                        
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: { labels: { usePointStyle: true } },
+    title: {
+            display: true,
+            text: "Avaliações po Curso"
+        }
+                    }
+                });
+
+            }
+        })
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("CursosPessoa")",
+            contentType: "application/json",
+            success: function (data) {
+                console.log(data)
+                var cores =poolColors(data.Nomes.length);
+                var ctx = document.getElementById('myChart2').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        title: "Pessoas Por Curso E Avaliações po Curso",
+                        labels: data.Nomes,
+                        datasets: [{
+                            label: data.Nomes,
+                            data: data.quantidades,
+                            backgroundColor: cores,
+                            borderWidth: 1
+                        }]              
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: { labels: { usePointStyle: true } },
+    title: {
+            display: true,
+            text: "Alunos por Curso"
+        }
+                    }
+                });
+
+            }
+        })
+    })
+
+    var dynamicColors = function() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+    }
+    function poolColors(a) {
+    var pool = [];
+    for(i = 0; i < a; i++) {
+        pool.push(dynamicColors());
+    }
+    return pool;
+}
+</script>*@
+
+
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Trocar RA</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="modal-body">
-                    <div class="col-md-12 row">
-                        <div class="form-group col-md-6">
-                            <label class="">Nome do Aluno</label>
-                            <input name="Nome" id="nome" type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="">Antigo RA</label>
-                            <input name="RA" id="ra" type="text" disabled class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success">Trocar</button>
-                </div>
-            }
-        </div>
+        @Html.Action("Modal_Editar_RA", "Pessoa")
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#nome').autocomplete({
-            source: '/Pessoa/SearchAluno',
-            select: function (event, ui) {
-                //set tagids to save
-                $("#nome").val(ui.item.id);
-                $("#ra").val(ui.item.ra);
-                //Tags for display
-                this.value = ui.item.value;
-                return false;
-            }
-        });
-    });
-</script>
+
+

@@ -21,12 +21,15 @@ namespace ECOE
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/DataTables/datatables.min.js"));
+                      "~/DataTables/datatables.min.js",
+                      "~/Scripts/all.min.js",
+                      "~/Scripts/Chart.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/DataTables/datatables.min.css"));
+                      "~/DataTables/datatables.min.css",
+                      "~/Content/all.min.css",
+                      "~/Content/site.css"));
 
         }
     }

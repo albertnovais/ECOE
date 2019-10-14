@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header card-header-primary card-header-icon">
                     <h4 class="card-title">
-                        Adicionar Questão a <span style="font-weight:bold; font-size:20px;"> @ViewBag.avaliacaoNome</span>
+                        Adicionar Questão a <b> @ViewBag.avaliacaoNome</b>
                     </h4>
                 </div>
                 @using (Html.BeginForm())
@@ -36,7 +36,7 @@
                     </div>
                     <div class="card-footer" style="text-align:right">
                         <row>
-                            <a href="@Url.Action("ListQuestao","Avaliacao", new { avaliacaoId = avaliacaoId})" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" >
+                            <a href="@Url.Action("ListQuestao","Avaliacao", new { avaliacaoId = avaliacaoId})" class="btn btn-danger">
                                 Concluir e Sair
                             </a>
                             <input type="submit" value="Salvar" class="btn btn-primary pull-right">

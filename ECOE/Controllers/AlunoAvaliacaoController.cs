@@ -10,7 +10,7 @@ namespace ECOE.Controllers
     public class AlunoAvaliacaoController : Controller
     {
         ECOEEntities bd = new ECOEEntities();
-        
+
         [HttpPost]
         public bool AdicionarAlunoTurma(int TurmaId, int PessoaId)
         {
@@ -163,7 +163,7 @@ namespace ECOE.Controllers
         public ActionResult Avaliar(int? Pessoa1, int? Pessoa2, int AvaliacaoId, string Mensagem)
         {
             var avaliador = Convert.ToInt32(HttpContext.User.Identity.Name);
-                       var alunoQuestao1 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa1).ToList().Count();
+            var alunoQuestao1 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa1).ToList().Count();
             var alunoQuestao2 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == Pessoa2).ToList().Count();
 
             if (alunoQuestao1 > 0 && alunoQuestao2 > 0)
@@ -173,7 +173,7 @@ namespace ECOE.Controllers
             else if (alunoQuestao2 > 0)
                 return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
 
-            
+
             var questoes = bd.Questao.Where(x => x.AvaliacaoId == AvaliacaoId);
             var avaliado = bd.Pessoa.FirstOrDefault(x => x.PessoaId == Pessoa1).Nome;
             ViewBag.Mensagem = Mensagem;
@@ -270,7 +270,20 @@ namespace ECOE.Controllers
             ViewBag.nota = Math.Round(nota, 2);
             return View(resultado);
         }
+        
+        public PartialViewResult EditarNota(int QuestaoId, int AvaliadorId, double Nota, int PessoaId)
+        {
 
+            AlunoQuestao alunoQuestao = new AlunoQuestao
+            {
+                QuestaoId = QuestaoId,
+                AvaliadorId = AvaliadorId,
+                Nota = Nota,
+                PessoaId = PessoaId
+            };
 
+            return PartialView(alunoQuestao);
+        }
     }
+
 }

@@ -868,3 +868,5 @@ C:\Users\Administrador\Desktop\ECOE-master\ECOE\bin\pt-br\System.Web.WebPages.De
 C:\Users\Administrador\Desktop\ECOE-master\ECOE\bin\pt-br\System.Web.WebPages.Razor.resources.dll
 C:\Users\Administrador\Desktop\ECOE-master\ECOE\bin\pt-br\System.Web.Optimization.resources.dll
 C:\Users\Administrador\Desktop\ECOE-master\ECOE\obj\Debug\ECOE.csproj.CopyComplete
+C:\Users\albert.mascarenhas\source\repos\ECOE\ECOE\bin\WebActivatorEx.dll
+C:\Users\albert.mascarenhas\source\repos\ECOE\ECOE\obj\Debug\ECOE.csprojAssemblyReference.cache

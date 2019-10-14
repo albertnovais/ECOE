@@ -11,7 +11,8 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Turma
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,12 +23,16 @@ namespace ECOE.Models
         }
     
         public int TurmaId { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public int CursoId { get; set; }
         public int StatusId { get; set; }
         public int PessoaId { get; set; }
         public string Turno { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<int> Ano { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<int> Periodo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

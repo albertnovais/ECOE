@@ -11,7 +11,8 @@ namespace ECOE.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Curso
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,9 @@ namespace ECOE.Models
         }
     
         public int CursoId { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public string Nome { get; set; }
+        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<int> StatusId { get; set; }
         public int PessoaId { get; set; }
     
