@@ -14,7 +14,6 @@ namespace ECOE.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
             var usu = Convert.ToInt32(HttpContext.User.Identity.Name);
             var turmas = bd.TurmaPessoa.Where(x => x.PessoaId == usu).ToList();
             var alunoAvaliacao = bd.AlunoAvaliacao.Where(x => x.PessoaId == usu);
@@ -30,9 +29,7 @@ namespace ECOE.Controllers
                     ViewBag.mostrar = 1;
                 else
                     ViewBag.mostrar = 0;
-
                 return View(avali);
-
             }
             else
             {
@@ -59,8 +56,6 @@ namespace ECOE.Controllers
         {
             return View();
         }
-
-
 
         public JsonResult CursosPessoa()
         {
@@ -94,8 +89,5 @@ namespace ECOE.Controllers
             teste.Nomes = n;
             return Json(teste, JsonRequestBehavior.AllowGet);
         }
-
-    } 
-
-
+    }
 }

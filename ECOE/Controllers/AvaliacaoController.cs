@@ -30,7 +30,7 @@ namespace ECOE.Controllers
             var usu = Convert.ToInt32(HttpContext.User.Identity.Name);
             var curso = bd.Curso.ToList();
             var pessoa = bd.PessoaCurso.ToList();
-            var turma = bd.Turma.Where(x=> x.StatusId ==1).ToList();
+            var turma = bd.Turma.Where(x => x.StatusId == 1).ToList();
             var cursos = from Curso in curso
                          join Pessoa in pessoa on Curso.CursoId equals Pessoa.CursoId
                          where Pessoa.PessoaId == usu
@@ -46,7 +46,6 @@ namespace ECOE.Controllers
         [ValidateInput(false)]
         public ActionResult CreateAvaliacao(Avaliacoes avaliacoes)
         {
-            
             avaliacoes.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
             avaliacoes.DataCadastro = DateTime.Now.Date;
             avaliacoes.StatusId = 1;
@@ -66,7 +65,7 @@ namespace ECOE.Controllers
         [ValidateInput(false)]
         public ActionResult EditAvaliacao(Avaliacoes avaliacao)
         {
-            var p = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == avaliacao.AvaliacaoId);            
+            var p = bd.Avaliacoes.FirstOrDefault(x => x.AvaliacaoId == avaliacao.AvaliacaoId);
             p.Nome = avaliacao.Nome;
             p.Descricao = avaliacao.Descricao;
             p.Peso = avaliacao.Peso;
@@ -101,7 +100,7 @@ namespace ECOE.Controllers
         //    {
         //        return RedirectToAction("ListAvaliacao", "Avaliacao");
         //    }
-           
+
         //    grupoQuestao.StatusId = 2;
         //    grupoQuestao.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
         //    bd.GrupoQuestao.Add(grupoQuestao);
@@ -131,9 +130,9 @@ namespace ECOE.Controllers
             questao.StatusId = 1;
             questao.PessoaId = Convert.ToInt32(HttpContext.User.Identity.Name);
             bd.Questao.Add(questao);
-            bd.SaveChanges();            
+            bd.SaveChanges();
             //return RedirectToAction("CreateQuestao", "Avaliacao", new { GrupoId = questao.GrupoId });
-            return RedirectToAction("CreateQuestao", "Avaliacao", new { avaliacaoId= questao.AvaliacaoId });
+            return RedirectToAction("CreateQuestao", "Avaliacao", new { avaliacaoId = questao.AvaliacaoId });
         }
 
         [Authorize(Roles = "Adm, Coordenador")]
@@ -147,8 +146,8 @@ namespace ECOE.Controllers
         [ValidateInput(false)]
         public ActionResult EditQuestao(Questao questao)
         {
-            var p = bd.Questao.FirstOrDefault(x => x.QuestaoId == questao.QuestaoId);            
-            p.Descricao = questao.Descricao;            
+            var p = bd.Questao.FirstOrDefault(x => x.QuestaoId == questao.QuestaoId);
+            p.Descricao = questao.Descricao;
             bd.Entry(p).State = EntityState.Modified;
             bd.SaveChanges();
             return RedirectToAction("ListQuetao", "Avaliacao", new { Mensagem = 1 });

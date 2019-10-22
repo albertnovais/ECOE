@@ -85,19 +85,19 @@
                                 nomeRadio = "Radio" + (c + 1);
                                 var label = geral;
                                 <td>
-                                    <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input" onchange="preencher()" />
-                                    @if (valorRadio == 0)
-                                    {
-                                        <label for="@label">Não Realizou </label>
-                                    }
-                                    @if (valorRadio == 1)
-                                    {
-                                        <label for="@label" ite> Parcialmente </label>
-                                    }
-                                    @if (valorRadio == 2)
-                                    {
-                                        <label for="@label">Realizou Bem </label>
-                                    }
+                                    <input id="@label" name="@nomeRadio" value="@valorRadio" style="width:50px;" type="radio" class="control-input radio" onchange="preencher()" />
+                                    @*@if (valorRadio == 0)
+                                        {
+                                            <label for="@label">Não Realizou </label>
+                                        }
+                                        @if (valorRadio == 1)
+                                        {
+                                            <label for="@label" ite> Parcialmente </label>
+                                        }
+                                        @if (valorRadio == 2)
+                                        {
+                                            <label for="@label">Realizou Bem </label>
+                                        }*@
                                 </td>
                                 geral++;
                             }
@@ -129,18 +129,22 @@
 
 
 <script>
+
+
+
     var radio = [];
     var cont = 0;
     function preencher() {
-        for (i = 1; i < @c*3; i++) {
-            if ($("#" + i).prop("checked")) {
+         cont = 0;
+        for (i = 0; i < @c* 3; i++) {
+                if ($("#" + i).prop("checked")) {
                 radio[cont] = $("#" + i).val()
-                cont++
+                    cont++
+                    console.log(radio)
+        
             }
-        }
-        console.log(radio)
-        if (cont !==@c) {
-            cont = 0;
+            if (cont !=@c) {
+           
             $("#enviar").attr("disabled")
         }
         else {
@@ -148,5 +152,8 @@
             $("#rad").val(radio);
             $("#enviar").removeAttr("disabled")
         }
+        }
+        
+        
     }
 </script>

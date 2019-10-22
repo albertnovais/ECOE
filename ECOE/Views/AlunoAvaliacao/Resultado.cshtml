@@ -6,14 +6,35 @@
 }
 
 
-@*<div class="alert alert-success col-md-6 mt-2" style="margin:auto; margin-bottom:1%;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="material-icons">close</i>
-        </button>
-        <span style="font-size: 20px; text-align:center; font-weight:bolder;">
-            A nota do aluno foi: @ViewBag.nota
-        </span>
-    </div>*@
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="form" method="post" action="@Url.Action("EditNota")">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Nota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Realmente deseja alterar de <b id="anterior"></b> para <b id="novo"></b>
+                </div>
+                <input type="hidden" name="PessoaId" id="PessoaId">
+                <input type="hidden" name="QuestaoId" id="QuestaoId">
+                <input type="hidden" name="AvaliadorId" id="AvaliadorId">
+                <input type="hidden" name="Nota" id="Nota" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Salvar" id="Salvar" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <div class="content">
     <div class="container-fluid">
@@ -52,7 +73,7 @@
 
                                         @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador") && item.Questao.Avaliacoes.DataAvaliacao <= DateTime.Now)
                                         {
-                                            @Html.Action("EditarNota","AlunoAvaliacao", new {QuestaoId = item.QuestaoId, AvaliadorId = item.AvaliadorId, Nota =item.Nota ,  PessoaId = item.PessoaId })
+                                            @Html.Action("EditarNota", "AlunoAvaliacao", new { QuestaoId = item.QuestaoId, AvaliadorId = item.AvaliadorId, Nota = item.Nota, PessoaId = item.PessoaId })
 
                                         }
                                         else
@@ -96,13 +117,53 @@
 </div>
 <script>
 
-    var alterado = false;
-    $(document).ready(function (e) {
-        $('select').change(function () {
-            console.log($(this).val())
-            alterado = true;
+    var questao
+    var avaliador
+    var pessoa
+
+    function q(QuestaoId, AvaliadorId, PessoaId) {
+        questao = QuestaoId
+        avaliador = AvaliadorId
+        pessoa = PessoaId
+
+    }
+
+    var anterior;
+    $('select').on('click', function () {
+        anterior = $(this).val()
+    })
+
+    $('select').change(function () {
+        $('#exampleModal').modal('show')
+        $('#anterior').html(troca(anterior))
+        $('#novo').html(troca($(this).val()))
+        $('#Nota').val($(this).val())
+        $('#PessoaId').val(pessoa)
+        $('#QuestaoId').val(questao)
+        $('#AvaliadorId').val(avaliador)
+    })
+
+    function troca(nota) {
+        if (nota == 0)
+            return "Não Realizou"
+        if (nota == 1)
+            return "Realizou Parcialmente"
+        if (nota == 2)
+            return "Realizou"
+    }
+
+    $("#form").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var $this = $(this);
+        var frmValues = $this.serialize();
+        console.log(frmValues)
+        $.ajax({
+            type: $this.attr('method'),
+            url: $this.attr('action'),
+            data: frmValues
         })
-    });
-
-
+          
+});
+    
 </script>

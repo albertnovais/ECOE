@@ -1,6 +1,7 @@
 ﻿using ECOE.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -284,6 +285,21 @@ namespace ECOE.Controllers
 
             return PartialView(alunoQuestao);
         }
-    }
+        
+        public void EditNota(AlunoQuestao alunoQuestao)
+        {
+            var nota = bd.AlunoQuestao.FirstOrDefault(x=> 
+                        x.AvaliadorId == alunoQuestao.AvaliadorId &&
+                        x.PessoaId == alunoQuestao.PessoaId &&
+                        x.QuestaoId == alunoQuestao.QuestaoId
+                       );
+            nota.Nota = alunoQuestao.Nota;
+            nota.DataHora = DateTime.Now;
+            nota.AvaliadorId = Convert.ToInt32(HttpContext.User.Identity.Name);
+            bd.Entry(nota).State = EntityState.Modified;
+            bd.SaveChanges();
+        }
+
+        }
 
 }

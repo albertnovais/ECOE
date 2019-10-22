@@ -1,10 +1,10 @@
 ﻿@model ECOE.Models.AlunoQuestao
 
-<form>
-    <select>
+
+    <select onclick="q(@Model.QuestaoId, @Model.AvaliadorId, @Model.PessoaId)">
         @if (Model.Nota == 0)
         {
-            <option value="0" selected>
+            <option value="0" selected >
                 Não Realizou
             </option>
         }
@@ -39,4 +39,4 @@
             </option>
         }
     </select>
-</form>
+    

@@ -34,8 +34,9 @@ namespace ECOE.Models
         public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
         [Required(ErrorMessage = "Este Campo é Obrigatório.")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> DataAvaliacao { get; set; }
-        public Nullable<bool> Dupla { get; set; }
+        public bool Dupla { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AlunoAvaliacao> AlunoAvaliacao { get; set; }
