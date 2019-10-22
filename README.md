@@ -1,15 +1,15 @@
 # ECOE
 
 Urgentes
-XX	Tela (Modal) para troca rapida de RA
-XX	Correção de layout de cadastros
-	Editar alternativas 
-	Observação na Avaliação
-XX	Dataannotation
-	Ver Nota a partir de Pessoas
+XX	Tela (Modal) para troca rapida de RA,
+XX	CorreÃ§Ã£o de layout de cadastros,
+	Editar alternativas ,
+	ObservaÃ§Ã£o na AvaliaÃ§Ã£o,
+XX	Dataannotation,
+	Ver Nota a partir de Pessoas,
 
 Outros
-	Liberar exclusão definitiva
-	Telas de resultado
-	Troca de Senha
-	Ver quem foi avaliado a partir de avaliações
+	Liberar exclusÃ£o definitiva,
+	Telas de resultado,
+	Troca de Senha,
+	Ver quem foi avaliado a partir de avaliaÃ§Ãµes
