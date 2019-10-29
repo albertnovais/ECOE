@@ -36,7 +36,6 @@ namespace ECOE.Models
         public int PessoaId { get; set; }
         [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public string Nome { get; set; }
-        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public string Email { get; set; }
         public string Senha { get; set; }
         public int PessoaCadastrou { get; set; }

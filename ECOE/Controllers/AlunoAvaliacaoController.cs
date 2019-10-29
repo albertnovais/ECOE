@@ -112,11 +112,11 @@ namespace ECOE.Controllers
                     var alunoQuestao2 = bd.AlunoQuestao.Where(x => x.Questao.AvaliacaoId == AvaliacaoId && x.PessoaId == pessoa2.PessoaId).ToList().Count();
 
                     if (alunoQuestao1 > 0 && alunoQuestao2 > 0)
-                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3", Mensagem2 = "Os RA's: " + RA1 + " e " + RA2 + " já foram avaliados" });
                     else if (alunoQuestao1 > 0)
-                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3", Mensagem2 = "Os RA's: " + RA1 + "Já foi avaliado" });
                     else if (alunoQuestao2 > 0)
-                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3" });
+                        return RedirectToAction("AlunoExistente", new { AvaliacaoId, Mensagem = "3", Mensagem2 = "Os RA's: " + RA2 + "Já foi avaliado" });
                     else
                     {
                         if (bd.TurmaPessoa.FirstOrDefault(x => x.PessoaId == pessoa1.PessoaId && x.TurmaId == TurmaId) == null)
@@ -217,7 +217,7 @@ namespace ECOE.Controllers
             }
 
             if (Aluno2 != null)
-                return RedirectToAction("ResultadoIndividual", new { Aluno1, Aluno2, AvaliacaoId });
+                return RedirectToAction("ResultadoIndividual", new { Aluno = Aluno1, Aluno2, AvaliacaoId });
             else
                 return RedirectToAction("ResultadoIndividual", new { Aluno = Aluno1, AvaliacaoId });
         }

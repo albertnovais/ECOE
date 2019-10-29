@@ -8,17 +8,7 @@
 
 @if (Mensagem != null)
 {
-    <div class="alert alert-success col-md-8 " style="margin-top:1%; margin:auto; margin-bottom:1%;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <i class="material-icons">close</i>
-        </button>
-
-        @if (Mensagem == "1")
-        {
-            <span style="font-size: 20px; text-align:center;">Cadastro efetuado com sucesso!</span>
-        }
-
-    </div>
+   @Html.Action("Modal_Mensagem","Home", new { Mensagem })
 }
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -81,12 +71,12 @@
                         <td>@Html.DisplayFor(modelItem => item.RA)</td>
                         <td>@Html.DisplayFor(modelItem => item.Acesso.Nome)</td>
                         <td class="text-right">
-                            <a href="@Url.Action("EditPessoa", new { pessoaId = item.PessoaId })" title="Editar" class="like"><i class="fas fa-edit text-warning"></i></a>
-                            <a title="Remover" data-toggle="modal" data-target="#exampleModal" id="remo" onclick="myFunction('@item.PessoaId')" class="like"><i class="fas fa-trash-alt text-danger"></i></a>
+                            <a title="Notas" @*href="@Url.Action("Resultado","AlunoAvaliacao", new {PessoaId= item.PessoaId,})"*@ class="btn-link"><i class="fas fa-clipboard text-info"></i></a>
+                            <a href="@Url.Action("EditPessoa", new { pessoaId = item.PessoaId })" title="Editar" class="like"><i class="fa fa-edit text-warning"></i></a>
+                            <a href="#" title="Remover" data-toggle="modal" data-target="#exampleModal" id="remo" onclick="myFunction('@item.PessoaId')" class="like"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>
@@ -95,10 +85,7 @@
 @* Script de Remover *@
 
 <script>
-
     function myFunction(id) {
         $("#did").val(id);
-
     }
-
 </script>   

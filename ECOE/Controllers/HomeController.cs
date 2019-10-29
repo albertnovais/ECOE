@@ -12,13 +12,13 @@ namespace ECOE.Controllers
     {
         ECOEEntities bd = new ECOEEntities();
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(Mensagem mensagem)
         {
             var usu = Convert.ToInt32(HttpContext.User.Identity.Name);
             var turmas = bd.TurmaPessoa.Where(x => x.PessoaId == usu).ToList();
             var alunoAvaliacao = bd.AlunoAvaliacao.Where(x => x.PessoaId == usu);
-            var todasAvaliacoes = bd.Avaliacoes.Where(x => x.StatusId != 2 && x.DataAvaliacao > DateTime.Now).ToList();
-
+            var todasAvaliacoes = bd.Avaliacoes.Where(x => x.StatusId != 2 && x.DataAvaliacao >= DateTime.Now).ToList();
+            ViewBag.Mensagem = mensagem;
             if (bd.Pessoa.FirstOrDefault(x => x.PessoaId == usu).AcessoId == 2)
             {
                 var avali = todasAvaliacoes.Join(alunoAvaliacao,

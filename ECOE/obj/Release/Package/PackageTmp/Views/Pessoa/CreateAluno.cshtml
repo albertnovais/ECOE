@@ -11,30 +11,35 @@
 
 @if (Mensagem != null)
 {
-
-
-    if (Mensagem == 1)
-    {
-        <div class="alert alert-success col-md-8 " style="margin-top:1%; margin:auto">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="material-icons">close</i>
-            </button>
-            <span style="font-size: 20px; text-align:center; font-weight:bolder;">Cadastro efetuado por sucesso!</span>
-        </div>
-    }
-    if (Mensagem == 2)
-    {
-        <div class="alert alert-danger col-md-8 " style="margin-top:1%; margin:auto">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="material-icons">close</i>
-            </button>
-            <span style="font-size: 20px; text-align:center;">RA ou email já cadastrado</span>
-        </div>
-    }
-
-
-
+    @Html.Action("Modal_Mensagem", "Home", new { Mensagem })
 }
+
+@*@if (Mensagem != null)
+        {
+
+
+            if (Mensagem == 1)
+            {
+                <div class="alert alert-success col-md-8 " style="margin-top:1%; margin:auto">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span style="font-size: 20px; text-align:center; font-weight:bolder;">Cadastro efetuado por sucesso!</span>
+                </div>
+            }
+            if (Mensagem == 2)
+            {
+                <div class="alert alert-danger col-md-8 " style="margin-top:1%; margin:auto">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                    <span style="font-size: 20px; text-align:center;">RA ou email já cadastrado</span>
+                </div>
+            }
+
+
+
+    }}*@
 
 
 @using (Html.BeginForm())
@@ -49,12 +54,8 @@
         <div class="col-md-12" style="margin-top:3%;">
             <form id="LoginValidation" action="" novalidate="novalidate">
                 <div class="card ">
-                    <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">person</i>
-                        </div>
-                        <h4 class="card-title">Cadastro Aluno <span style="font-weight:bold; font-size:18px;"> @ViewBag.turmaNome</span></h4>
-
+                    <div class="card-header">
+                        <h4 class="card-title">Cadastro Aluno <b> @ViewBag.turmaNome</b></h4>
                     </div>
 
                     <div class="card-body ">
@@ -76,28 +77,49 @@
                             <div class="col-md-4">
                                 <div class="form-group bmd-form-group has-rose">
                                     <label class="bmd-label-floating">Ra</label>
-                                    @Html.EditorFor(model => model.RA, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RA, "", new { @class = "text-danger" })
+                                    @Html.EditorFor(model => model.RA, new { htmlAttributes = new { @class = "form-control", id = "ra" } })
+                                    @Html.ValidationMessage("","", new { @class = "text-danger", id = "rav", @display = "none"})
                                 </div>
                             </div>
                         </div>
-
-                        <div class="card-footer ml-auto mr-auto">
-                            <div>
-                                <input type="hidden" value="@ViewBag.Coord" name="PessoaCadastrou" />
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-12">
-                                        <input type="submit" value="Cadastrar" class="btn btn-primary" />
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
+                        <input type="hidden" value="@ViewBag.Coord" name="PessoaCadastrou" />
+                    </div>
+                    <div class="card-footer text-right">
+                        <input type="submit" value="Cadastrar" id="enviar" class="btn btn-primary" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 
+}
+<Script>
+
+    $("#ra").focusout(function () {
+        if ($('#ra').val()) {
+            $("#rav").hide()
+           
+            
+            } else {
+            $("#rav").show()
+             $("#rav").html("Este Campo é Obrigatório.")
+            }
+    })
+      $(document).ready(function () {
+        $('#enviar').on('click', function (e) {
+            if ($('#ra').val()) {
+                $("#rav").hide()
+            } else {
+                $("#rav").show()
+                $("#rav").html("Este Campo é Obrigatório.")
+            }
+            
+        });
+         
+    });
+
+</Script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

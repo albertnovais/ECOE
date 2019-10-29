@@ -14,8 +14,10 @@ namespace ECOE.Controllers
         //Cria Pessoa
         public bool CriarPessoa(Pessoa pessoa)
         {
-            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email || x.RA == pessoa.RA) != null)
+            if (bd.Pessoa.FirstOrDefault(x => x.Email == pessoa.Email) != null)
+            {
                 return false;
+            }
             pessoa.StatusId = 1;
             bd.Pessoa.Add(pessoa);
             bd.SaveChanges();
@@ -119,7 +121,6 @@ namespace ECOE.Controllers
         {
             var p = bd.Pessoa.FirstOrDefault(x => x.PessoaId == pessoa.PessoaId);
             p.RA = pessoa.RA;
-            p.PessoaCadastrou = Convert.ToInt32(HttpContext.User.Identity.Name);
             bd.Entry(p).State = System.Data.Entity.EntityState.Modified;
             bd.SaveChanges();
 
@@ -179,7 +180,7 @@ namespace ECOE.Controllers
             {
                 return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Preencha o campo RA", tipo = 2 });
             }
-            if (bd.Pessoa.FirstOrDefault(x => x.RA == pessoa.RA || x.Email == pessoa.Email) != null) return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Opa algo deu errado", tipo = 2 });
+            if (bd.Pessoa.FirstOrDefault(x => x.RA == pessoa.RA || x.Email == pessoa.Email) != null) return RedirectToAction("CreateAluno", "Pessoa", new { CoordId = pessoa.PessoaCadastrou, texto = "Opa algo deu errado RA ou E-mail já cadastrados", tipo = 2 });
             pessoa.AcessoId = 2;
             pessoa.PessoaCadastrou = pessoa.PessoaCadastrou;
             CriarPessoa(pessoa);

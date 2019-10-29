@@ -1,0 +1,42 @@
+﻿@model ECOE.Models.AlunoQuestao
+
+
+    <select onclick="q(@Model.QuestaoId, @Model.AvaliadorId, @Model.PessoaId)">
+        @if (Model.Nota == 0)
+        {
+            <option value="0" selected >
+                Não Realizou
+            </option>
+        }
+        else
+        {
+            <option value="0">
+                Não Realizou
+            </option>
+        }
+        @if (Model.Nota == 1)
+        {
+            <option value="1" selected>
+                Realizou Parcialmente
+            </option>
+        }
+        else
+        {
+            <option value="1">
+                Realizou Parcialmente
+            </option>
+        }
+        @if (Model.Nota == 2)
+        {
+            <option value="2" selected>
+                Realizou
+            </option>
+        }
+        else
+        {
+            <option value="2">
+                Realizou
+            </option>
+        }
+    </select>
+    

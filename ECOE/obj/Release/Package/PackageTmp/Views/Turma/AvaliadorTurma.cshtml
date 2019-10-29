@@ -49,19 +49,16 @@
 
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header card-header-primary card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">perm_identity</i>
-                </div>
+            <div class="card-header">
+
                 <h4 class="card-title">
-                    Adicionar avalidor à turma: <span style="font-weight:bold; font-size:20px;">@ViewBag.turman</span>
+                    Adicionar avalidor à turma: <b>@ViewBag.turman</b>
                 </h4>
             </div>
-            <div class="card-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group has-rose bmd-form-group">
@@ -72,24 +69,16 @@
                         </div>
 
                     </div>
-
-                    <div class="card-footer ml-auto mr-auto">
-                        <div>
-
-                            <div class="col-md-offset-2 col-md-2">
-                                <a href="@Url.Action("ListTurma","Turma", new { avaliacaoId = ViewBag.avaliacao})">
-                                    <input type="button" value="Cancelar" class="btn btn-danger" style="font-weight:bold; font-family:Arial;" />
-                                </a>
-                            </div>
-                        </div>
-                        <div>
-                            <input type="submit" value="Salvar" class="btn btn-primary pull-right">
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-
-                }
-            </div>
+                </div>
+                <div class="card-footer" style="text-align:right">
+                    <row>
+                        <a href="ListTurma" class="btn btn-danger" style="font-weight:bold; font-family:Arial;">
+                            Cancelar
+                        </a>
+                        <input type="submit" value="Salvar" class="btn btn-primary pull-right">
+                    </row>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -130,10 +119,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-primary card-header-icon">
-                        <div class="card-icon">
-                            <i class="material-icons">content_paste</i>
-                        </div>
+                    <div class="card-header">
                         <h4 class="card-title" style="font-weight:bold;">Avaliadores</h4>
                     </div>
                     <div class="card-body">
@@ -145,7 +131,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Nome</th>
-                                        
+
                                         @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
                                         {
                                             <th class="disabled-sorting text-center">Ações</th>
@@ -155,7 +141,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>Nome</th>
-                                       
+
                                         @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
                                         {
                                             <th>Ações</th>
@@ -167,11 +153,11 @@
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(modelItem => item.Pessoa.Nome)</td>
-                                           
-                                            @if (HttpContext.Current.User.IsInRole("Adm")|| HttpContext.Current.User.IsInRole("Coordenador"))
+
+                                            @if (HttpContext.Current.User.IsInRole("Adm") || HttpContext.Current.User.IsInRole("Coordenador"))
                                             {
                                                 <td class="text-right">
-                                                       <button title="Remover" data-toggle="modal" data-target="#exampleModal" class="btn btn-link btn-danger btn-just-icon remove" id="remo" onclick="myFunction('@item.PessoaId')"><i class="material-icons">close</i></button>
+                                                    <a href="#" title="Remover" data-toggle="modal" data-target="#exampleModal" id="remo" onclick="myFunction('@item.PessoaId')" class="like"><i class="fas fa-trash-alt text-danger"></i></a>
                                                 </td>
                                             }
                                         </tr>
@@ -200,7 +186,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#nome').autocomplete({
-            source: '/Pessoa/Search',
+            source: '@Url.Action("Search","Pessoa")',
             select: function (event, ui) {
                 //set tagids to save
                 $("#nome").val(ui.item.id);

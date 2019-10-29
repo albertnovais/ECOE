@@ -50,7 +50,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#nome').autocomplete({
-            source: '/Pessoa/Search',
+            source: '@Url.Action("Search","Pessoa")',
             select: function (event, ui) {
                 //set tagids to save
                 $("#nome").val(ui.item.id);

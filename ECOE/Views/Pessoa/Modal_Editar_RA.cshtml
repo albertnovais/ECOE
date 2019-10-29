@@ -42,7 +42,7 @@
 <script>
     $(document).ready(function () {
         $('#nome').autocomplete({
-            source: '/Pessoa/SearchAluno',
+            source: '@Url.Action("SearchAluno","Pessoa")',
             select: function (event, ui) {
                 //set tagids to save
                 $("#nome").val(ui.item.nome);

@@ -46,6 +46,7 @@ namespace ECOE.Controllers
             int Pessoa;
             if (NomeU != "")
             {
+                var teste = bd.Pessoa.FirstOrDefault(x => x.Nome == NomeU);
                 Pessoa = bd.Pessoa.FirstOrDefault(x => x.Nome == NomeU).PessoaId;
             }
             else

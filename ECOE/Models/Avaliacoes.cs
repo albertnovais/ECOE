@@ -30,7 +30,6 @@ namespace ECOE.Models
         public string Descricao { get; set; }
         public System.DateTime DataCadastro { get; set; }
         public int TurmaId { get; set; }
-        [Required(ErrorMessage = "Este Campo é Obrigatório.")]
         public Nullable<decimal> Peso { get; set; }
         public Nullable<int> StatusId { get; set; }
         [Required(ErrorMessage = "Este Campo é Obrigatório.")]

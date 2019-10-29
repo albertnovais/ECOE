@@ -8,9 +8,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var avaliacao = ViewBag.avaliacao;
     var Mensagem = ViewBag.Mensagem;
+    var Mensagem2 = ViewBag.Mensagem2;
     var dupla = ViewBag.dupla;
     var avaliador =Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
 }
+
 @if (Mensagem != null)
 {
     <div class="alert alert-danger col-md-8 " style="margin-top:1%; margin:auto">
